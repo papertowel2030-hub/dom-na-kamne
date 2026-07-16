@@ -398,11 +398,21 @@ body.modal-open {
 
   .app-modal__field-row:has(#appModalPhone) {
     width: 100%;
-    max-width: 300px;
+    max-width: 240px;
   }
 
   #appModalPhone {
     width: 100%;
-    flex: 0 1 300px;
+    height: 48px;
+    flex: 0 1 240px;
+    padding: 0 14px;
+    font-size: 16px;
+    font-weight: var(--fw-medium);
+    line-height: 1;
+    letter-spacing: .035em;
+    font-variant-numeric: tabular-nums;
+    caret-color: currentColor;
   }
+
+  #appModalPhone:focus { box-shadow: 0 0 0 1px currentColor; }
 }

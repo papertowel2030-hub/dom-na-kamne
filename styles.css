@@ -68,25 +68,14 @@ img { display: block; max-width: 100%; }
   content: '↗';
   position: absolute;
   line-height: 1;
-  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
 .btn__arrow::after {
-  content: '↘';
-  position: absolute;
-  line-height: 1;
-  opacity: 0;
-  transform: translate(-4px, 4px);
-  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  content: none;
 }
 .btn:hover .btn__arrow::before,
 .btn:focus-visible .btn__arrow::before {
-  opacity: 0;
-  transform: translate(4px, -4px);
-}
-.btn:hover .btn__arrow::after,
-.btn:focus-visible .btn__arrow::after {
-  opacity: 1;
-  transform: none;
+  transform: translate(2px, -2px);
 }
 
 .btn--ghost {

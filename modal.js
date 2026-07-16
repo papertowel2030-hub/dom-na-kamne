@@ -9,7 +9,7 @@
   /* ── Config ─────────────────────────────────────────────────── */
   const PHONE_METHODS    = ['phone', 'telegram', 'max', 'whatsapp'];
   const USERNAME_METHODS = ['telegram', 'max'];  // show optional @username field
-  const PHONE_PLACEHOLDER = '+7(_ _ _) _ _ _ - _ _ - _ _';
+  const PHONE_PLACEHOLDER = '+7 (___) ___-__-__';
 
   /* ── DOM refs ───────────────────────────────────────────────── */
   const modal        = document.getElementById('appModal');
@@ -40,8 +40,11 @@
 
     if (!d.length) return '';
     let out = '+7';
-    if (d.length > 1) out += '(' + d.slice(1, Math.min(4, d.length));
-    if (d.length > 4) out += ')' + d.slice(4, Math.min(7, d.length));
+    if (d.length > 1) {
+      out += ' (' + d.slice(1, Math.min(4, d.length));
+      if (d.length >= 4) out += ')';
+    }
+    if (d.length > 4) out += ' ' + d.slice(4, Math.min(7, d.length));
     if (d.length > 7) out += '-' + d.slice(7, Math.min(9, d.length));
     if (d.length > 9) out += '-' + d.slice(9, 11);
     return out;
@@ -166,6 +169,8 @@
       inp.className    = 'app-modal__input';
       inp.placeholder  = PHONE_PLACEHOLDER;
       inp.autocomplete = 'tel';
+      inp.inputMode    = 'tel';
+      inp.enterKeyHint = 'done';
       applyPhoneMask(inp);
 
       const err = make('span', 'app-modal__field-error', 'Некорректный номер телефона');

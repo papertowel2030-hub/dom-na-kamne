@@ -86,7 +86,7 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 
 /* ---- Phone fields -------------------------------------------------------- */
 (function () {
-  const PHONE_PLACEHOLDER = '+7(_ _ _) _ _ _ - _ _ - _ _';
+  const PHONE_PLACEHOLDER = '+7 (___) ___-__-__';
 
   function formatPhone(raw) {
     let d = raw.replace(/\D/g, '');
@@ -96,8 +96,11 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 
     if (!d.length) return '';
     let out = '+7';
-    if (d.length > 1) out += '(' + d.slice(1, Math.min(4, d.length));
-    if (d.length > 4) out += ')' + d.slice(4, Math.min(7, d.length));
+    if (d.length > 1) {
+      out += ' (' + d.slice(1, Math.min(4, d.length));
+      if (d.length >= 4) out += ')';
+    }
+    if (d.length > 4) out += ' ' + d.slice(4, Math.min(7, d.length));
     if (d.length > 7) out += '-' + d.slice(7, Math.min(9, d.length));
     if (d.length > 9) out += '-' + d.slice(9, 11);
     return out;

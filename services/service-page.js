@@ -5,7 +5,7 @@
   var order = window.DNK_SERVICE_ORDER || [];
   var key = document.body.getAttribute("data-service");
   var service = data[key] || data[order[0]];
-  var PHONE_PLACEHOLDER = "+7(_ _ _) _ _ _ - _ _ - _ _";
+  var PHONE_PLACEHOLDER = "+7 (___) ___-__-__";
   var OZON_LOGO_SVG = '<svg class="service-footer__ozon-logo" viewBox="0 0 485 106" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="nonzero" d="M56.485 80.751c12.543-1.595 22.67-11.723 24.266-24.266 2.338-18.4-13.207-33.946-31.608-31.607C36.6 26.472 26.472 36.6 24.878 49.143c-2.34 18.401 13.207 33.947 31.607 31.608zM58.203.267c24.717 2.448 44.71 22.441 47.158 47.16 3.308 33.401-24.533 61.242-57.936 57.934-24.717-2.448-44.71-22.44-47.157-47.158C-3.042 24.801 24.8-3.04 58.203.267zm75.497 2.09h77.314c2.935 0 4.603 3.36 2.83 5.698L160.358 78.62h41.907c7.638 0 13.653 6.95 12.067 14.87-1.163 5.807-6.608 9.774-12.531 9.774h-83.963c-2.908 0-4.561-3.328-2.805-5.645l53.527-70.618h-34.396c-5.923 0-11.368-3.966-12.531-9.774-1.586-7.92 4.429-14.87 12.067-14.87zm335.513.281c7.975-1.679 15 4.36 15 12.04V99.71c0 2.967-3.426 4.622-5.751 2.778l-66.694-52.91v41.386c0 7.68-7.025 13.718-15 12.04-5.72-1.203-9.644-6.526-9.644-12.368V5.911c0-2.967 3.426-4.623 5.75-2.779l66.696 52.912-.001-41.038c0-5.843 3.927-11.165 9.644-12.368zM295.56 0c40.83 0 73.932 23.64 73.932 52.8 0 29.16-33.101 52.8-73.932 52.8-40.832 0-73.933-23.64-73.933-52.8 0-29.16 33.1-52.8 73.933-52.8zm0 24.644c-28.21 0-49.288 14.865-49.288 28.156 0 13.291 21.078 28.156 49.288 28.156 28.209 0 49.287-14.865 49.287-28.156 0-13.29-21.078-28.156-49.287-28.156z"></path></svg>';
 
   if (!service) return;
@@ -25,16 +25,16 @@
   }
 
   function loadAppModalAssets() {
-    if (!document.querySelector('link[href="../modal.css"]')) {
+    if (!document.querySelector('link[href^="../modal.css"]')) {
       var css = document.createElement("link");
       css.rel = "stylesheet";
-      css.href = "../modal.css";
+      css.href = "../modal.css?v=phone-ui-1";
       document.head.appendChild(css);
     }
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=phone-mask-3";
+      script.src = "../modal.js?v=phone-ui-2";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -144,6 +144,11 @@
 
     nav.id = "serviceMainNav";
 
+    var close = make("button", "service-mobile-menu-close", "×");
+    close.type = "button";
+    close.setAttribute("aria-label", "Закрыть меню");
+    nav.insertBefore(close, nav.firstChild);
+
     var toggle = make("button", "service-mobile-menu-toggle");
     toggle.type = "button";
     toggle.setAttribute("aria-label", "Открыть меню");
@@ -153,6 +158,38 @@
 
     var drawerCta = cta.cloneNode(true);
     drawerCta.classList.add("service-header__cta--drawer");
+
+    var contacts = make("div", "service-mobile-menu-contacts");
+    contacts.setAttribute("aria-label", "Контакты");
+    var phone = make("a", "service-mobile-menu-phone", "+7 913 831 46 44");
+    phone.href = "tel:+79138314644";
+    contacts.appendChild(phone);
+
+    var socials = make("div", "service-mobile-menu-socials");
+    socials.setAttribute("aria-label", "Социальные сети и магазины");
+
+    function appendSocial(tag, href, src, label) {
+      var item = make(tag, "", "");
+      if (href) item.href = href;
+      if (tag === "a") {
+        item.target = "_blank";
+        item.rel = "noopener";
+      }
+      item.setAttribute("aria-label", label);
+      var icon = make("img", "", "");
+      icon.src = src;
+      icon.alt = "";
+      item.appendChild(icon);
+      socials.appendChild(item);
+    }
+
+    appendSocial("a", "https://t.me/domnakamne", "../assets/icons/social-telegram.svg", "Telegram");
+    appendSocial("span", "", "../assets/icons/social-max.svg", "MAX");
+    appendSocial("a", "https://www.ozon.ru/seller/dom-na-kamne-4017365/", "../assets/icons/social-ozon.svg", "Ozon");
+    appendSocial("a", "https://www.avito.ru/brands/i70994095/all", "../assets/icons/social-avito.svg", "Авито");
+    contacts.appendChild(socials);
+
+    nav.appendChild(contacts);
     nav.appendChild(drawerCta);
 
     var backdrop = make("button", "service-mobile-menu-backdrop");
@@ -177,6 +214,7 @@
       toggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
     });
 
+    close.addEventListener("click", closeMenu);
     backdrop.addEventListener("click", closeMenu);
     Array.prototype.forEach.call(nav.querySelectorAll("a"), function (link) {
       link.addEventListener("click", closeMenu);
@@ -330,13 +368,12 @@
     input.type = "tel";
     input.placeholder = PHONE_PLACEHOLDER;
     input.autocomplete = "tel";
+    input.inputMode = "tel";
+    input.enterKeyHint = "done";
     input.setAttribute("aria-label", "Телефон");
 
     var button = make("button", "service-form__button", buttonLabel);
     button.type = "submit";
-    button.setAttribute("data-open-modal", "app");
-    button.setAttribute("aria-haspopup", "dialog");
-    button.setAttribute("aria-controls", "appModal");
     button.appendChild(make("span", "svc__arrow", ""));
 
     row.appendChild(input);
@@ -359,6 +396,10 @@
     form.appendChild(label);
     form.appendChild(row);
     form.appendChild(consent);
+
+    var status = make("p", "service-form__status", "");
+    status.setAttribute("aria-live", "polite");
+    form.appendChild(status);
     return form;
   }
 
@@ -410,7 +451,7 @@
 
     body.appendChild(renderFooterNav("Разделы сайта", [
       ["Наши проекты", "../index.html#projects"],
-      ["Акции", "../index.html#shop"],
+      ["Акции", "../index.html#banya"],
       ["Отзывы", "../index.html#reviews"],
       ["О компании", "../index.html#about"]
     ]));
@@ -491,22 +532,122 @@
   }
 
   function wireForms() {
+    var toastTimer = 0;
+
+    function getSuccessToast() {
+      var toast = document.getElementById("serviceLeadSuccess");
+      if (toast) return toast;
+
+      toast = make("div", "service-lead-toast");
+      toast.id = "serviceLeadSuccess";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.setAttribute("aria-atomic", "true");
+      toast.hidden = true;
+
+      var copy = make("div", "service-lead-toast__copy");
+      var eyebrow = make("span", "service-lead-toast__eyebrow", "Заявка отправлена");
+      var title = make("p", "service-lead-toast__title", "Спасибо за обращение");
+      var message = make("p", "service-lead-toast__text", "Мы свяжемся с вами в течение двух рабочих дней.");
+      copy.appendChild(eyebrow);
+      copy.appendChild(title);
+      copy.appendChild(message);
+      var close = make("button", "service-lead-toast__close", "");
+      close.type = "button";
+      close.setAttribute("aria-label", "Закрыть уведомление");
+      close.addEventListener("click", function () {
+        window.clearTimeout(toastTimer);
+        toast.classList.remove("is-visible");
+        window.setTimeout(function () { toast.hidden = true; }, 180);
+      });
+
+      toast.appendChild(copy);
+      toast.appendChild(close);
+      document.body.appendChild(toast);
+      return toast;
+    }
+
+    function showSuccessToast() {
+      var toast = getSuccessToast();
+      window.clearTimeout(toastTimer);
+      toast.hidden = false;
+      window.requestAnimationFrame(function () {
+        toast.classList.add("is-visible");
+      });
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("is-visible");
+        window.setTimeout(function () { toast.hidden = true; }, 180);
+      }, 7000);
+    }
+
+    function isValidPhone(value) {
+      return value.replace(/\D/g, "").length === 11;
+    }
+
+    function setFormStatus(form, message) {
+      var status = form.querySelector(".service-form__status");
+      if (status) status.textContent = message;
+    }
+
+    function setLoading(button, loading) {
+      if (loading) {
+        button.setAttribute("data-label", button.textContent.trim());
+        button.disabled = true;
+        button.classList.add("is-loading");
+        button.setAttribute("aria-label", "Отправка заявки");
+        button.textContent = "";
+        button.appendChild(make("span", "service-form__spinner", ""));
+        return;
+      }
+
+      var label = button.getAttribute("data-label") || "Отправить";
+      button.disabled = false;
+      button.classList.remove("is-loading");
+      button.removeAttribute("aria-label");
+      button.removeAttribute("data-label");
+      button.textContent = label;
+      button.appendChild(make("span", "svc__arrow", ""));
+    }
+
     Array.prototype.forEach.call(document.querySelectorAll("[data-service-form]"), function (form) {
-      var button = form.querySelector("[data-open-modal='app']");
+      var button = form.querySelector(".service-form__button");
       var phone = form.querySelector("input[type='tel']");
+      var consent = form.querySelector("input[type='checkbox']");
+      var consentLabel = form.querySelector(".service-form__consent");
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-        if (button) button.click();
-      });
+        if (!button || button.disabled) return;
 
-      if (phone) {
-        phone.addEventListener("keydown", function (event) {
-          if (event.key !== "Enter") return;
-          event.preventDefault();
-          if (button) button.click();
-        });
-      }
+        phone.removeAttribute("aria-invalid");
+        consent.removeAttribute("aria-invalid");
+        consentLabel.classList.remove("is-error");
+        setFormStatus(form, "");
+
+        if (!isValidPhone(phone.value)) {
+          phone.setAttribute("aria-invalid", "true");
+          setFormStatus(form, "Введите номер телефона полностью.");
+          phone.focus();
+          return;
+        }
+
+        if (!consent.checked) {
+          consent.setAttribute("aria-invalid", "true");
+          consentLabel.classList.add("is-error");
+          setFormStatus(form, "Подтвердите согласие на обработку персональных данных.");
+          consent.focus();
+          return;
+        }
+
+        setLoading(button, true);
+
+        window.setTimeout(function () {
+          setLoading(button, false);
+          phone.value = "";
+          consent.checked = false;
+          showSuccessToast();
+        }, 900);
+      });
     });
   }
 
@@ -518,8 +659,11 @@
 
     if (!d.length) return "";
     var out = "+7";
-    if (d.length > 1) out += "(" + d.slice(1, Math.min(4, d.length));
-    if (d.length > 4) out += ")" + d.slice(4, Math.min(7, d.length));
+    if (d.length > 1) {
+      out += " (" + d.slice(1, Math.min(4, d.length));
+      if (d.length >= 4) out += ")";
+    }
+    if (d.length > 4) out += " " + d.slice(4, Math.min(7, d.length));
     if (d.length > 7) out += "-" + d.slice(7, Math.min(9, d.length));
     if (d.length > 9) out += "-" + d.slice(9, 11);
     return out;
