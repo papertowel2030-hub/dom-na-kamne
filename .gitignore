@@ -3,10 +3,14 @@
 *.fig
 .claude/
 Items for site/
-_prototype-services/
+_prototype-services/*
+!_prototype-services/services.css
+!_prototype-services/services.js
 codex demo/
 demo/
 SITE-PLAN.md
 *.zip
 *.docx
 assets/img/*
+!assets/img/*.webp
+assets/img/hero-main.webp

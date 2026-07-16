@@ -189,7 +189,66 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
     });
   }
 
-  document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
+document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
+})();
+
+/* ---- Lead forms: honest e-mail handoff --------------------------------- */
+(function () {
+  const DESTINATION = 'dom-na-kamne@mail.ru';
+
+  function setStatus(form, message, isError) {
+    const status = form.querySelector('.lead-form__status');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', Boolean(isError));
+  }
+
+  function isValidPhone(value) {
+    return value.replace(/\D/g, '').length === 11;
+  }
+
+  function createMailto(topic, phone) {
+    const subject = `Заявка с сайта — ${topic}`;
+    const body = [
+      `Тема: ${topic}`,
+      `Телефон для связи: ${phone}`,
+      '',
+      'Я даю согласие на обработку персональных данных для ответа на это обращение.'
+    ].join('\n');
+    return `mailto:${DESTINATION}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  document.querySelectorAll('[data-lead-form]').forEach(form => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const phone = form.querySelector('input[type="tel"]');
+      const consent = form.querySelector('input[type="checkbox"]');
+      const topic = form.dataset.leadTopic || 'Заявка с сайта';
+
+      phone?.removeAttribute('aria-invalid');
+      consent?.removeAttribute('aria-invalid');
+      form.querySelector('.lead-form__consent')?.classList.remove('is-error');
+
+      if (!phone || !isValidPhone(phone.value)) {
+        phone?.setAttribute('aria-invalid', 'true');
+        setStatus(form, 'Введите номер телефона полностью.', true);
+        phone?.focus();
+        return;
+      }
+
+      if (!consent?.checked) {
+        consent?.setAttribute('aria-invalid', 'true');
+        form.querySelector('.lead-form__consent')?.classList.add('is-error');
+        setStatus(form, 'Подтвердите согласие на обработку персональных данных.', true);
+        consent?.focus();
+        return;
+      }
+
+      setStatus(form, 'Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».', false);
+      window.location.href = createMailto(topic, phone.value);
+    });
+  });
 })();
 
 /* ---- FAQ accordion ------------------------------------------------------- */
@@ -235,14 +294,16 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const header = document.querySelector('.header');
   const toggle = document.querySelector('.mobile-menu-toggle');
   const nav = document.querySelector('#main-nav');
+  const closeButton = nav?.querySelector('.nav__close');
   const backdrop = document.querySelector('.mobile-menu-backdrop');
   if (!header || !toggle || !nav || !backdrop) return;
 
-  function closeMenu() {
+  function closeMenu(restoreFocus = false) {
     header.classList.remove('is-menu-open');
     document.body.classList.remove('is-menu-open');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Открыть меню');
+    if (restoreFocus) toggle.focus();
   }
 
   toggle.addEventListener('click', () => {
@@ -250,9 +311,11 @@ document.querySelectorAll('.faq-item').forEach(item => {
     document.body.classList.toggle('is-menu-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    if (open) closeButton?.focus();
   });
 
-  backdrop.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', () => closeMenu(true));
+  closeButton?.addEventListener('click', () => closeMenu(true));
   nav.addEventListener('click', event => {
     const link = event.target.closest('a[href^="#"]');
     if (!link) return;
@@ -275,7 +338,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Escape') closeMenu(true);
   });
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) closeMenu();

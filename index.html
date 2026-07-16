@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Дом на камне — надёжные дома и объекты</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/img/hero-main.jpg" fetchpriority="high" />
   <link rel="stylesheet" href="design-system/fonts.css" />
   <link rel="stylesheet" href="design-system/tokens.css" />
-  <link rel="stylesheet" href="styles.css?v=mobile-menu-4" />
-  <link rel="stylesheet" href="services-section/services.css?v=canonical-pages-1" />
-  <link rel="stylesheet" href="sections.css?v=responsive-layout-5" />
-  <link rel="stylesheet" href="modal.css" />
+  <link rel="stylesheet" href="styles.css?v=production-fixes-5" />
+  <link rel="stylesheet" href="services-section/services.css?v=production-fixes-6" />
+  <link rel="stylesheet" href="sections.css?v=production-fixes-5" />
+  <link rel="stylesheet" href="modal.css?v=production-fixes-4" />
 </head>
 <body>
 
@@ -19,7 +20,9 @@
 
     <!-- Full-bleed photo — spans the whole screen, incl. behind the marquee -->
     <div class="hero__media">
-      <img src="assets/img/hero-main.jpg" alt="Современный частный дом с панорамным остеклением" />
+      <img src="assets/img/hero-main.jpg" width="2880" height="1728"
+           alt="Современный частный дом с панорамным остеклением"
+           fetchpriority="high" decoding="async" />
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -59,6 +62,7 @@
       </div>
 
       <nav class="nav container" id="main-nav" aria-label="Главное меню">
+        <button class="nav__close" type="button" aria-label="Закрыть меню">×</button>
         <a class="nav__link" href="#services" data-text="Услуги">Услуги</a>
         <a class="nav__link" href="#projects" data-text="Проекты">Проекты</a>
         <a class="nav__link" href="#shop" data-text="Магазин">Магазин</a>
@@ -83,7 +87,7 @@
         </div>
         <a class="btn btn--outline nav__cta" href="#" data-open-modal="app">Получить консультацию <span class="btn__arrow" aria-hidden="true"></span></a>
       </nav>
-      <button class="mobile-menu-backdrop" type="button" aria-label="Закрыть меню" tabindex="-1"></button>
+      <button class="mobile-menu-backdrop" type="button" aria-label="Закрыть меню вне панели" tabindex="-1"></button>
     </header>
 
     <!-- Hero body — headline + CTA, vertically centred in the available space -->
@@ -103,7 +107,7 @@
     <ul class="usps container">
       <li class="usp"><b>С 2008 года</b> строим дома и объекты</li>
       <li class="usp"><b>Проект в подарок</b> при договоре</li>
-      <li class="usp"><b>До 15% выгоды</b>: свой склад материалов</li>
+      <li class="usp"><b>До 15% выгоды:</b> свой склад материалов</li>
     </ul>
   </section>
 
@@ -169,8 +173,9 @@
         </ul>
 
         <figure class="stage__house">
-          <img id="house" src="assets/img/services-house.png"
-               alt="Загородный участок: дом, баня, гараж, беседка, забор и благоустройство" />
+          <img id="house" src="assets/img/services-house.webp"
+               alt="Загородный участок: дом, баня, гараж, беседка, забор и благоустройство"
+               loading="lazy" decoding="async" />
         </figure>
 
         <ul class="col col--right" role="list">
@@ -187,13 +192,13 @@
             </a>
           </li>
           <li class="service" data-key="otdelka">
-            <a class="service__link" href="services/otdelka.html" data-anchor="0.42,0.55" data-preview="assets/img/banya-interior.jpg">
+            <a class="service__link" href="services/otdelka.html" data-anchor="0.42,0.55" data-preview="assets/img/banya-interior.webp">
               <span class="service__label">Отделка</span>
               <span class="service__arrow" aria-hidden="true">↗</span>
             </a>
           </li>
           <li class="service" data-key="inzheneriya">
-            <a class="service__link" href="services/inzheneriya.html" data-anchor="0.55,0.55" data-preview="assets/img/engineering-1.jpg">
+            <a class="service__link" href="services/inzheneriya.html" data-anchor="0.55,0.55" data-preview="assets/img/engineering-1.webp">
               <span class="service__label">Инженерия</span>
               <span class="service__arrow" aria-hidden="true">↗</span>
             </a>
@@ -210,7 +215,7 @@
     </div>
   </section>
 
-  <script src="services-section/services.js?v=canonical-pages-1" defer></script>
+  <script src="services-section/services.js?v=production-fixes-5" defer></script>
 
   <!-- ======================== CONSULTATION CTA ======================== -->
   <section class="consult" id="consult" aria-labelledby="consult-title">
@@ -226,7 +231,7 @@
           <li>Покажем как происходит строительство на реальных объектах</li>
           <li>Подскажем, как уложиться в планируемый бюджет</li>
         </ul>
-        <form class="lead-form consult__form" action="#" onsubmit="return false;">
+        <form class="lead-form consult__form" data-lead-form data-lead-topic="Бесплатная консультация" novalidate>
           <label class="lead-form__label" for="consult-phone">Ваш номер телефона</label>
           <div class="lead-form__row">
             <input class="lead-form__input lead-form__input--dark" id="consult-phone" type="tel"
@@ -239,6 +244,7 @@
             <input type="checkbox" />
             <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
           </label>
+          <p class="lead-form__status" aria-live="polite"></p>
         </form>
         <div class="consult__foot">
           <div class="consult__contact-block">
@@ -267,7 +273,7 @@
       </div>
 
       <div class="consult__photo" aria-hidden="true">
-        <img src="assets/img/Rectangle 25.png" alt="" />
+        <img src="assets/img/Rectangle 25.webp" alt="" loading="lazy" decoding="async" />
         <div class="consult__caption">
           <span class="consult__caption-name">Сергей Богданов</span>
           <span class="consult__caption-role">Генеральный директор<br />компании “Дом на камне”</span>
@@ -292,12 +298,12 @@
 
         <article class="project-card fade-up">
           <div class="project-card__media">
-            <img src="assets/img/house-frame.jpg" alt="Каркасный дом" loading="lazy" />
+            <img src="assets/img/house-frame.webp" alt="Каркасный дом" loading="lazy" decoding="async" />
           </div>
           <div class="project-card__meta">
             <h3 class="project-card__name">Каркасный дом</h3>
             <ul class="project-card__specs">
-              <li>Площадь <strong>*** м²</strong></li>
+              <li><strong>Площадь по проекту</strong></li>
               <li>2 этажа</li>
               <li>Брус</li>
               <li>2023 год</li>
@@ -309,9 +315,9 @@
           <div class="project-card__media">
             <div class="carousel" aria-label="Фото проекта Мангальная зона">
               <div class="carousel__track">
-                <img src="assets/img/mangal-zone.jpg" alt="Мангальная зона — вид 1" />
-                <img src="assets/img/mangal-1.jpg"    alt="Мангальная зона — вид 2" />
-                <img src="assets/img/mangal-2.jpg"    alt="Мангальная зона — вид 3" />
+                <img src="assets/img/mangal-zone.webp" alt="Мангальная зона — вид 1" loading="lazy" decoding="async" />
+                <img src="assets/img/mangal-1.webp"    alt="Мангальная зона — вид 2" loading="lazy" decoding="async" />
+                <img src="assets/img/mangal-2.webp"    alt="Мангальная зона — вид 3" loading="lazy" decoding="async" />
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Предыдущее фото">←</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Следующее фото">→</button>
@@ -325,7 +331,7 @@
           <div class="project-card__meta">
             <h3 class="project-card__name">Мангальная зона</h3>
             <ul class="project-card__specs">
-              <li>Площадь <strong>*** м²</strong></li>
+              <li><strong>Размеры по проекту</strong></li>
               <li>Кирпич</li>
               <li>2024 год</li>
             </ul>
@@ -334,12 +340,12 @@
 
         <article class="project-card fade-up" style="--delay:.2s">
           <div class="project-card__media">
-            <img src="assets/img/house.jpg" alt="Каркасный дом" loading="lazy" />
+            <img src="assets/img/house.webp" alt="Каркасный дом" loading="lazy" decoding="async" />
           </div>
           <div class="project-card__meta">
             <h3 class="project-card__name">Каркасный дом</h3>
             <ul class="project-card__specs">
-              <li>Площадь <strong>*** м²</strong></li>
+              <li><strong>Площадь по проекту</strong></li>
               <li>2 этажа</li>
               <li>Брус</li>
               <li>2024 год</li>
@@ -382,7 +388,7 @@
       </div>
 
       <div class="individual__media fade-up" style="--delay:.12s" aria-hidden="true">
-        <img src="assets/img/individual-blueprint-transparent.png" alt="" />
+        <img src="assets/img/individual-blueprint-transparent.webp" alt="" loading="lazy" decoding="async" />
       </div>
 
     </div>
@@ -491,19 +497,19 @@
         <nav class="shop__thumbs fade-up" style="--delay:.1s" aria-label="Категории магазина на Ozon">
           <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/dom-i-sad-14500/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Дом и сад на Ozon">
             <figure class="shop__thumb-figure">
-              <img src="assets/img/shop-home-garden.png" alt="" />
+              <img src="assets/img/shop-home-garden.webp" alt="" loading="lazy" decoding="async" />
               <figcaption>Дом и сад</figcaption>
             </figure>
           </a>
           <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/stroitelstvo-i-remont-9700/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Ремонт на Ozon">
             <figure class="shop__thumb-figure">
-              <img src="assets/img/shop-repair.png" alt="" />
+              <img src="assets/img/shop-repair.webp" alt="" loading="lazy" decoding="async" />
               <figcaption>Ремонт</figcaption>
             </figure>
           </a>
           <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/kantselyarskie-tovary-18000/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Канцелярия на Ozon">
             <figure class="shop__thumb-figure">
-              <img src="assets/img/shop-stationery.png" alt="" />
+              <img src="assets/img/shop-stationery.webp" alt="" loading="lazy" decoding="async" />
               <figcaption>Канцелярия</figcaption>
             </figure>
           </a>
@@ -515,7 +521,7 @@
       </div>
 
       <div class="shop__media" aria-hidden="true">
-        <img src="assets/img/shop-swing.png" alt="" />
+        <img src="assets/img/shop-swing.webp" alt="" loading="lazy" decoding="async" />
       </div>
 
     </div>
@@ -574,7 +580,7 @@
         </h2>
         <p class="banya__sub fade-up" style="--delay:.06s">Оставьте заявку и получите смету строительства дома и бани.</p>
 
-        <form class="banya__form fade-up" style="--delay:.12s" novalidate>
+        <form class="banya__form fade-up" style="--delay:.12s" data-lead-form data-lead-topic="Смета дома и бани со скидкой" novalidate>
           <label class="lead-form__label" for="banya-phone">Ваш номер телефона</label>
           <div class="banya__form-row">
             <input class="lead-form__input lead-form__input--dark" id="banya-phone" type="tel" placeholder="+7(_ _ _) _ _ _ - _ _ - _ _" autocomplete="tel" />
@@ -586,11 +592,12 @@
             <input type="checkbox" />
             <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
           </label>
+          <p class="lead-form__status" aria-live="polite"></p>
         </form>
       </div>
 
       <div class="banya__media" aria-hidden="true">
-        <img src="assets/img/banya-interior.jpg" alt="" />
+        <img src="assets/img/banya-interior.webp" alt="" loading="lazy" decoding="async" />
       </div>
 
     </div>
@@ -656,10 +663,10 @@
     <div class="partners__inner container">
       <p class="section-eyebrow fade-up">Партнеры</p>
       <div class="partners__logos fade-up" style="--delay:.08s">
-        <img class="partners__logo" src="assets/img/logo-pik.png" alt="ПИК Строй" />
+        <img class="partners__logo" src="assets/img/logo-pik.webp" alt="ПИК Строй" loading="lazy" decoding="async" />
         <img class="partners__logo" src="assets/img/logo-enisey.svg" alt="Ениcей" />
-        <img class="partners__logo" src="assets/img/logo-tehnonikol.jpg" alt="Техно Николь" />
-        <img class="partners__logo" src="assets/img/logo-metallprofil.png" alt="Металл Профиль" />
+        <img class="partners__logo" src="assets/img/logo-tehnonikol.webp" alt="Техно Николь" loading="lazy" decoding="async" />
+        <img class="partners__logo" src="assets/img/logo-metallprofil.webp" alt="Металл Профиль" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -858,17 +865,18 @@
   <div class="prefooter">
     <div class="prefooter__inner container">
       <h2 class="prefooter__title">Дарим проект при&nbsp;заключении договора на&nbsp;строительство</h2>
-      <div class="prefooter__form-wrap">
+      <form class="prefooter__form-wrap prefooter__form" data-lead-form data-lead-topic="Проект в подарок" novalidate>
         <label class="lead-form__label" for="prefooter-phone">Ваш номер телефона</label>
         <div class="lead-form__row">
           <input type="tel" class="lead-form__input lead-form__input--dark" id="prefooter-phone" placeholder="+7(_ _ _) _ _ _ - _ _ - _ _" autocomplete="tel">
-          <button class="btn btn--solid prefooter__submit">Получить проект <span class="btn__arrow" aria-hidden="true"></span></button>
+          <button class="btn btn--solid prefooter__submit" type="submit">Получить проект <span class="btn__arrow" aria-hidden="true"></span></button>
         </div>
         <label class="lead-form__consent">
           <input type="checkbox">
           <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
         </label>
-      </div>
+        <p class="lead-form__status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 
@@ -937,9 +945,9 @@
     </p>
   </footer>
 
-  <script src="cookies.js" defer></script>
-  <script src="sections.js?v=reviews-carousel-2" defer></script>
-  <script src="modal.js?v=phone-mask-3" defer></script>
+  <script src="cookies.js?v=production-fixes-4" defer></script>
+  <script src="sections.js?v=production-fixes-4" defer></script>
+  <script src="modal.js?v=production-fixes-4" defer></script>
 
   <!-- ============ APPLICATION MODAL ============ -->
   <div class="app-modal" id="appModal" role="dialog" aria-modal="true"
@@ -960,7 +968,7 @@
       <div class="app-modal__body">
 
         <div class="app-modal__photo">
-          <img src="assets/img/house-small.jpg" alt="" loading="lazy">
+          <img src="assets/img/house-small.webp" alt="" loading="lazy" decoding="async">
         </div>
 
         <div class="app-modal__col">
@@ -991,7 +999,7 @@
               <div class="app-modal__fields" id="appModalFields"></div>
 
               <button type="submit" class="app-modal__submit" id="appModalSubmit">
-                Отправить
+                Подготовить заявку
               </button>
 
               <label class="app-modal__consent" id="appModalConsent">
@@ -1005,10 +1013,10 @@
           <!-- ── Success state ── -->
           <div class="app-modal__success" id="appModalSuccess" hidden>
             <p class="app-modal__success-text">
-              Ваша заявка успешно отправлена!<br>
-              Мы вам ответим в течение двух рабочих дней.
+              Черновик заявки открыт в вашем почтовом приложении.<br>
+              Проверьте данные и нажмите «Отправить», чтобы завершить обращение.
             </p>
-            <button class="app-modal__success-btn" id="appModalSuccessBtn">Отлично</button>
+            <button class="app-modal__success-btn" id="appModalSuccessBtn">Вернуться на сайт</button>
           </div>
 
         </div><!-- /.app-modal__col -->

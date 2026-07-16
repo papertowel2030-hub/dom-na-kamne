@@ -1225,6 +1225,8 @@ a.service-footer__legal-link:focus-visible {
     text-align: center;
     white-space: normal;
   }
+  .service-tabs__link:nth-child(3n + 1) { text-align: left; }
+  .service-tabs__link:nth-child(3n) { text-align: right; }
   .service-tabs__link::after { display: none; }
   .service-tabs__toggle {
     grid-column: 1 / -1;
@@ -1246,7 +1248,16 @@ a.service-footer__legal-link:focus-visible {
   .service-card__intro,
   .service-card__list { margin-top: 12px; }
   .service-card__list li { font-size: 14px; line-height: 1.48; }
-  .service-card__cta { min-height: 42px; margin-top: 18px; padding: 0 12px; font-size: 14px; }
+  .service-card__cta {
+    width: max-content;
+    min-width: 0;
+    min-height: 42px;
+    margin-top: 18px;
+    padding: 0 24px;
+    justify-content: center;
+    gap: var(--space-3);
+    font-size: 14px;
+  }
 
   .service-promo { padding-block: 40px 56px; }
   .service-promo__inner { gap: 0; }

@@ -159,10 +159,37 @@ img { display: block; max-width: 100%; }
 .col--right .service__label::after { transform-origin: right center; }
 
 .service__arrow {
-  font-size: .82em;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  font-size: 0;
   color: var(--muted);
   transition: transform var(--dur) var(--ease),
               color var(--dur) var(--ease);
+}
+
+.service__arrow::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  width: 13px;
+  height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+.service__arrow::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
 }
 
 /* ---- Interaction states ------------------------------------------------- */

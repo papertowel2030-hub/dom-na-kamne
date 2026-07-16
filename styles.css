@@ -120,13 +120,13 @@ img { display: block; max-width: 100%; }
    marquee too — revealing the grass + walkway at the very bottom. */
 .hero-screen {
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   min-height: 100svh;
   overflow: hidden;
   color: var(--on-dark);
-  /* carries text legibility on the bright photo without darkening the image */
-  text-shadow: 0 1px 16px rgba(0, 0, 0, .28);
+  text-shadow: none;
 }
 
 .hero {
@@ -139,7 +139,10 @@ img { display: block; max-width: 100%; }
 }
 
 .hero__media,
-.hero__scrim { position: absolute; inset: 0; z-index: 0; }
+.hero__scrim { position: absolute; inset: 0; }
+
+.hero__media { z-index: 0; }
+.hero__scrim { z-index: 1; }
 
 .hero__media img {
   width: 100%;
@@ -147,7 +150,7 @@ img { display: block; max-width: 100%; }
   object-fit: cover;
   object-position: center 6%;    /* align near the top → full sky band on top */
   /* brighter, sunnier day (~20% more light) with richer, more vibrant colour */
-  filter: brightness(1.2) contrast(1.05) saturate(1.2);
+  filter: none;
 }
 
 /* Light directional shade — only as much as legibility needs, so the sunny
@@ -377,13 +380,17 @@ img { display: block; max-width: 100%; }
   z-index: 1;
   background: transparent;   /* see-through — the photo's grass/walkway shows */
   color: var(--on-dark);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
 }
+.marquee::-webkit-scrollbar { display: none; }
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 38s linear infinite;
+  animation: none;
 }
+.marquee__group[aria-hidden="true"] { display: none; }
 .marquee__group {
   display: flex;
   align-items: center;
@@ -447,7 +454,7 @@ img { display: block; max-width: 100%; }
      grade restores depth that is lost when the desktop treatment is cropped. */
   .hero__media img {
     object-position: 56% 42%;
-    filter: brightness(1.08) contrast(1.08) saturate(1.1);
+    filter: none;
   }
 
   .hero__scrim {
@@ -479,7 +486,7 @@ img { display: block; max-width: 100%; }
 
   .hero__media img {
     object-position: 62% 43%;
-    filter: brightness(1.04) contrast(1.1) saturate(1.08);
+    filter: none;
   }
 
   .hero__scrim {
@@ -619,7 +626,10 @@ img { display: block; max-width: 100%; }
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    min-height: 40px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
     padding: 0;
     color: var(--on-dark);
     border: 0;
@@ -668,7 +678,7 @@ img { display: block; max-width: 100%; }
     background: rgba(34, 43, 36, .96);
     border: 1px solid rgba(250, 250, 250, .28);
     box-shadow: 0 16px 32px rgba(0, 0, 0, .2);
-    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur) var(--ease);
+    transition: none;
   }
 
   .header.is-menu-open .nav {
@@ -713,14 +723,14 @@ img { display: block; max-width: 100%; }
     font-size: 12px;
     line-height: 1.35;
     text-align: left;
+    white-space: nowrap;
     color: rgba(250, 250, 250, .78);
   }
 
   .usp + .usp { border-top: 1px solid rgba(250, 250, 250, .14); }
 
   .usp b {
-    display: block;
-    margin-bottom: 2px;
+    display: inline;
     font-size: 14px;
     line-height: 1.25;
   }
@@ -734,6 +744,7 @@ img { display: block; max-width: 100%; }
 }
 
 .mobile-menu-backdrop,
+.nav__close,
 .nav__cta,
 .nav__contacts { display: none; }
 
@@ -755,16 +766,17 @@ img { display: block; max-width: 100%; }
     position: fixed;
     inset: 0;
     z-index: 3;
-    display: block;
+    display: none;
     border: 0;
     background: rgba(13, 17, 20, .12);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+    transition: none;
   }
 
   .header.is-menu-open .mobile-menu-backdrop {
+    display: block;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -777,7 +789,7 @@ img { display: block; max-width: 100%; }
     right: 0;
     bottom: 0;
     left: auto;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: stretch;
     width: min(306px, calc(100vw - 52px));
@@ -786,14 +798,33 @@ img { display: block; max-width: 100%; }
     margin: 0;
     padding: 104px 22px max(22px, env(safe-area-inset-bottom));
     overflow-y: auto;
-    transform: translateX(100%);
+    transform: none;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
     background: var(--color-white);
     border-left: 1px solid rgba(47, 51, 52, .08);
     box-shadow: -14px 0 30px rgba(0, 0, 0, .12);
     color: var(--fg);
   }
 
-  .header.is-menu-open .nav { transform: none; }
+  .nav__close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    place-items: center;
+    color: var(--fg);
+    border: 1px solid rgba(47, 51, 52, .18);
+    background: var(--color-white);
+    font: 300 30px/1 var(--font-body);
+    cursor: pointer;
+  }
+
+  .header.is-menu-open .nav { display: flex; transform: none; }
 
   .nav__link {
     flex: 0 0 auto;
@@ -858,6 +889,7 @@ img { display: block; max-width: 100%; }
   }
 
   .header.is-menu-open .mobile-menu-toggle { color: var(--fg); }
+  .header.is-menu-open .mobile-menu-toggle { display: none; }
   .header.is-menu-open .logo { color: var(--on-dark); }
 }
 

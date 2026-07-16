@@ -24,12 +24,8 @@
   function hideBanner() {
     const banner = document.getElementById('cookiesBanner');
     if (banner) {
-      banner.style.opacity = '0';
-      banner.style.visibility = 'hidden';
-      banner.style.transition = 'opacity var(--dur) var(--ease)';
-      setTimeout(() => {
-        banner.hidden = true;
-      }, 280);
+      banner.hidden = true;
+      document.body.classList.remove('has-cookie-banner');
     }
   }
 
@@ -47,13 +43,7 @@
 
     // Show banner with fade-in
     banner.hidden = false;
-    banner.style.opacity = '0';
-    banner.style.transition = 'opacity var(--dur) var(--ease)';
-
-    // Trigger fade in
-    requestAnimationFrame(() => {
-      banner.style.opacity = '1';
-    });
+    document.body.classList.add('has-cookie-banner');
 
     // Handle button click
     if (button) {

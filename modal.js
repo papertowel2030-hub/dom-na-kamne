@@ -29,6 +29,7 @@
   /* ── State ──────────────────────────────────────────────────── */
   let currentMethod = 'phone';
   let isLoading     = false;
+  let returnFocusTo = null;
 
   /* ── Phone mask ─────────────────────────────────────────────── */
   function formatPhone(raw) {
@@ -213,7 +214,7 @@
     submitBtn.disabled = on;
     submitBtn.innerHTML = on
       ? '<span class="app-modal__spinner"></span>'
-      : 'Отправить';
+      : 'Подготовить заявку';
   }
 
   function showInputError(msg) {
@@ -244,21 +245,21 @@
     document.body.classList.remove('modal-open');
   }
 
-  function openModal() {
+  function openModal(trigger) {
+    returnFocusTo = trigger || document.activeElement;
     modal.hidden = false;
-    modal.offsetHeight;                 // force reflow → CSS transition fires
     modal.classList.add('is-open');
     lockScroll();
-    setTimeout(() => closeBtn.focus(), 50);
+    closeBtn.focus();
   }
 
   function closeModal() {
     modal.classList.remove('is-open');
     unlockScroll();
-    setTimeout(() => {
-      modal.hidden = true;
-      resetModal();
-    }, 280);   // matches --dur
+    modal.hidden = true;
+    resetModal();
+    if (returnFocusTo && document.contains(returnFocusTo)) returnFocusTo.focus();
+    returnFocusTo = null;
   }
 
   function resetModal() {
@@ -275,13 +276,26 @@
     renderFields();
   }
 
-  /* ── Submission stub (replace with real API later) ──────────── */
+  /* ── Submission: open an addressed draft without claiming delivery ───── */
   async function submitForm(data) {
-    // TODO: POST to backend / Telegram bot
-    console.log('[Modal] Form data:', data);
-    await new Promise(res => setTimeout(res, 1400));
-    // Uncomment to simulate failure:
-    // throw new Error('network error');
+    const methodLabels = {
+      phone: 'Телефон',
+      telegram: 'Telegram',
+      max: 'MAX',
+      whatsapp: 'WhatsApp',
+      email: 'E-mail'
+    };
+    const lines = [
+      `Предпочтительный способ связи: ${methodLabels[data.method] || data.method}`,
+      data.phone ? `Телефон: ${data.phone}` : '',
+      data.email ? `E-mail: ${data.email}` : '',
+      data.username ? `Имя пользователя: ${data.username}` : '',
+      '',
+      'Я даю согласие на обработку персональных данных для ответа на это обращение.'
+    ].filter(Boolean);
+    const subject = encodeURIComponent('Заявка на бесплатную консультацию с сайта');
+    const body = encodeURIComponent(lines.join('\n'));
+    window.location.href = `mailto:dom-na-kamne@mail.ru?subject=${subject}&body=${body}`;
   }
 
   /* ── Radio → re-render ──────────────────────────────────────── */
@@ -385,7 +399,7 @@
   document.querySelectorAll('[data-open-modal]').forEach(trigger => {
     trigger.addEventListener('click', function (e) {
       e.preventDefault();
-      openModal();
+      openModal(this);
     });
   });
 

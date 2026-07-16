@@ -7,8 +7,8 @@
   <link rel="icon" href="/dom-na-kamne/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/dom-na-kamne/design-system/fonts.css" />
   <link rel="stylesheet" href="/dom-na-kamne/design-system/tokens.css" />
-  <link rel="stylesheet" href="/dom-na-kamne/styles.css" />    <!-- .logo, .btn, .btn__arrow, .container -->
-  <link rel="stylesheet" href="/dom-na-kamne/modal.css" />
+  <link rel="stylesheet" href="/dom-na-kamne/styles.css?v=production-fixes-4" />
+  <link rel="stylesheet" href="/dom-na-kamne/modal.css?v=production-fixes-4" />
 
   <style>
     /* ── Page shell ──────────────────────────────────────────── */
@@ -187,7 +187,7 @@
 
       <div class="app-modal__body">
         <div class="app-modal__photo">
-          <img src="/dom-na-kamne/assets/img/house-small.jpg" alt="" loading="lazy">
+          <img src="/dom-na-kamne/assets/img/house-small.webp" alt="" loading="lazy" decoding="async">
         </div>
 
         <div class="app-modal__col">
@@ -202,7 +202,7 @@
                 <label class="app-modal__method"><input type="radio" name="contactMethod" value="email"> E-mail</label>
               </fieldset>
               <div class="app-modal__fields" id="appModalFields"></div>
-              <button type="submit" class="app-modal__submit" id="appModalSubmit">Отправить</button>
+              <button type="submit" class="app-modal__submit" id="appModalSubmit">Подготовить заявку</button>
               <label class="app-modal__consent" id="appModalConsent">
                 <input type="checkbox" id="appModalConsentCheck">
                 <span class="app-modal__consent-text">Я согласен с <a href="/dom-na-kamne/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
@@ -212,10 +212,10 @@
 
           <div class="app-modal__success" id="appModalSuccess" hidden>
             <p class="app-modal__success-text">
-              Ваша заявка успешно отправлена!<br>
-              Мы вам ответим в течение двух рабочих дней.
+              Черновик заявки открыт в вашем почтовом приложении.<br>
+              Проверьте данные и нажмите «Отправить», чтобы завершить обращение.
             </p>
-            <button class="app-modal__success-btn" id="appModalSuccessBtn">Отлично</button>
+            <button class="app-modal__success-btn" id="appModalSuccessBtn">Вернуться на сайт</button>
           </div>
         </div>
       </div>
@@ -223,6 +223,6 @@
     </div>
   </div>
 
-  <script src="/dom-na-kamne/modal.js?v=phone-mask-3" defer></script>
+  <script src="/dom-na-kamne/modal.js?v=production-fixes-4" defer></script>
 </body>
 </html>
