@@ -1,0 +1,931 @@
+/* ==========================================================================
+   Дом на камне — Home / Section styles
+   Consumes design-system/tokens.css + fonts.css. No new global tokens.
+   Built section by section. Current: Hero + Marquee.
+   ========================================================================== */
+
+/* ---- Reset / base ------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+ul { list-style: none; margin: 0; padding: 0; }
+a  { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ---- Layout container --------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- Shared button ------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 13px 24px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-nav);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+
+.btn__arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+  overflow: hidden;
+  font-size: 1.1em;
+  line-height: 1;
+  vertical-align: -0.1em;
+}
+.btn__arrow::before {
+  content: '↗';
+  position: absolute;
+  line-height: 1;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.btn__arrow::after {
+  content: '↘';
+  position: absolute;
+  line-height: 1;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.btn:hover .btn__arrow::before,
+.btn:focus-visible .btn__arrow::before {
+  opacity: 0;
+  transform: translate(4px, -4px);
+}
+.btn:hover .btn__arrow::after,
+.btn:focus-visible .btn__arrow::after {
+  opacity: 1;
+  transform: none;
+}
+
+.btn--ghost {
+  color: var(--on-dark);
+  background: transparent;
+  border: 1px solid rgba(250, 250, 250, .55);
+}
+.btn--ghost:hover {
+  background: var(--on-dark);
+  color: var(--color-ink);
+  border-color: var(--on-dark);
+}
+
+/* Primary action — solid, sits on top of the visual hierarchy */
+.btn--solid {
+  color: var(--color-ink);
+  background: var(--on-dark);
+  border: 1px solid var(--on-dark);
+  font-weight: var(--fw-semibold);
+}
+.btn--solid:hover {
+  background: transparent;
+  color: var(--on-dark);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+/* Hero + marquee together fill exactly one viewport; hero takes the remainder.
+   The photo lives on the screen wrapper so it spans behind the transparent
+   marquee too — revealing the grass + walkway at the very bottom. */
+.hero-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--on-dark);
+  /* carries text legibility on the bright photo without darkening the image */
+  text-shadow: 0 1px 16px rgba(0, 0, 0, .28);
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.hero__media,
+.hero__scrim { position: absolute; inset: 0; z-index: 0; }
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 6%;    /* align near the top → full sky band on top */
+  /* brighter, sunnier day (~20% more light) with richer, more vibrant colour */
+  filter: brightness(1.2) contrast(1.05) saturate(1.2);
+}
+
+/* Light directional shade — only as much as legibility needs, so the sunny
+   image stays sunny. The bottom plinth gives the USP row a consistent dark
+   base regardless of what's behind it, and grounds the hero into the marquee. */
+.hero__scrim {
+  background:
+    linear-gradient(to bottom, rgba(15, 20, 24, .34) 0%, transparent 18%),
+    linear-gradient(to right,  rgba(15, 20, 24, .42) 0%, rgba(15, 20, 24, .12) 32%, transparent 58%),
+    linear-gradient(to top,    rgba(13, 17, 20, .42) 0%, rgba(13, 17, 20, .18) 15%, transparent 32%);
+}
+
+.hero > .header,
+.hero > .hero__body,
+.hero > .usps { position: relative; z-index: 1; }
+
+/* ---- Header ------------------------------------------------------------- */
+.header { padding-top: var(--space-7); }
+
+.header__bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: var(--space-5);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Brand titles return visitors home. Hover and keyboard focus add a subtle
+   movement without changing the logo artwork. */
+.logo,
+.service-header__logo,
+.legal-logo {
+  position: relative;
+  display: inline-flex;
+  transition: transform var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.logo:hover,
+.logo:focus-visible,
+.service-header__logo:hover,
+.service-header__logo:focus-visible,
+.legal-logo:hover,
+.legal-logo:focus-visible {
+  transform: translateY(-2px);
+}
+
+.logo:focus-visible,
+.service-header__logo:focus-visible,
+.legal-logo:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 7px;
+}
+
+.header__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-5);
+  font-size: 13px;
+  color: rgba(250, 250, 250, .82);
+}
+.header__info li { white-space: nowrap; }
+
+.header__address {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease);
+}
+
+.header__address:hover,
+.header__address:focus-visible {
+  color: var(--on-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+}
+
+/* Phone — primary contact, lifted above the rest of the strip */
+.header__phone a {
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  color: var(--on-dark);
+  letter-spacing: .01em;
+}
+.header__info a:hover { color: var(--on-dark); }
+
+.header__cta { white-space: nowrap; }
+
+.header__socials {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: clamp(8px, .8vw, 11px);
+}
+
+.header__socials a,
+.header__socials span {
+  display: grid;
+  width: clamp(24px, 1.65vw, 28px);
+  height: clamp(24px, 1.65vw, 28px);
+  place-items: center;
+  border-radius: 50%;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.header__socials a:hover,
+.header__socials a:focus-visible {
+  transform: translateY(-1px);
+}
+
+.header__socials img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-top: var(--space-7);
+}
+.nav__link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  letter-spacing: .06em;
+  color: rgba(250, 250, 250, .8);
+  padding-bottom: 4px;
+  transition: color var(--dur) var(--ease);
+}
+/* invisible bold copy reserves the hover width so the row never reflows */
+.nav__link::after {
+  content: attr(data-text);
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.nav__link:hover {
+  color: var(--on-dark);
+  font-weight: 700;
+}
+
+/* ---- Hero body ---------------------------------------------------------- */
+.hero__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-8);
+}
+
+.hero__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(38px, 4.2vw, 56px);
+  line-height: 1.08;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+.hero__title-line { white-space: nowrap; }
+
+.hero__subtitle {
+  margin: var(--space-5) 0 0;
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: rgba(250, 250, 250, .9);
+}
+
+.hero__cta {
+  min-width: clamp(330px, 22vw, 380px);
+  justify-content: center;
+  margin-top: var(--space-6);
+  white-space: nowrap;
+}
+
+.hero__cta-label--mobile { display: none; }
+
+/* ---- USP strip — left / centre / right, pinned just above the marquee -- */
+.usps {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-6);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-7);
+  border-top: 1px solid rgba(250, 250, 250, .15);
+}
+.usp {
+  font-size: 13px;
+  font-weight: var(--fw-light);
+  line-height: var(--lh-snug);
+  color: rgba(250, 250, 250, .82);
+}
+.usp:first-child  { text-align: left; }
+.usp:nth-child(2) { text-align: center; }
+.usp:last-child   { text-align: right; }
+.usp b {
+  font-weight: var(--fw-semibold);
+  color: var(--on-dark);
+}
+
+/* ==========================================================================
+   MARQUEE
+   ========================================================================== */
+.marquee {
+  position: relative;
+  z-index: 1;
+  background: transparent;   /* see-through — the photo's grass/walkway shows */
+  color: var(--on-dark);
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
+}
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.marquee__group li {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 13px var(--space-6);
+  white-space: nowrap;
+  /* stronger shadow so the labels read over the bright grass */
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .6);
+}
+.marquee__group a {
+  display: inline-block;
+  color: inherit;
+  transition: opacity var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.marquee__group a:hover,
+.marquee__group a:focus-visible {
+  opacity: .72;
+  transform: translateY(-1px);
+}
+.marquee__group a:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 5px;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Short viewports (most laptops ~650–780px tall): compress the hero so the
+   marquee always stays on the first screen, above the fold. */
+@media (max-height: 800px) {
+  .hero__title    { font-size: clamp(34px, 3.6vw, 48px); }
+  .hero__body     { padding-block: var(--space-5); }
+  .hero__subtitle { margin-top: var(--space-3); }
+  .hero__cta      { margin-top: var(--space-5); }
+  .usps           { padding-bottom: var(--space-5); }
+  .header         { padding-top: var(--space-5); }
+  .nav            { margin-top: var(--space-5); }
+}
+
+@media (max-width: 1100px) {
+  /* Give the architectural corner room to breathe on tablet. The gentler
+     grade restores depth that is lost when the desktop treatment is cropped. */
+  .hero__media img {
+    object-position: 56% 42%;
+    filter: brightness(1.08) contrast(1.08) saturate(1.1);
+  }
+
+  .hero__scrim {
+    background:
+      linear-gradient(to bottom, rgba(11, 16, 19, .38) 0%, rgba(11, 16, 19, .08) 24%, transparent 48%),
+      linear-gradient(to right, rgba(11, 16, 19, .46) 0%, rgba(11, 16, 19, .16) 42%, transparent 76%),
+      linear-gradient(to top, rgba(9, 13, 15, .48) 0%, rgba(9, 13, 15, .12) 27%, transparent 48%),
+      radial-gradient(ellipse at 60% 44%, transparent 42%, rgba(7, 10, 12, .16) 100%);
+  }
+
+  .header__bar {
+    grid-template-columns: auto auto;
+    row-gap: var(--space-4);
+  }
+  .header__info {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+  }
+  .nav { justify-content: flex-start; flex-wrap: wrap; gap: var(--space-5) var(--space-6); }
+}
+
+@media (max-width: 768px) {
+  .hero-screen {
+    min-height: 100svh;
+  }
+
+  .hero__media img {
+    object-position: 62% 43%;
+    filter: brightness(1.04) contrast(1.1) saturate(1.08);
+  }
+
+  .hero__scrim {
+    background:
+      linear-gradient(to bottom, rgba(10, 15, 18, .46) 0%, rgba(10, 15, 18, .12) 22%, transparent 43%),
+      linear-gradient(to right, rgba(10, 15, 18, .5) 0%, rgba(10, 15, 18, .18) 58%, transparent 100%),
+      linear-gradient(to top, rgba(8, 12, 14, .56) 0%, rgba(8, 12, 14, .2) 30%, transparent 54%),
+      radial-gradient(ellipse at 64% 42%, transparent 34%, rgba(6, 9, 11, .2) 100%);
+  }
+
+  .header {
+    padding-top: 22px;
+  }
+
+  .header__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0;
+    column-gap: var(--space-3);
+  }
+
+  .logo {
+    font-size: 20px;
+    letter-spacing: .1em;
+  }
+
+  .header__info {
+    display: flex;
+    order: 0;
+    grid-column: auto;
+    justify-content: flex-end;
+  }
+
+  .header__info li:not(.header__phone) {
+    display: none;
+  }
+
+  .header__phone a {
+    font-size: 15px;
+  }
+
+  .header__socials,
+  .header__cta {
+    display: none;
+  }
+
+  .nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 24px;
+    margin-top: 22px;
+    padding-bottom: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav__link {
+    flex: 0 0 auto;
+    font-size: 14px;
+    color: rgba(250, 250, 250, .86);
+  }
+
+  .hero__title {
+    font-size: clamp(42px, 13vw, 58px);
+    line-height: 1.02;
+  }
+
+  .hero__subtitle {
+    max-width: 310px;
+    margin-top: var(--space-4);
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .hero__cta {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    margin-top: var(--space-5);
+  }
+
+  .hero__body {
+    align-items: center;
+    padding-block: var(--space-6);
+  }
+
+  .marquee__group li { font-size: var(--fs-body); padding: var(--space-4) var(--space-5); }
+  /* USPs stack to single column on mobile */
+  .usps {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-5);
+  }
+
+  .usp {
+    font-size: 12px;
+  }
+
+  .usp:nth-child(2),
+  .usp:last-child { text-align: left; }
+}
+
+/* Compact navigation and hero composition for phones and portrait tablets. */
+.mobile-menu-toggle { display: none; }
+
+@media (max-width: 960px) {
+  .hero > .header {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .header__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    color: var(--on-dark);
+  }
+
+  .header .logo {
+    position: relative;
+    z-index: 5;
+    display: inline-flex;
+    width: max-content;
+    color: var(--on-dark);
+  }
+
+  .header__info { display: none; }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0;
+    color: var(--on-dark);
+    border: 0;
+    background: transparent;
+    font: 400 12px/1 var(--font-display);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle__icon,
+  .mobile-menu-toggle__icon::before,
+  .mobile-menu-toggle__icon::after {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  }
+
+  .mobile-menu-toggle__icon { position: relative; }
+  .mobile-menu-toggle__icon::before,
+  .mobile-menu-toggle__icon::after { content: ""; position: absolute; left: 0; }
+  .mobile-menu-toggle__icon::before { top: -7px; }
+  .mobile-menu-toggle__icon::after { top: 7px; }
+
+  .header.is-menu-open .mobile-menu-toggle__icon { background: transparent; }
+  .header.is-menu-open .mobile-menu-toggle__icon::before { transform: translateY(7px) rotate(45deg); }
+  .header.is-menu-open .mobile-menu-toggle__icon::after { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: var(--gutter-mobile);
+    left: var(--gutter-mobile);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0;
+    padding: 8px 16px;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    background: rgba(34, 43, 36, .96);
+    border: 1px solid rgba(250, 250, 250, .28);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, .2);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur) var(--ease);
+  }
+
+  .header.is-menu-open .nav {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .nav__link { min-height: 44px; justify-content: center; font-size: 13px; }
+  .hero__body { align-items: flex-end; padding-block: 48px 36px; }
+  .hero__title { max-width: 350px; font-size: clamp(32px, 9vw, 36px); line-height: 1.06; }
+  .hero__subtitle { max-width: 285px; font-size: 15px; }
+  .hero__cta {
+    max-width: 350px;
+    min-height: 52px;
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid rgba(250, 250, 250, .55);
+    color: var(--on-dark);
+  }
+  .hero__cta:hover {
+    background: var(--on-dark);
+    color: var(--color-ink);
+  }
+
+  .hero__cta-label--desktop { display: none; }
+  .hero__cta-label--mobile { display: inline; }
+
+  .usps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top-color: rgba(250, 250, 250, .22);
+    background: linear-gradient(90deg, rgba(13, 17, 20, .34), rgba(13, 17, 20, .12));
+  }
+
+  .usp {
+    padding: 11px 0 12px;
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: left;
+    color: rgba(250, 250, 250, .78);
+  }
+
+  .usp + .usp { border-top: 1px solid rgba(250, 250, 250, .14); }
+
+  .usp b {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+  .marquee__group li { font-size: 14px; padding: 12px 18px; }
+}
+
+@media (max-width: 359px) {
+  .mobile-menu-toggle__label { display: none; }
+  .header__phone a { font-size: 12px; }
+  .hero__title { font-size: 33px; }
+}
+
+.mobile-menu-backdrop,
+.nav__cta,
+.nav__contacts { display: none; }
+
+@media (max-width: 960px) {
+  body.is-menu-open { overflow: hidden; }
+
+  .mobile-menu-toggle { position: relative; z-index: 5; }
+  .mobile-menu-toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .mobile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    display: block;
+    border: 0;
+    background: rgba(13, 17, 20, .12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+  }
+
+  .header.is-menu-open .mobile-menu-backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .header .nav.container {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: min(306px, calc(100vw - 52px));
+    max-width: none;
+    min-height: 100svh;
+    margin: 0;
+    padding: 104px 22px max(22px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    transform: translateX(100%);
+    background: var(--color-white);
+    border-left: 1px solid rgba(47, 51, 52, .08);
+    box-shadow: -14px 0 30px rgba(0, 0, 0, .12);
+    color: var(--fg);
+  }
+
+  .header.is-menu-open .nav { transform: none; }
+
+  .nav__link {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 64px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: clamp(21px, 6.4vw, 28px);
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .nav__link::after { display: none; }
+  .nav__link:hover, .nav__link:focus-visible { color: var(--surface-green); font-weight: var(--fw-semibold); }
+
+  .nav__contacts {
+    display: grid;
+    gap: 16px;
+    margin-top: auto;
+    padding: 28px 0 22px;
+    border-top: 1px solid rgba(47, 51, 52, .14);
+  }
+
+  .nav__phone {
+    width: max-content;
+    color: var(--fg);
+    font: 500 18px/1.25 var(--font-body);
+  }
+
+  .nav__socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav__socials > a,
+  .nav__socials > span {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(47, 51, 52, .14);
+    border-radius: 50%;
+    background: var(--color-white);
+  }
+
+  .nav__socials img { width: 100%; height: 100%; object-fit: contain; }
+
+  .nav__cta {
+    display: inline-flex;
+    width: 100%;
+    min-height: 54px;
+    flex: 0 0 auto;
+    margin-top: 0;
+    justify-content: space-between;
+    font-size: 15px;
+  }
+
+  .header.is-menu-open .mobile-menu-toggle { color: var(--fg); }
+  .header.is-menu-open .logo { color: var(--on-dark); }
+}
+
+/* Tablets use the compact drawer but preserve a spacious three-column hero. */
+@media (min-width: 769px) and (max-width: 960px) {
+  .hero__media img { object-position: 59% 40%; }
+
+  .hero__body {
+    align-items: center;
+    padding-block: clamp(48px, 8vh, 84px);
+  }
+
+  .hero__title {
+    max-width: 520px;
+    font-size: clamp(42px, 6vw, 54px);
+    line-height: 1.04;
+  }
+
+  .hero__subtitle { max-width: 360px; font-size: 17px; }
+
+  .hero__cta {
+    width: auto;
+    min-width: 350px;
+    max-width: none;
+  }
+
+  .usps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    padding-top: 18px;
+    padding-bottom: 22px;
+    background: linear-gradient(90deg, rgba(13, 17, 20, .3), rgba(13, 17, 20, .08));
+  }
+
+  .usp { padding: 0; font-size: 12px; }
+  .usp + .usp { border-top: 0; }
+  .usp:nth-child(2) { text-align: center; }
+  .usp:last-child { text-align: right; }
+  .usp b { font-size: 14px; }
+}
+
+/* The service ticker begins after the focused first screen on phones. */
+@media (max-width: 768px) {
+  .hero-screen { min-height: 0; overflow: hidden; }
+  .hero { min-height: 100svh; }
+  .hero__media img { object-position: 64% 42%; }
+}
+
+@media (max-width: 768px) and (max-height: 720px) {
+  .header { padding-top: 16px; }
+  .hero__body { padding-block: 82px 18px; }
+  .hero__title { font-size: clamp(30px, 8.7vw, 34px); }
+  .hero__subtitle { margin-top: 10px; font-size: 14px; }
+  .hero__cta { min-height: 48px; margin-top: 14px; }
+  .usp { padding: 7px 0 8px; }
+  .usp b { font-size: 13px; }
+}
+
+@media (max-width: 960px) and (max-height: 680px) {
+  .header .nav.container { padding-top: 76px; }
+  .nav__link { min-height: 48px; font-size: 20px; }
+  .nav__contacts { gap: 10px; padding: 18px 0 14px; }
+  .nav__socials > a,
+  .nav__socials > span { width: 40px; height: 40px; }
+}
+
+@media (max-width: 359px) {
+  .header .logo { font-size: 17px; letter-spacing: .075em; }
+  .hero__title { font-size: 29px; }
+  .hero__cta { padding-inline: 14px; font-size: 13px; }
+}

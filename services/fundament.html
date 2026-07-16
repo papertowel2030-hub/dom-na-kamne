@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Фундамент — Дом на камне</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../design-system/fonts.css" />
+  <link rel="stylesheet" href="../design-system/tokens.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="service-page.css?v=mobile-services-4" />
+</head>
+<body class="service-page" data-service="fundament">
+  <header class="service-header">
+    <div class="service-header__inner container">
+      <a class="service-header__logo" href="../index.html">Дом на камне</a>
+      <nav class="service-header__nav" aria-label="Главное меню">
+        <a href="../index.html#services" aria-current="page">Услуги</a>
+        <a href="../index.html#projects">Проекты</a>
+        <a href="../index.html#shop">Магазин</a>
+        <a href="../index.html#contacts">Контакты</a>
+        <a href="../index.html#about">О нас</a>
+      </nav>
+      <a class="service-header__cta" href="#service-lead">Получить консультацию <span class="svc__arrow" aria-hidden="true"></span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="service-intro">
+      <div class="service-intro__inner container">
+        <a class="service-breadcrumb" href="../index.html#services">Главная / Услуги</a>
+        <div class="service-intro__row">
+          <h1 class="service-intro__title">Услуги</h1>
+          <nav class="service-tabs" id="serviceTabs" aria-label="Категории услуг"></nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-offers" id="serviceOffers" aria-label="Виды услуги"></section>
+    <section class="service-promo" id="servicePromo" hidden></section>
+    <section class="service-trust" id="serviceTrust" hidden></section>
+    <section class="service-lead" id="service-lead"></section>
+  </main>
+
+  <footer class="service-footer" id="serviceFooter"></footer>
+  <button class="service-scrolltop" type="button" aria-label="Наверх">↑</button>
+
+  <script src="service-data.js?v=mobile-services-2"></script>
+  <script src="service-page.js?v=modal-cta-6"></script>
+</body>
+</html>

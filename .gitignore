@@ -1,0 +1,12 @@
+.DS_Store
+**/.DS_Store
+*.fig
+.claude/
+Items for site/
+_prototype-services/
+codex demo/
+demo/
+SITE-PLAN.md
+*.zip
+*.docx
+assets/img/*

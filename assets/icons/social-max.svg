@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" role="img" aria-label="MAX">
+  <defs><linearGradient id="m" x1="8" y1="49" x2="48" y2="7" gradientUnits="userSpaceOnUse"><stop stop-color="#3D43FF"/><stop offset="1" stop-color="#833DFF"/></linearGradient></defs>
+  <path fill="url(#m)" d="M28 0a28 28 0 1 1-15.8 51.1L4 54l2.7-8.2A28 28 0 0 1 28 0Z"/>
+  <path fill="#fff" d="M28 6.2a21.8 21.8 0 1 1-12.5 39.7l-5.3 1.8 1.8-5.3A21.8 21.8 0 0 1 28 6.2Z"/>
+  <circle cx="28" cy="27.4" r="14.5" fill="url(#m)"/>
+  <text x="28" y="30.2" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="7.1" font-weight="700" text-anchor="middle" letter-spacing="-.35">MAX</text>
+</svg>

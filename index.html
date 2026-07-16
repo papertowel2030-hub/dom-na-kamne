@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дом на камне — надёжные дома и объекты</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="design-system/fonts.css" />
+  <link rel="stylesheet" href="design-system/tokens.css" />
+  <link rel="stylesheet" href="styles.css?v=mobile-menu-4" />
+  <link rel="stylesheet" href="_prototype-services/services.css" />
+  <link rel="stylesheet" href="sections.css?v=responsive-layout-5" />
+  <link rel="stylesheet" href="modal.css" />
+</head>
+<body>
+
+  <!-- ============ LANDING SCREEN (hero + marquee fill one viewport) ============ -->
+  <div class="hero-screen">
+
+    <!-- Full-bleed photo — spans the whole screen, incl. behind the marquee -->
+    <div class="hero__media">
+      <img src="assets/img/hero-main.jpg" alt="Современный частный дом с панорамным остеклением" />
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header__bar container">
+        <a class="logo" href="index.html">Дом на камне</a>
+
+        <ul class="header__info">
+          <li><a class="header__address" href="https://yandex.ru/maps/?text=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D1%80%D0%B0%D0%B9%2C%20%D0%B3.%20%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F%2038%D0%90" target="_blank" rel="noopener">Железногорск, Красноярский край, ул. Южная 38А</a></li>
+          <li>Пн–Сб 9:00–18:00</li>
+          <li class="header__phone"><a href="tel:+79138314644">+7 913 831 46 44</a></li>
+        </ul>
+
+        <div class="header__socials" aria-label="Быстрые контакты">
+          <a href="https://t.me/domnakamne" aria-label="Написать в Telegram">
+            <img src="assets/icons/social-telegram.svg" alt="" />
+          </a>
+          <span aria-label="MAX">
+            <img src="assets/icons/social-max.svg" alt="" />
+          </span>
+          <a href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" target="_blank" rel="noopener" aria-label="Открыть магазин Ozon">
+            <img src="assets/icons/social-ozon.svg" alt="" />
+          </a>
+          <a href="https://www.avito.ru/brands/i70994095/all" target="_blank" rel="noopener" aria-label="Открыть Авито">
+            <img src="assets/icons/social-avito.svg" alt="" />
+          </a>
+        </div>
+
+        <button class="mobile-menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+          <span class="mobile-menu-toggle__label">Меню</span>
+          <span class="mobile-menu-toggle__icon" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <nav class="nav container" id="main-nav" aria-label="Главное меню">
+        <a class="nav__link" href="#services" data-text="Услуги">Услуги</a>
+        <a class="nav__link" href="#projects" data-text="Проекты">Проекты</a>
+        <a class="nav__link" href="#shop" data-text="Магазин">Магазин</a>
+        <a class="nav__link" href="#contacts" data-text="Контакты">Контакты</a>
+        <a class="nav__link" href="#about" data-text="О компании">О компании</a>
+        <div class="nav__contacts" aria-label="Контакты">
+          <a class="nav__phone" href="tel:+79138314644">+7 913 831 46 44</a>
+          <div class="nav__socials" aria-label="Социальные сети и магазины">
+            <a href="https://t.me/domnakamne" target="_blank" rel="noopener" aria-label="Telegram">
+              <img src="assets/icons/social-telegram.svg" alt="" />
+            </a>
+            <span aria-label="MAX">
+              <img src="assets/icons/social-max.svg" alt="" />
+            </span>
+            <a href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" target="_blank" rel="noopener" aria-label="Ozon">
+              <img src="assets/icons/social-ozon.svg" alt="" />
+            </a>
+            <a href="https://www.avito.ru/brands/i70994095/all" target="_blank" rel="noopener" aria-label="Авито">
+              <img src="assets/icons/social-avito.svg" alt="" />
+            </a>
+          </div>
+        </div>
+        <a class="btn btn--outline nav__cta" href="#" data-open-modal="app">Получить консультацию <span class="btn__arrow" aria-hidden="true"></span></a>
+      </nav>
+      <button class="mobile-menu-backdrop" type="button" aria-label="Закрыть меню" tabindex="-1"></button>
+    </header>
+
+    <!-- Hero body — headline + CTA, vertically centred in the available space -->
+    <div class="hero__body container">
+      <div class="hero__lead">
+        <h1 class="hero__title"><span class="hero__title-line">Надёжные дома</span><br />и&nbsp;объекты</h1>
+        <p class="hero__subtitle">Для вашего уюта и комфорта в короткие сроки</p>
+        <a class="btn btn--solid hero__cta" href="#" data-open-modal="app">
+          <span class="hero__cta-label hero__cta-label--desktop">Получить расчёт строительства</span>
+          <span class="hero__cta-label hero__cta-label--mobile">Получить расчёт строительства</span>
+          <span class="btn__arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- USP strip — left / centre / right, pinned just above the marquee -->
+    <ul class="usps container">
+      <li class="usp"><b>С 2008 года</b> строим дома и объекты</li>
+      <li class="usp"><b>Проект в подарок</b> при договоре</li>
+      <li class="usp"><b>До 15% выгоды</b>: свой склад материалов</li>
+    </ul>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee" role="presentation">
+    <div class="marquee__track">
+      <ul class="marquee__group">
+        <li><a href="services/doma.html">Дома</a></li><li><a href="services/bani.html">Бани</a></li><li><a href="services/garazhi.html">Гаражи</a></li><li><a href="services/besedki.html">Беседки</a></li><li><a href="services/zabory.html">Заборы</a></li>
+        <li><a href="services/krovlya.html">Кровля</a></li><li><a href="services/fundament.html">Фундамент</a></li><li><a href="services/fasady.html">Фасады</a></li><li><a href="services/otdelka.html">Отделка</a></li><li><a href="services/inzheneriya.html">Инженерия</a></li>
+      </ul>
+      <ul class="marquee__group" aria-hidden="true">
+        <li><a tabindex="-1" href="services/doma.html">Дома</a></li><li><a tabindex="-1" href="services/bani.html">Бани</a></li><li><a tabindex="-1" href="services/garazhi.html">Гаражи</a></li><li><a tabindex="-1" href="services/besedki.html">Беседки</a></li><li><a tabindex="-1" href="services/zabory.html">Заборы</a></li>
+        <li><a tabindex="-1" href="services/krovlya.html">Кровля</a></li><li><a tabindex="-1" href="services/fundament.html">Фундамент</a></li><li><a tabindex="-1" href="services/fasady.html">Фасады</a></li><li><a tabindex="-1" href="services/otdelka.html">Отделка</a></li><li><a tabindex="-1" href="services/inzheneriya.html">Инженерия</a></li>
+      </ul>
+    </div>
+  </div>
+
+  </div><!-- /.hero-screen -->
+
+  <!-- ============================ SERVICES ============================ -->
+  <section class="services" id="services" aria-labelledby="services-title">
+    <div class="services__inner container">
+
+      <header class="services__head">
+        <p class="services__eyebrow">Услуги</p>
+        <h2 class="services__title" id="services-title">Проводим строительные<br />работы под ключ</h2>
+      </header>
+
+      <div class="stage" id="stage">
+        <svg class="leaders" id="leaders" aria-hidden="true" preserveAspectRatio="none"></svg>
+
+        <ul class="col col--left" role="list">
+          <li class="service" data-key="doma">
+            <a class="service__link" href="services/doma.html" data-anchor="0.415,0.33">
+              <span class="service__label">Дома</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="bani">
+            <a class="service__link" href="services/bani.html" data-anchor="0.69,0.40">
+              <span class="service__label">Бани</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="garazhi">
+            <a class="service__link" href="services/garazhi.html" data-anchor="0.15,0.52">
+              <span class="service__label">Гаражи</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="besedki">
+            <a class="service__link" href="services/besedki.html" data-anchor="0.85,0.50">
+              <span class="service__label">Беседки</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="zabory">
+            <a class="service__link" href="services/zabory.html" data-anchor="0.205,0.66">
+              <span class="service__label">Заборы и ворота</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+
+        <figure class="stage__house">
+          <img id="house" src="assets/img/services-house.png"
+               alt="Загородный участок: дом, баня, гараж, беседка, забор и благоустройство" />
+        </figure>
+
+        <ul class="col col--right" role="list">
+          <li class="service" data-key="krovlya">
+            <a class="service__link" href="services/krovlya.html" data-anchor="0.36,0.225">
+              <span class="service__label">Кровля</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="fasady">
+            <a class="service__link" href="services/fasady.html" data-anchor="0.495,0.46">
+              <span class="service__label">Фасады</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="otdelka">
+            <a class="service__link" href="services/otdelka.html" data-anchor="0.42,0.55" data-preview="assets/img/banya-interior.jpg">
+              <span class="service__label">Отделка</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="inzheneriya">
+            <a class="service__link" href="services/inzheneriya.html" data-anchor="0.55,0.55" data-preview="assets/img/engineering-1.jpg">
+              <span class="service__label">Инженерия</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="service" data-key="fundament">
+            <a class="service__link" href="services/fundament.html" data-anchor="0.44,0.63">
+              <span class="service__label">Фундамент</span>
+              <span class="service__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+
+      </div><!-- /.stage -->
+    </div>
+  </section>
+
+  <script src="_prototype-services/services.js" defer></script>
+
+  <!-- ======================== CONSULTATION CTA ======================== -->
+  <section class="consult" id="consult" aria-labelledby="consult-title">
+    <div class="consult__grid">
+
+      <div class="consult__content">
+        <h2 class="consult__title" id="consult-title">
+          Получите <strong>бесплатную консультацию</strong><br />от нашего генерального директора
+        </h2>
+        <ul class="consult__benefits">
+          <li>Расскажем про условия договора</li>
+          <li>Поможем подобрать выгодные условия</li>
+          <li>Покажем как происходит строительство на реальных объектах</li>
+          <li>Подскажем, как уложиться в планируемый бюджет</li>
+        </ul>
+        <form class="lead-form consult__form" action="#" onsubmit="return false;">
+          <label class="lead-form__label" for="consult-phone">Ваш номер телефона</label>
+          <div class="lead-form__row">
+            <input class="lead-form__input lead-form__input--dark" id="consult-phone" type="tel"
+                   placeholder="+7(_ _ _) _ _ _ - _ _ - _ _" autocomplete="tel" />
+            <button class="btn btn--solid" type="submit">
+              Перезвоните мне
+            </button>
+          </div>
+          <label class="lead-form__consent">
+            <input type="checkbox" />
+            <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
+          </label>
+        </form>
+        <div class="consult__foot">
+          <div class="consult__contact-block">
+            <span class="consult__contact-label">Напишите нам</span>
+            <div class="consult__socials">
+              <a class="social-icon consult__social-icon" href="https://t.me/domnakamne" aria-label="Telegram" target="_blank" rel="noopener">
+                <img src="assets/icons/social-telegram.svg" alt="" />
+              </a>
+              <span class="social-icon consult__social-icon" aria-label="MAX">
+                <img src="assets/icons/social-max.svg" alt="" />
+              </span>
+              <a class="social-icon consult__social-icon" href="https://www.avito.ru/brands/i70994095/all" aria-label="Авито" target="_blank" rel="noopener">
+                <img src="assets/icons/social-avito.svg" alt="" />
+              </a>
+              <a class="social-icon consult__social-icon" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" aria-label="OZON" target="_blank" rel="noopener">
+                <img src="assets/icons/social-ozon.svg" alt="" />
+              </a>
+            </div>
+          </div>
+          <div class="consult__contact-block">
+            <span class="consult__contact-label">Или позвоните</span>
+            <a class="consult__phone" href="tel:+79138314644">+7 913 831 46 44</a>
+            <span class="consult__hours">Пн–Сб 9:00–18:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="consult__photo" aria-hidden="true">
+        <img src="assets/img/Rectangle 25.png" alt="" />
+        <div class="consult__caption">
+          <span class="consult__caption-name">Сергей Богданов</span>
+          <span class="consult__caption-role">Генеральный директор<br />компании “Дом на камне”</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== PROJECTS ======================== -->
+  <section class="projects" id="projects" aria-labelledby="projects-title">
+    <div class="projects__inner container">
+
+      <header class="section-head fade-up">
+        <p class="section-eyebrow">Наши проекты</p>
+        <h2 class="projects__title" id="projects-title">
+          Более <span class="counter" data-count="200" aria-label="200">200</span> семей<br />доверились нам
+        </h2>
+      </header>
+
+      <div class="projects__grid">
+
+        <article class="project-card fade-up">
+          <div class="project-card__media">
+            <img src="assets/img/house-frame.jpg" alt="Каркасный дом" loading="lazy" />
+          </div>
+          <div class="project-card__meta">
+            <h3 class="project-card__name">Каркасный дом</h3>
+            <ul class="project-card__specs">
+              <li>Площадь <strong>*** м²</strong></li>
+              <li>2 этажа</li>
+              <li>Брус</li>
+              <li>2023 год</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project-card project-card--carousel fade-up" style="--delay:.1s">
+          <div class="project-card__media">
+            <div class="carousel" aria-label="Фото проекта Мангальная зона">
+              <div class="carousel__track">
+                <img src="assets/img/mangal-zone.jpg" alt="Мангальная зона — вид 1" />
+                <img src="assets/img/mangal-1.jpg"    alt="Мангальная зона — вид 2" />
+                <img src="assets/img/mangal-2.jpg"    alt="Мангальная зона — вид 3" />
+              </div>
+              <button class="carousel__btn carousel__btn--prev" aria-label="Предыдущее фото">←</button>
+              <button class="carousel__btn carousel__btn--next" aria-label="Следующее фото">→</button>
+              <div class="carousel__dots" aria-hidden="true">
+                <span class="carousel__dot is-active"></span>
+                <span class="carousel__dot"></span>
+                <span class="carousel__dot"></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__meta">
+            <h3 class="project-card__name">Мангальная зона</h3>
+            <ul class="project-card__specs">
+              <li>Площадь <strong>*** м²</strong></li>
+              <li>Кирпич</li>
+              <li>2024 год</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project-card fade-up" style="--delay:.2s">
+          <div class="project-card__media">
+            <img src="assets/img/house.jpg" alt="Каркасный дом" loading="lazy" />
+          </div>
+          <div class="project-card__meta">
+            <h3 class="project-card__name">Каркасный дом</h3>
+            <ul class="project-card__specs">
+              <li>Площадь <strong>*** м²</strong></li>
+              <li>2 этажа</li>
+              <li>Брус</li>
+              <li>2024 год</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="projects__foot fade-up">
+        <a class="btn btn--outline" href="https://t.me/domnakamne" target="_blank" rel="noopener">Все наши проекты <span class="btn__arrow" aria-hidden="true"></span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== INDIVIDUAL CTA ======================== -->
+  <section class="individual" id="individual" aria-labelledby="individual-title">
+    <div class="individual__inner">
+
+      <div class="individual__left fade-up">
+        <h2 class="individual__title" id="individual-title">
+          Можем разработать для вас индивидуальный проект
+        </h2>
+        <p class="individual__sub">А так же взять в работу Ваш проект</p>
+        <p class="individual__desc">
+          Загрузите проект в любом формате, мы изучим и дадим Вам ответ по примерной стоимости строительства Вашего дома.
+        </p>
+        <div class="individual__send-via">
+          <a class="individual__social-icon" href="https://t.me/domnakamne" aria-label="Telegram" target="_blank" rel="noopener">
+            <img src="assets/icons/social-telegram.svg" alt="" />
+          </a>
+          <span class="individual__social-icon" aria-label="MAX">
+            <img src="assets/icons/social-max.svg" alt="" />
+          </span>
+          <a class="individual__social-icon" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" aria-label="OZON" target="_blank" rel="noopener">
+            <img src="assets/icons/social-ozon.svg" alt="" />
+          </a>
+        </div>
+      </div>
+
+      <div class="individual__media fade-up" style="--delay:.12s" aria-hidden="true">
+        <img src="assets/img/individual-blueprint-transparent.png" alt="" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process" id="process" aria-labelledby="process-title">
+    <div class="process__inner container">
+
+      <header class="section-head fade-up">
+        <p class="section-eyebrow">Процесс работы</p>
+        <h2 class="process__title" id="process-title">
+          Строительство ведётся с соблюдением контроля качества на каждом этапе
+        </h2>
+      </header>
+
+      <div class="process__stages">
+
+        <div class="stage-row fade-up">
+          <button class="stage-row__btn" aria-expanded="false">
+            <span class="stage-row__num">1 этап</span>
+            <span class="stage-row__time">1 день</span>
+            <span class="stage-row__desc">Обсудим вопросы и пожелания</span>
+            <span class="stage-row__arrow" aria-hidden="true"></span>
+          </button>
+          <div class="stage-row__body" aria-hidden="true">
+            <div class="stage-row__body-inner">
+              <div class="stage-body">
+                <p>Консультация по выбору материала строительства;<br />
+                   Подбор и проработка проекта, эскиза.<br />
+                   Предварительный расчёт строительства.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-row fade-up" style="--delay:.08s">
+          <button class="stage-row__btn" aria-expanded="false">
+            <span class="stage-row__num">2 этап</span>
+            <span class="stage-row__time">От 5 дней</span>
+            <span class="stage-row__desc">Разрабатываем проект и заключаем договор</span>
+            <span class="stage-row__arrow" aria-hidden="true"></span>
+          </button>
+          <div class="stage-row__body" aria-hidden="true">
+            <div class="stage-row__body-inner">
+              <div class="stage-body">
+                <p>Если нужен проект, выбираем из готовых или разрабатываем индивидуальный.</p>
+                <strong>В проекте:</strong>
+                <p>Схема планировочной организации с расположением дома, дополнительных построек, скважины, септика.</p>
+                <strong>В договоре:</strong>
+                <ul>
+                  <li>Строительная смета</li>
+                  <li>Материалы включены в стоимость</li>
+                  <li>Поэтапная оплата</li>
+                  <li>Гарантии</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-row fade-up" style="--delay:.16s">
+          <button class="stage-row__btn" aria-expanded="false">
+            <span class="stage-row__num">3 этап</span>
+            <span class="stage-row__time">От 30 дней</span>
+            <span class="stage-row__desc">Строим качественно с фотоотчётами</span>
+            <span class="stage-row__arrow" aria-hidden="true"></span>
+          </button>
+          <div class="stage-row__body" aria-hidden="true">
+            <div class="stage-row__body-inner">
+              <div class="stage-body">
+                <p>Используем выверенные технологии строительства с учётом современных изменений. Материалы получаем от лучших поставщиков без посредников.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-row fade-up" style="--delay:.24s">
+          <button class="stage-row__btn" aria-expanded="false">
+            <span class="stage-row__num">4 этап</span>
+            <span class="stage-row__time">От 30 дней</span>
+            <span class="stage-row__desc">Сдаём объект под ключ и дарим подарки</span>
+            <span class="stage-row__arrow" aria-hidden="true"></span>
+          </button>
+          <div class="stage-row__body" aria-hidden="true">
+            <div class="stage-row__body-inner">
+              <div class="stage-body">
+                <p>Проводим итоговый осмотр и вручаем документы.<br />
+                   По традиции дарим приятные подарки!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 9 — OZON SHOP BANNER ============ -->
+  <section class="shop" id="shop">
+    <div class="shop__inner">
+
+      <div class="shop__content">
+        <h2 class="shop__title fade-up">Переходите в&nbsp;наш магазин готовых изделий, строительных материалов от&nbsp;производителя со&nbsp;склада и&nbsp;под заказ</h2>
+
+        <nav class="shop__thumbs fade-up" style="--delay:.1s" aria-label="Категории магазина на Ozon">
+          <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/dom-i-sad-14500/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Дом и сад на Ozon">
+            <figure class="shop__thumb-figure">
+              <img src="assets/img/shop-home-garden.png" alt="" />
+              <figcaption>Дом и сад</figcaption>
+            </figure>
+          </a>
+          <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/stroitelstvo-i-remont-9700/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Ремонт на Ozon">
+            <figure class="shop__thumb-figure">
+              <img src="assets/img/shop-repair.png" alt="" />
+              <figcaption>Ремонт</figcaption>
+            </figure>
+          </a>
+          <a class="shop__thumb" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/kantselyarskie-tovary-18000/?__rr=1&amp;deny_category_prediction=true&amp;from=share&amp;from_global=true" target="_blank" rel="noopener" aria-label="Открыть категорию Канцелярия на Ozon">
+            <figure class="shop__thumb-figure">
+              <img src="assets/img/shop-stationery.png" alt="" />
+              <figcaption>Канцелярия</figcaption>
+            </figure>
+          </a>
+        </nav>
+
+        <a class="btn btn--solid shop__cta fade-up" style="--delay:.2s" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" target="_blank" rel="noopener">
+          Перейти на Озон <span class="btn__arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="shop__media" aria-hidden="true">
+        <img src="assets/img/shop-swing.png" alt="" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 10 — О КОМПАНИИ ============ -->
+  <section class="about" id="about">
+    <div class="about__inner container">
+
+      <div class="about__head">
+        <p class="section-eyebrow about__eyebrow fade-up">О компании</p>
+        <h2 class="about__title fade-up" style="--delay:.05s">Многопрофильная компания: строим от качелей до домов</h2>
+      </div>
+
+      <div class="about__facts">
+        <article class="about__fact about__fact--years fade-up" style="--delay:.08s">
+          <span class="about__years">18</span>
+          <p>Более 18 лет на рынке строительства</p>
+        </article>
+
+        <article class="about__fact fade-up" style="--delay:.12s">
+          <span class="about__icon about__icon--warehouse" aria-hidden="true"></span>
+          <p><strong>Собственный склад</strong> с качественными материалами</p>
+        </article>
+
+        <article class="about__fact fade-up" style="--delay:.16s">
+          <span class="about__icon about__icon--builders" aria-hidden="true"></span>
+          <p>Команда <strong>опытных строителей</strong>, знающих все тонкости и нюансы</p>
+        </article>
+
+        <article class="about__fact fade-up" style="--delay:.2s">
+          <span class="about__icon about__icon--support" aria-hidden="true"></span>
+          <p>Сопровождаем и консультируем <strong>на каждом этапе строительства</strong></p>
+        </article>
+
+        <article class="about__fact fade-up" style="--delay:.24s">
+          <span class="about__icon about__icon--suppliers" aria-hidden="true"></span>
+          <p>Напрямую сотрудничаем с <strong>проверенными поставщиками</strong></p>
+        </article>
+
+        <article class="about__fact fade-up" style="--delay:.28s">
+          <span class="about__icon about__icon--time" aria-hidden="true"></span>
+          <p>Ценим ваше время — <strong>организационные вопросы берём на себя</strong></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 11 — BANYA CTA ============ -->
+  <section class="banya" id="banya">
+    <div class="banya__inner">
+
+      <div class="banya__content">
+        <h2 class="banya__title fade-up">
+          Баня со скидкой <em class="banya__pct">10%</em> при заказе дома под ключ
+        </h2>
+        <p class="banya__sub fade-up" style="--delay:.06s">Оставьте заявку и получите смету строительства дома и бани.</p>
+
+        <form class="banya__form fade-up" style="--delay:.12s" novalidate>
+          <label class="lead-form__label" for="banya-phone">Ваш номер телефона</label>
+          <div class="banya__form-row">
+            <input class="lead-form__input lead-form__input--dark" id="banya-phone" type="tel" placeholder="+7(_ _ _) _ _ _ - _ _ - _ _" autocomplete="tel" />
+            <button class="btn btn--solid" type="submit">
+              Получить скидку <span class="btn__arrow" aria-hidden="true"></span>
+            </button>
+          </div>
+          <label class="lead-form__consent">
+            <input type="checkbox" />
+            <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
+          </label>
+        </form>
+      </div>
+
+      <div class="banya__media" aria-hidden="true">
+        <img src="assets/img/banya-interior.jpg" alt="" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 12 — ОТЗЫВЫ ============ -->
+  <section class="reviews" id="reviews">
+    <div class="reviews__inner container">
+
+      <div class="section-head">
+        <span class="section-eyebrow fade-up">Отзывы</span>
+        <h2 class="reviews__title fade-up" style="--delay:.06s">Посмотрите, что говорят клиенты, которые доверили строительство нам</h2>
+      </div>
+
+      <div class="reviews__carousel" aria-roledescription="карусель" aria-label="Отзывы клиентов" tabindex="0">
+      <div class="reviews__grid" data-review-index="1">
+
+        <article class="review-card fade-up">
+          <header class="review-card__head">
+            <span class="review-card__name">Татьяна</span>
+            <span class="review-card__stars" aria-label="Оценка 5 из 5">★★★★★</span>
+          </header>
+          <p class="review-card__text">Работа профессионалов! Сделали забор и ворота в короткие сроки, четко, быстро, красиво. Ребята молодцы всем советую!!</p>
+        </article>
+
+        <article class="review-card review-card--featured fade-up" style="--delay:.08s">
+          <header class="review-card__head">
+            <span class="review-card__name">Алена З.</span>
+            <span class="review-card__stars" aria-label="Оценка 5 из 5">★★★★★</span>
+          </header>
+          <div class="review-card__body">
+            <p class="review-card__text">Заказывала мангальную зону, к нашему мангалу. На выставке у них есть они, вот и взяли за основу, внося мои коррективы. Скинула фото с размерами, объяснила, что и как хочу. В процессе заказа стало понятно, что столешницы остается мало, так как наш мангал большой, доварили сбоку продолжение столешницы. Наварили крючки под совок и кочергу. Внизу добавили ещё опору, таким решением мы обеспечили дровник под мангалом. По финалу работы мне позвонили и я снова внесла свои доп пожелания 😊 без проблем приварили к ножкам крепежи, что бы мы могли посадить все это на анкера. Осталась доставка, за неё ценник не гнут, приехали втроем и установили... И это тоже не просто, нужно было её поднять и как шапку надеть на наш мангал. От заказа, до воплощения идеи справилась сама, компания настроена работать с вами, все решения по моему запросу принимались адекватно, диалог складывается легко. Я такая довольная!!!! Муж был на даче когда привезли и установили, тоже воскликнул, «Как тут и было!». Жарить ему. Мы рекомендуем однозначно</p>
+            <button class="review-card__expand" aria-expanded="false" aria-controls="review-alena-text">Развернуть</button>
+          </div>
+        </article>
+
+        <article class="review-card fade-up" style="--delay:.16s">
+          <header class="review-card__head">
+            <span class="review-card__name">Клиент</span>
+            <span class="review-card__stars" aria-label="Оценка 5 из 5">★★★★★</span>
+          </header>
+          <p class="review-card__text">Заказал ворота в гараж сделали отлично, меня всё устроило, рекомендую!!!</p>
+        </article>
+
+      </div>
+      </div>
+
+      <div class="reviews__nav" aria-label="Навигация по отзывам">
+        <button class="reviews__arrow reviews__arrow--prev" aria-label="Предыдущий">←</button>
+        <div class="reviews__dots" role="tablist" aria-label="Выбрать отзыв">
+          <button class="reviews__dot" type="button" role="tab" aria-label="Показать отзыв Татьяны" aria-selected="false" data-review-dot="0"></button>
+          <button class="reviews__dot is-active" type="button" role="tab" aria-label="Показать отзыв Алёны" aria-selected="true" data-review-dot="1"></button>
+          <button class="reviews__dot" type="button" role="tab" aria-label="Показать отзыв клиента" aria-selected="false" data-review-dot="2"></button>
+        </div>
+        <button class="reviews__arrow reviews__arrow--next" aria-label="Следующий">→</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SECTION 13 — ПАРТНЁРЫ ============ -->
+  <section class="partners" id="partners">
+    <div class="partners__inner container">
+      <p class="section-eyebrow fade-up">Партнеры</p>
+      <div class="partners__logos fade-up" style="--delay:.08s">
+        <img class="partners__logo" src="assets/img/logo-pik.png" alt="ПИК Строй" />
+        <img class="partners__logo" src="assets/img/logo-enisey.svg" alt="Ениcей" />
+        <img class="partners__logo" src="assets/img/logo-tehnonikol.jpg" alt="Техно Николь" />
+        <img class="partners__logo" src="assets/img/logo-metallprofil.png" alt="Металл Профиль" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ SECTION 14 — FAQ ============ -->
+  <section class="faq" id="faq">
+    <div class="faq__inner container">
+
+      <header class="section-head fade-up">
+        <p class="section-eyebrow">FAQ</p>
+        <h2 class="faq__title">Ответы на часто<br>задаваемые вопросы</h2>
+      </header>
+
+      <div class="faq__list">
+
+        <div class="faq-item is-open">
+          <button class="faq-item__btn" aria-expanded="true">
+            <span class="faq-item__num">01</span>
+            <span class="faq-item__q">Какие гарантии вы даете?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="false">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">По договору на обслуживание предоставляется расширенная гарантия на срок по договорённости. На используемые материалы гарантию даёт производитель. На некоторые материалы производители дают бессрочную гарантию.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">02</span>
+            <span class="faq-item__q">Достаточно ли опыта у компании?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">Да, наши строители с высшим и средним специальным образованием и опытом работы более 10 лет. Каждый год мы следим за новыми разработками и технологиями и внедряем в строительную практику инновации.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">03</span>
+            <span class="faq-item__q">Может ли заказчик сам предоставить материалы?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">Участие заказчика в выборе материала возможно. Об этом нужно будет сказать замерщику или нашему менеджеру по телефону до начала составления договора. Так как важно соблюдение технологии и целесообразности применения материалов.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">04</span>
+            <span class="faq-item__q">Сколько времени длится строительство дома?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">Это зависит от типов работ и услуг, и размера площади. В среднем строительство занимает около 3 месяцев.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">05</span>
+            <span class="faq-item__q">Где можно приобрести ваши готовые изделия?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">У нас есть интернет-магазин на Ozon, а также магазин по адресу: г. Железногорск, ул. Южная, 38А.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">06</span>
+            <span class="faq-item__q">Как осуществляется доставка?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">Наша компания осуществляет доставку в любой район г. Железногорска, а также во все прилегающие территории: Сосновоборск, Тартат, Берёзовка, Красноярск.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span class="faq-item__num">07</span>
+            <span class="faq-item__q">Как происходит оплата?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__body" aria-hidden="true">
+            <div class="faq-item__body-inner">
+              <p class="faq-item__answer">Оплата происходит поэтапно. Доступен наличный и безналичный формат.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 15 — КОНТАКТЫ ============ -->
+  <section class="contacts" id="contacts">
+    <div class="contacts__inner container">
+      <p class="section-eyebrow fade-up">Контакты</p>
+
+      <div class="contacts__grid">
+
+        <!-- Location card -->
+        <div class="contacts__map">
+          <iframe
+            class="contacts__map-frame"
+            src="https://yandex.ru/map-widget/v1/?text=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D1%80%D0%B0%D0%B9%2C%20%D0%B3.%20%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F%2038%D0%90&amp;z=16"
+            title="Карта: Красноярский край, г. Железногорск, ул. Южная 38А"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+          <a class="contacts__route" href="https://yandex.ru/maps/?text=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D1%80%D0%B0%D0%B9%2C%20%D0%B3.%20%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F%2038%D0%90" target="_blank" rel="noopener">
+            Построить маршрут <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <!-- Info column -->
+        <address class="contacts__info">
+
+          <div class="contacts__block fade-up">
+            <span class="contacts__label">Адрес</span>
+            <p class="contacts__value">Россия, Красноярский край, г. Железногорск<br>ул. Южная, 38А</p>
+          </div>
+
+          <div class="contacts__block fade-up" style="--delay:.06s">
+            <span class="contacts__label">Время работы</span>
+            <p class="contacts__value">пн–сб: 9:00–18:00<br>вс: Выходной</p>
+          </div>
+
+          <div class="contacts__block fade-up" style="--delay:.10s">
+            <span class="contacts__label">Телефон</span>
+            <a class="contacts__value contacts__phone" href="tel:+79138314644">+7 913 831 46 44</a>
+          </div>
+
+          <div class="contacts__block fade-up" style="--delay:.14s">
+            <span class="contacts__label">E-mail</span>
+            <a class="contacts__value contacts__link" href="mailto:dom-na-kamne@mail.ru">dom-na-kamne@mail.ru</a>
+          </div>
+
+          <div class="contacts__block fade-up" style="--delay:.18s">
+            <span class="contacts__label">Социальные сети</span>
+            <div class="contacts__socials">
+
+              <a class="contacts__social-icon contacts__social-icon--tg" href="https://t.me/domnakamne" target="_blank" rel="noopener" aria-label="Telegram">
+                <img src="assets/icons/social-telegram.svg" alt="" aria-hidden="true">
+              </a>
+
+              <span class="contacts__social-icon contacts__social-icon--max" aria-label="MAX">
+                <img src="assets/icons/social-max.svg" alt="" aria-hidden="true">
+              </span>
+
+              <a class="contacts__social-icon contacts__social-icon--wa" href="https://wa.me/79138314644" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <img src="assets/icons/social-whatsapp.svg?v=official-2" alt="" aria-hidden="true">
+              </a>
+
+              <a class="contacts__social-icon contacts__social-icon--ozon" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" target="_blank" rel="noopener" aria-label="OZON">
+                <img src="assets/icons/social-ozon.svg" alt="" aria-hidden="true">
+              </a>
+
+              <a class="contacts__social-icon contacts__social-icon--avito" href="https://www.avito.ru/brands/i70994095/all" target="_blank" rel="noopener" aria-label="Авито">
+                <img src="assets/icons/social-avito.svg" alt="" aria-hidden="true">
+              </a>
+
+            </div>
+          </div>
+
+        </address>
+      </div>
+    </div>
+
+    <button class="scroll-top-btn" aria-label="Наверх">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ============ PRE-FOOTER CTA ============ -->
+  <div class="prefooter">
+    <div class="prefooter__inner container">
+      <h2 class="prefooter__title">Дарим проект при&nbsp;заключении договора на&nbsp;строительство</h2>
+      <div class="prefooter__form-wrap">
+        <label class="lead-form__label" for="prefooter-phone">Ваш номер телефона</label>
+        <div class="lead-form__row">
+          <input type="tel" class="lead-form__input lead-form__input--dark" id="prefooter-phone" placeholder="+7(_ _ _) _ _ _ - _ _ - _ _" autocomplete="tel">
+          <button class="btn btn--solid prefooter__submit">Получить проект <span class="btn__arrow" aria-hidden="true"></span></button>
+        </div>
+        <label class="lead-form__consent">
+          <input type="checkbox">
+          <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__body container">
+
+      <!-- Company column -->
+      <div class="footer__company">
+        <a class="footer__logo" href="index.html">Дом на камне</a>
+        <p class="footer__tagline">Строительные работы под ключ, продажа материалов и готовых объектов.</p>
+        <a class="footer__ozon" href="https://www.ozon.ru/seller/dom-na-kamne-4017365/" target="_blank" rel="noopener" aria-label="Магазин на OZON">
+          <svg class="footer__ozon-logo" viewBox="0 0 485 106" aria-hidden="true" focusable="false">
+            <path fill="currentColor" fill-rule="nonzero" d="M56.485 80.751c12.543-1.595 22.67-11.723 24.266-24.266 2.338-18.4-13.207-33.946-31.608-31.607C36.6 26.472 26.472 36.6 24.878 49.143c-2.34 18.401 13.207 33.947 31.607 31.608zM58.203.267c24.717 2.448 44.71 22.441 47.158 47.16 3.308 33.401-24.533 61.242-57.936 57.934-24.717-2.448-44.71-22.44-47.157-47.158C-3.042 24.801 24.8-3.04 58.203.267zm75.497 2.09h77.314c2.935 0 4.603 3.36 2.83 5.698L160.358 78.62h41.907c7.638 0 13.653 6.95 12.067 14.87-1.163 5.807-6.608 9.774-12.531 9.774h-83.963c-2.908 0-4.561-3.328-2.805-5.645l53.527-70.618h-34.396c-5.923 0-11.368-3.966-12.531-9.774-1.586-7.92 4.429-14.87 12.067-14.87zm335.513.281c7.975-1.679 15 4.36 15 12.04V99.71c0 2.967-3.426 4.622-5.751 2.778l-66.694-52.91v41.386c0 7.68-7.025 13.718-15 12.04-5.72-1.203-9.644-6.526-9.644-12.368V5.911c0-2.967 3.426-4.623 5.75-2.779l66.696 52.912-.001-41.038c0-5.843 3.927-11.165 9.644-12.368zM295.56 0c40.83 0 73.932 23.64 73.932 52.8 0 29.16-33.101 52.8-73.932 52.8-40.832 0-73.933-23.64-73.933-52.8 0-29.16 33.1-52.8 73.933-52.8zm0 24.644c-28.21 0-49.288 14.865-49.288 28.156 0 13.291 21.078 28.156 49.288 28.156 28.209 0 49.287-14.865 49.287-28.156 0-13.29-21.078-28.156-49.287-28.156z"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Nav column 1: Services -->
+      <nav class="footer__nav-col" aria-label="Услуги — часть 1">
+        <a href="services/doma.html">Дома</a>
+        <a href="services/bani.html">Бани</a>
+        <a href="services/fundament.html">Фундамент</a>
+        <a href="services/krovlya.html">Кровля</a>
+        <a href="services/otdelka.html">Отделка</a>
+      </nav>
+
+      <!-- Nav column 2: Services continued -->
+      <nav class="footer__nav-col" aria-label="Услуги — часть 2">
+        <a href="services/garazhi.html">Гаражи</a>
+        <a href="services/besedki.html">Беседки</a>
+        <a href="services/fasady.html">Фасады</a>
+        <a href="services/inzheneriya.html">Инженерия</a>
+        <a href="services/zabory.html">Заборы и ворота</a>
+      </nav>
+
+      <!-- Nav column 3: Links -->
+      <nav class="footer__nav-col" aria-label="Разделы сайта">
+        <a href="#projects">Наши проекты</a>
+        <a href="#shop">Акции</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#about">О компании</a>
+      </nav>
+
+      <!-- Contacts column -->
+      <address class="footer__contacts">
+        <a href="tel:+79138314644">8 913 831 46 44</a>
+        <a href="mailto:dom-na-kamne@mail.ru">dom-na-kamne@mail.ru</a>
+        <span>г. Железногорск</span>
+        <span>ул. Южная, 38А</span>
+        <span class="footer__inn">ИНН 2452039776</span>
+      </address>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer__bottom container">
+      <span class="footer__copyright">© 2026 Строительство качественных домов в Красноярском крае</span>
+      <span class="footer__legal-link">Разработка сайта</span>
+      <a href="privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
+    </div>
+
+    <!-- Legal disclaimer -->
+    <p class="footer__disclaimer container">
+      Сайт носит исключительно информационный характер и не является публичной офертой, определяемой положениями №152-ФЗ ГК РФ. Для получения подробной информации о наличии, видах, характеристиках и стоимости услуг обращайтесь в офис продаж. Официальный сайт ООО «Дом на камне».
+    </p>
+  </footer>
+
+  <script src="cookies.js" defer></script>
+  <script src="sections.js?v=reviews-carousel-2" defer></script>
+  <script src="modal.js?v=phone-mask-3" defer></script>
+
+  <!-- ============ APPLICATION MODAL ============ -->
+  <div class="app-modal" id="appModal" role="dialog" aria-modal="true"
+       aria-labelledby="appModalTitle" hidden>
+
+    <div class="app-modal__backdrop" id="appModalBackdrop"></div>
+
+    <div class="app-modal__panel">
+
+      <button class="app-modal__close" id="appModalClose" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M1 1L15 15M15 1L1 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <h2 class="app-modal__title" id="appModalTitle">Получите бесплатную консультацию</h2>
+
+      <div class="app-modal__body">
+
+        <div class="app-modal__photo">
+          <img src="assets/img/house-small.jpg" alt="" loading="lazy">
+        </div>
+
+        <div class="app-modal__col">
+
+          <!-- ── Form state ── -->
+          <div class="app-modal__form-wrap" id="appModalFormWrap">
+            <form id="appModalForm" novalidate>
+
+              <fieldset class="app-modal__methods">
+                <legend class="app-modal__methods-label">Выберите удобный способ связи</legend>
+                <label class="app-modal__method">
+                  <input type="radio" name="contactMethod" value="phone" checked> Телефон
+                </label>
+                <label class="app-modal__method">
+                  <input type="radio" name="contactMethod" value="telegram"> Telegram
+                </label>
+                <label class="app-modal__method">
+                  <input type="radio" name="contactMethod" value="max"> Макс
+                </label>
+                <label class="app-modal__method">
+                  <input type="radio" name="contactMethod" value="whatsapp"> WhatsApp
+                </label>
+                <label class="app-modal__method">
+                  <input type="radio" name="contactMethod" value="email"> E-mail
+                </label>
+              </fieldset>
+
+              <div class="app-modal__fields" id="appModalFields"></div>
+
+              <button type="submit" class="app-modal__submit" id="appModalSubmit">
+                Отправить
+              </button>
+
+              <label class="app-modal__consent" id="appModalConsent">
+                <input type="checkbox" id="appModalConsentCheck">
+                <span class="app-modal__consent-text">Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
+              </label>
+
+            </form>
+          </div>
+
+          <!-- ── Success state ── -->
+          <div class="app-modal__success" id="appModalSuccess" hidden>
+            <p class="app-modal__success-text">
+              Ваша заявка успешно отправлена!<br>
+              Мы вам ответим в течение двух рабочих дней.
+            </p>
+            <button class="app-modal__success-btn" id="appModalSuccessBtn">Отлично</button>
+          </div>
+
+        </div><!-- /.app-modal__col -->
+      </div><!-- /.app-modal__body -->
+    </div><!-- /.app-modal__panel -->
+  </div><!-- /.app-modal -->
+
+  <!-- ============ COOKIES BANNER ============ -->
+  <div class="cookies-banner" id="cookiesBanner" role="dialog" aria-label="Уведомление о cookie" hidden>
+    <div class="cookies-banner__inner container">
+      <p class="cookies-banner__text">Оставаясь на сайте, вы соглашаетесь на обработку файлов cookie и пользовательских данных</p>
+      <button type="button" class="cookies-banner__button">Хорошо</button>
+    </div>
+  </div>
+
+</body>
+</html>

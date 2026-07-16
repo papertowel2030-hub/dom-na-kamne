@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Дом на камне — Design Tokens
+   Single source of truth. Values reflect what is actually used on the Figma
+   `website` frame (1440×11387, page «Сайт»), verified against the native-res
+   render in ../../_figma/desktop-full.png.
+
+   Design language (audited): flat, sharp-cornered, two-surface dark system.
+   - NO accent colour. NO rounded corners. NO drop shadows.
+   - Imported UI-kit variable remnants in the .fig (Material 3 / SDS / Purple,
+     incl. the crimson #f91155) are NOT part of this design — ignored on purpose.
+   ========================================================================== */
+
+:root {
+
+  /* --- Colour: the complete palette --------------------------------------
+     Only these hues appear on the website frame. There is no accent.
+     ---------------------------------------------------------------------- */
+  --color-green:      #2f3a2f;   /* olive — promo bands (individual/shop/banya/FAQ/final) */
+  --color-ink:        #2f3334;   /* charcoal — consultation band, footer, body text       */
+  --color-off-white:  #fafafa;   /* page background, text on dark                          */
+  --color-white:      #ffffff;   /* cards / open FAQ panel                                 */
+  --color-snow:       #f8f8f8;   /* alt light surface                                      */
+  --color-line:       #d9d9d9;   /* hairlines, dividers, image placeholders               */
+  --color-muted:      #6b6f6b;   /* eyebrows + secondary text on light                     */
+
+  /* --- Semantic surfaces & text ------------------------------------------
+     The design has TWO dark surfaces, not one. Use the right alias per band.
+     ---------------------------------------------------------------------- */
+  --bg:            var(--color-off-white);   /* page background          */
+  --surface-card:  var(--color-white);       /* light cards / open panel */
+  --surface-alt:   var(--color-snow);        /* alt light blocks         */
+  --surface-green: var(--color-green);       /* promo bands              */
+  --surface-ink:   var(--color-ink);         /* consultation + footer    */
+
+  --fg:            var(--color-ink);         /* primary text on light    */
+  --muted:         var(--color-muted);       /* eyebrows, captions       */
+  --on-dark:       var(--color-off-white);   /* text on dark surfaces    */
+  --on-dark-muted: rgba(250, 250, 250, .65); /* secondary text on dark   */
+  --line:          var(--color-line);        /* hairline borders         */
+  --line-on-dark:  rgba(250, 250, 250, .22); /* hairlines on dark        */
+
+  /* --- Typography: families ----------------------------------------------
+     Display = Neutral Face (headings, nav, eyebrows, footer links).
+     Body    = Manrope.
+     ---------------------------------------------------------------------- */
+  --font-display: "Neutral Face", "Arial Narrow", sans-serif;
+  --font-body:    "Manrope", system-ui, "Segoe UI", Roboto, sans-serif;
+
+  /* --- Typography: scale (px, exactly the Figma scale) -------------------- */
+  --fs-hero:  48px;   /* H1 hero                         */
+  --fs-h2:    36px;   /* section headings / band titles  */
+  --fs-h3:    32px;   /* sub-section titles              */
+  --fs-h4:    26px;   /* card titles, service links      */
+  --fs-lead:  24px;   /* lead text, contact values       */
+  --fs-body:  20px;   /* default body, nav               */
+  --fs-base:  16px;   /* dense body, list items          */
+  --fs-label: 14px;   /* eyebrows, form labels, captions */
+  --fs-xs:    12px;   /* fine print, consent             */
+
+  /* --- Typography: weights (Manrope) ------------------------------------- */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* --- Typography: line-height ------------------------------------------- */
+  --lh-tight:  1.05;   /* display headings */
+  --lh-snug:   1.2;
+  --lh-normal: 1.4;
+  --lh-loose:  1.55;   /* body copy        */
+
+  /* --- Typography: tracking --------------------------------------------- */
+  --tracking-eyebrow: .14em;   /* uppercase eyebrows */
+  --tracking-nav:     .04em;
+
+  /* --- Layout ------------------------------------------------------------ */
+  --container:     1440px;   /* design canvas width */
+  --gutter:        80px;     /* desktop side gutter */
+  --gutter-tablet: 40px;
+  --gutter-mobile: 20px;
+
+  /* --- Spacing scale (systematic 4px base) ------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;   /* major section rhythm */
+
+  /* --- Borders -----------------------------------------------------------
+     Design is 100% sharp. Radius is pinned to 0 as a token so the intent is
+     explicit and impossible to "patch" a stray corner onto.
+     ---------------------------------------------------------------------- */
+  --radius: 0;
+  --border-hair: 1px solid var(--line);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease:     cubic-bezier(.2, .8, .2, 1);
+  --dur-fast: .18s;
+  --dur:      .28s;
+  --dur-slow: .45s;
+
+  /* --- Z-index ----------------------------------------------------------- */
+  --z-header:  50;
+  --z-overlay: 90;
+  --z-modal:   100;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-hero: 34px;
+    --fs-h2:   26px;
+    --fs-h3:   22px;
+    --fs-h4:   22px;
+    --fs-lead: 18px;
+    --fs-body: 16px;
+    --gutter:  var(--gutter-mobile);
+  }
+}

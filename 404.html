@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Страница не найдена | Дом на камне</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="design-system/fonts.css" />
+  <link rel="stylesheet" href="design-system/tokens.css" />
+  <link rel="stylesheet" href="styles.css" />    <!-- .logo, .btn, .btn__arrow, .container -->
+  <link rel="stylesheet" href="modal.css" />
+
+  <style>
+    /* ── Page shell ──────────────────────────────────────────── */
+    body {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    /* ── Standalone header (white bg) ────────────────────────── */
+    .header-404 {
+      border-bottom: 1px solid var(--line);
+      padding-inline: var(--gutter);
+    }
+    .header-404__inner {
+      max-width: var(--container);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      height: 68px;
+    }
+
+    /* Logo reuses .logo from styles.css; override white color for light bg */
+    .header-404 .logo { color: var(--fg); }
+
+    .header-404__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .header-404__nav a {
+      font-family: var(--font-display);
+      font-size: var(--fs-base);
+      letter-spacing: .06em;
+      color: var(--muted);
+      padding-bottom: 2px;
+      transition: color var(--dur) var(--ease);
+    }
+    .header-404__nav a:hover { color: var(--fg); }
+
+    /* Outline button for light bg — same as sections.css .btn--outline */
+    .btn--outline {
+      color: var(--fg);
+      background: transparent;
+      border: 1px solid var(--fg);
+      font-weight: var(--fw-medium);
+    }
+    .btn--outline:hover {
+      background: var(--fg);
+      color: var(--on-dark);
+    }
+
+    /* ── 404 content ─────────────────────────────────────────── */
+    .page-404 {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-10) var(--gutter);
+    }
+    .page-404__inner {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .page-404__number {
+      font-family: var(--font-display);
+      font-size: clamp(120px, 16vw, 220px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0;
+    }
+    .page-404__aside {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-5);
+    }
+    .page-404__message {
+      font-family: var(--font-body);
+      font-size: var(--fs-lead);
+      color: var(--muted);
+      margin: 0;
+      line-height: var(--lh-normal);
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .header-404__nav,
+      .header-404 .btn { display: none; }
+
+      .header-404__inner { height: 68px; }
+      .header-404 .logo { font-size: 20px; }
+      .header-404__mobile-menu { display: grid !important; width: 42px; height: 42px; place-items: center; }
+      .header-404__mobile-menu span,
+      .header-404__mobile-menu span::before,
+      .header-404__mobile-menu span::after { display: block; width: 20px; height: 1px; background: var(--fg); }
+      .header-404__mobile-menu span { position: relative; }
+      .header-404__mobile-menu span::before,
+      .header-404__mobile-menu span::after { content: ""; position: absolute; left: 0; }
+      .header-404__mobile-menu span::before { top: -6px; }
+      .header-404__mobile-menu span::after { top: 6px; }
+
+      .page-404__inner {
+        flex-direction: column;
+        gap: var(--space-7);
+        text-align: center;
+      }
+      .page-404__number { font-size: clamp(100px, 30vw, 150px); }
+      .page-404__aside  { align-items: center; }
+    }
+
+    .header-404__mobile-menu { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
+  <header class="header-404">
+    <div class="header-404__inner">
+
+      <a class="logo" href="/">Дом на камне</a>
+
+      <nav class="header-404__nav" aria-label="Главное меню">
+        <a href="/#services">Услуги</a>
+        <a href="/#projects">Проекты</a>
+        <a href="/#shop">Магазин</a>
+        <a href="/#contacts">Контакты</a>
+        <a href="/#about">О компании</a>
+      </nav>
+
+      <a class="btn btn--outline" href="#" data-open-modal="app">
+        Получить консультацию <span class="btn__arrow" aria-hidden="true"></span>
+      </a>
+      <a class="header-404__mobile-menu" href="/#services" aria-label="Перейти к услугам"><span aria-hidden="true"></span></a>
+
+    </div>
+  </header>
+
+  <!-- ═══ 404 CONTENT ══════════════════════════════════════════ -->
+  <main class="page-404">
+    <div class="page-404__inner">
+
+      <p class="page-404__number" aria-hidden="true">404</p>
+
+      <div class="page-404__aside">
+        <p class="page-404__message">Произошла ошибка...</p>
+        <a class="btn btn--outline" href="/">
+          На главную <span class="btn__arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══ APPLICATION MODAL ════════════════════════════════════ -->
+  <div class="app-modal" id="appModal" role="dialog" aria-modal="true"
+       aria-labelledby="appModalTitle" hidden>
+
+    <div class="app-modal__backdrop" id="appModalBackdrop"></div>
+
+    <div class="app-modal__panel">
+
+      <button class="app-modal__close" id="appModalClose" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M1 1L15 15M15 1L1 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <h2 class="app-modal__title" id="appModalTitle">Получите бесплатную консультацию</h2>
+
+      <div class="app-modal__body">
+        <div class="app-modal__photo">
+          <img src="assets/img/house-small.jpg" alt="" loading="lazy">
+        </div>
+
+        <div class="app-modal__col">
+          <div class="app-modal__form-wrap" id="appModalFormWrap">
+            <form id="appModalForm" novalidate>
+              <fieldset class="app-modal__methods">
+                <legend class="app-modal__methods-label">Выберите удобный способ связи</legend>
+                <label class="app-modal__method"><input type="radio" name="contactMethod" value="phone" checked> Телефон</label>
+                <label class="app-modal__method"><input type="radio" name="contactMethod" value="telegram"> Telegram</label>
+                <label class="app-modal__method"><input type="radio" name="contactMethod" value="max"> Макс</label>
+                <label class="app-modal__method"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
+                <label class="app-modal__method"><input type="radio" name="contactMethod" value="email"> E-mail</label>
+              </fieldset>
+              <div class="app-modal__fields" id="appModalFields"></div>
+              <button type="submit" class="app-modal__submit" id="appModalSubmit">Отправить</button>
+              <label class="app-modal__consent" id="appModalConsent">
+                <input type="checkbox" id="appModalConsentCheck">
+                <span class="app-modal__consent-text">Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработки персональных данных</span>
+              </label>
+            </form>
+          </div>
+
+          <div class="app-modal__success" id="appModalSuccess" hidden>
+            <p class="app-modal__success-text">
+              Ваша заявка успешно отправлена!<br>
+              Мы вам ответим в течение двух рабочих дней.
+            </p>
+            <button class="app-modal__success-btn" id="appModalSuccessBtn">Отлично</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="modal.js?v=phone-mask-3" defer></script>
+</body>
+</html>

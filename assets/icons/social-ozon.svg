@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" role="img" aria-label="Ozon">
+  <defs><clipPath id="c"><circle cx="28" cy="28" r="28"/></clipPath></defs>
+  <g clip-path="url(#c)" transform="rotate(-35 28 28)">
+    <rect x="-18" y="-12" width="92" height="80" fill="#005BFF"/>
+    <rect x="-14" y="-10" width="11" height="86" fill="#F91155"/>
+    <rect x="8" y="-10" width="11" height="86" fill="#F91155"/>
+    <rect x="30" y="-10" width="11" height="86" fill="#F91155"/>
+    <rect x="52" y="-10" width="11" height="86" fill="#F91155"/>
+  </g>
+  <text x="27.8" y="33" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="15" font-style="italic" font-weight="800" text-anchor="middle" letter-spacing="-1" transform="rotate(-9 28 28)">OZON</text>
+</svg>
