@@ -1,0 +1,493 @@
+/* ==========================================================================
+   Дом на камне — Services section (prototype)
+   Consumes ../design-system/tokens.css + fonts.css. No new global tokens.
+   Interaction: hover/focus a service → an SVG leader line draws itself to the
+   matching part of the isometric house; the rest of the list dims away.
+   ========================================================================== */
+
+/* ---- Local reset (standalone page) -------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+ul { list-style: none; margin: 0; padding: 0; }
+a  { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ==========================================================================
+   SECTION SHELL
+   ========================================================================== */
+.services {
+  position: relative;
+  padding-block: clamp(64px, 9vh, 128px);
+  /* whisper-soft vignette so the cream surface has depth without a visible band */
+  background:
+    radial-gradient(120% 80% at 50% 38%, #ffffff 0%, var(--bg) 62%);
+  overflow: hidden;
+}
+
+/* ---- Head: eyebrow (left) + headline (right) ---------------------------- */
+.services__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: clamp(24px, 4vh, 56px);
+}
+
+.services__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  width: 180px;
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.services__title {
+  margin: 0;
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(26px, 3.1vw, var(--fs-h2));
+  line-height: 1.12;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+/* ==========================================================================
+   STAGE — left rail / house / right rail
+   ========================================================================== */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(0, 660px) minmax(180px, 1fr);
+  align-items: center;
+  column-gap: clamp(16px, 3vw, 56px);
+}
+
+/* House ------------------------------------------------------------------- */
+.stage__house {
+  position: relative;
+  margin: 0;
+  z-index: 1;            /* house sits at the base */
+}
+.stage__house img {
+  width: 100%;
+  height: auto;
+  /* soft contact shadow so the cut-out render is grounded on the cream */
+  filter: drop-shadow(0 26px 26px rgba(28, 30, 26, .22));
+  transition: filter var(--dur-slow) var(--ease);
+}
+/* spotlight veil — dims the whole house EXCEPT the anchor point of the
+   active service. --spot-x/y are set by JS on activate() so the transparent
+   hole tracks whichever part of the house is being pointed to. */
+.stage__house::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    transparent           0%,
+    transparent           12%,
+    rgba(250,250,250,.82) 46%,
+    var(--bg)             90%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+.stage.is-focused .stage__house::after { opacity: 1; }
+.stage.is-focused .stage__house img { filter: drop-shadow(0 26px 26px rgba(28,30,26,.14)) saturate(.88); }
+
+/* Service rails ----------------------------------------------------------- */
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.6vh, 30px);
+  z-index: 5;            /* labels stay on top → always readable, lines tuck under */
+  position: relative;
+}
+.col--right { align-items: flex-end; text-align: right; }
+
+.service__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .7em;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.7vw, var(--fs-h4));
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--fg);
+  line-height: 1;
+  transition: color var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+.col--right .service__link { flex-direction: row-reverse; }
+
+.service__label {
+  position: relative;
+  white-space: nowrap;
+}
+/* animated underline that grows from the house-facing edge */
+.service__label::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 1.5px;
+  background: var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.col--right .service__label::after { transform-origin: right center; }
+
+.service__arrow {
+  font-size: .82em;
+  color: var(--muted);
+  transition: transform var(--dur) var(--ease),
+              color var(--dur) var(--ease);
+}
+
+/* ---- Interaction states ------------------------------------------------- */
+.service {
+  transition: opacity var(--dur) var(--ease),
+              filter var(--dur) var(--ease);
+}
+.col--left  .service__link { transform-origin: left center; }
+.col--right .service__link { transform-origin: right center; }
+
+/* dim AND defocus the field while one service is in focus → exclusive spotlight */
+.stage.is-focused .service:not(.is-on) {
+  opacity: .26;
+  filter: blur(1.2px);
+}
+
+.service.is-on .service__link {
+  color: var(--color-ink);
+  transform: scale(1.07);          /* the focused label grows toward the eye */
+}
+.service.is-on .service__label::after { transform: scaleX(1); }
+.service.is-on .service__arrow {
+  color: var(--color-ink);
+  transform: translate(3px, -3px);
+}
+
+/* keyboard parity */
+.service__link:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
+
+/* ==========================================================================
+   LEADER LINES (SVG overlay)
+   ========================================================================== */
+.leaders {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 3;            /* leader lines + nodes draw OVER the house veil */
+}
+
+.leader { opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
+.leader.is-active { opacity: 1; }
+
+/* off-white casing under the ink line → reads over both cream and dark house */
+.leader__casing {
+  fill: none;
+  stroke: var(--color-off-white);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.leader__line {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.leader.is-active .leader__casing,
+.leader.is-active .leader__line {
+  transition: stroke-dashoffset var(--dur-slow) var(--ease);
+  stroke-dashoffset: 0;
+}
+
+/* node at the target: expanding ping + static ring + dot */
+.leader__ping,
+.leader__ring,
+.leader__dot { transform-box: fill-box; transform-origin: center; }
+
+.leader__ping {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.4;
+  r: 6;
+  opacity: 0;
+}
+.leader__ring {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  r: 0;
+}
+.leader__dot {
+  fill: var(--color-ink);
+  stroke: var(--color-off-white);
+  stroke-width: 1.5;
+  r: 0;
+}
+
+.leader.is-active .leader__ring {
+  r: 9;
+  transition: r var(--dur) var(--ease) calc(var(--dur-slow) * .7);
+}
+.leader.is-active .leader__dot {
+  r: 3.2;
+  transition: r var(--dur-fast) var(--ease) calc(var(--dur-slow) * .8);
+}
+.leader.is-active .leader__ping {
+  animation: ping 1.9s ease-out calc(var(--dur-slow) + .1s) infinite;
+}
+
+@keyframes ping {
+  0%   { r: 6;  opacity: .55; }
+  70%  { r: 20; opacity: 0; }
+  100% { r: 20; opacity: 0; }
+}
+
+/* ==========================================================================
+   PREVIEW CARD — for intangible services (Отделка / Инженерия) that have no
+   single point on the house: a framed photo blooms over the dimmed scene.
+   ========================================================================== */
+.preview {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(200px, 19vw, 280px);
+  margin: 0;
+  z-index: 4;            /* above the house veil + lines, below the labels */
+  background: var(--surface-card);
+  padding: 8px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 50px -12px rgba(28, 30, 26, .35);
+  opacity: 0;
+  transform: translate(-50%, -46%) scale(.92);
+  transform-origin: center;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease),
+              transform var(--dur-slow) var(--ease);
+}
+.preview.is-shown {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.preview img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.preview figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4px 2px;
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.preview__mark { color: var(--muted); }
+
+
+/* ==========================================================================
+   ENTRANCE REVEAL
+   ========================================================================== */
+.services[data-reveal] .stage__house,
+.services[data-reveal] .service,
+.services[data-reveal] .services__head > * {
+  opacity: 1;
+  transform: none;
+}
+.services.is-in .stage__house,
+.services.is-in .service,
+.services.is-in .services__head > * {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.services.is-in .services__head > :nth-child(2) { transition-delay: .06s; }
+.services.is-in .stage__house { transition-delay: .12s; }
+.services.is-in .col--left  .service:nth-child(1) { transition-delay: .20s; }
+.services.is-in .col--left  .service:nth-child(2) { transition-delay: .26s; }
+.services.is-in .col--left  .service:nth-child(3) { transition-delay: .32s; }
+.services.is-in .col--left  .service:nth-child(4) { transition-delay: .38s; }
+.services.is-in .col--left  .service:nth-child(5) { transition-delay: .44s; }
+.services.is-in .col--right .service:nth-child(1) { transition-delay: .20s; }
+.services.is-in .col--right .service:nth-child(2) { transition-delay: .26s; }
+.services.is-in .col--right .service:nth-child(3) { transition-delay: .32s; }
+.services.is-in .col--right .service:nth-child(4) { transition-delay: .38s; }
+.services.is-in .col--right .service:nth-child(5) { transition-delay: .44s; }
+
+/* ==========================================================================
+   RESPONSIVE — collapse to a stacked, line-free layout on narrow viewports
+   (the leader interaction is a desktop/pointer experience)
+   ========================================================================== */
+@media (max-width: 980px) {
+  .services {
+    padding-block: clamp(56px, 9vh, 88px);
+  }
+
+  .services__head {
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: clamp(28px, 7vw, 46px);
+  }
+
+  .services__title {
+    max-width: 650px;
+    text-align: left;
+  }
+
+  .stage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "house house"
+      "left  right";
+    row-gap: clamp(20px, 5vw, 40px);
+  }
+  .stage__house { grid-area: house; max-width: 560px; margin-inline: auto; }
+  .col--left  { grid-area: left; }
+  .col--right { grid-area: right; }
+
+  .leaders,
+  .preview { display: none; }
+  .stage::after { display: none; }
+  .stage.is-focused .stage__house::after { opacity: 0; }   /* no veil on mobile */
+  .stage.is-focused .service:not(.is-on),
+  .stage.is-focused .service { opacity: 1; filter: none; }  /* no spotlight without lines */
+
+  .service,
+  .service.is-on {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .service.is-on .service__link {
+    transform: none;
+  }
+
+  .service__link {
+    color: var(--fg);
+  }
+}
+
+@media (max-width: 520px) {
+  .services {
+    background:
+      radial-gradient(130% 58% at 50% 26%, #ffffff 0%, var(--bg) 70%);
+  }
+
+  .services__eyebrow {
+    display: none;
+  }
+
+  .services__title {
+    font-size: clamp(30px, 9.5vw, 42px);
+    line-height: 1.05;
+  }
+
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-areas: "house" "left" "right";
+    row-gap: var(--space-3);
+  }
+
+  .stage__house {
+    max-width: 380px;
+    margin-bottom: var(--space-5);
+  }
+
+  .stage__house img {
+    filter: drop-shadow(0 18px 18px rgba(28, 30, 26, .12));
+  }
+
+  .col,
+  .col--right {
+    align-items: stretch;
+    gap: 0;
+    text-align: left;
+  }
+
+  .col--right {
+    margin-top: -1px;
+  }
+
+  .service {
+    border-top: var(--border-hair);
+  }
+
+  .col--right .service:last-child {
+    border-bottom: var(--border-hair);
+  }
+
+  .service__link,
+  .col--right .service__link {
+    width: 100%;
+    min-height: 54px;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-block: 15px;
+    color: var(--fg);
+    transform: none;
+  }
+
+  .service__label {
+    white-space: normal;
+  }
+
+  .service__label::after {
+    display: none;
+  }
+
+  .service__arrow {
+    color: var(--surface-green);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — keep the function, drop the motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .leader.is-active .leader__casing,
+  .leader.is-active .leader__line { transition: none; stroke-dashoffset: 0; }
+  .leader.is-active .leader__ping { animation: none; }
+  .leader.is-active .leader__ring { transition: none; r: 9; }
+  .leader.is-active .leader__dot  { transition: none; r: 3.2; }
+  .preview { transition: none; }
+  .services.is-in .stage__house,
+  .services.is-in .service,
+  .services.is-in .services__head > * { transition: none; }
+  .services[data-reveal] .stage__house,
+  .services[data-reveal] .service,
+  .services[data-reveal] .services__head > * { opacity: 1; transform: none; }
+}
