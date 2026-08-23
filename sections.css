@@ -1119,7 +1119,13 @@
   }
 }
 
-.shop__cta {
+/* Two store CTAs share one row: Ozon (primary) + Яндекс Маркет (secondary).
+   Positioning lives on the wrapper so the responsive margin-top below has a
+   single source of truth; .shop__cta keeps only button-level sizing. */
+.shop__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   align-self: flex-start;
   margin-top: 54px;
 }
@@ -1639,7 +1645,7 @@
     font-size: var(--fs-xs);
   }
 
-  .shop__cta {
+  .shop__ctas {
     margin-top: var(--space-6);
   }
 
@@ -2664,7 +2670,7 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 
   .shop__content { padding-top: 48px; padding-bottom: 40px; }
   .shop__title { font-size: clamp(26px, 7.4vw, 31px); line-height: 1.24; }
-  .shop__cta { margin-top: 32px; }
+  .shop__ctas { margin-top: 32px; }
 
   .about { padding-block: 48px; }
   .about__fact { gap: 18px; }
@@ -2746,7 +2752,7 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     filter: brightness(1.05);
   }
   .shop__thumb:active img { transform: scale(1.04); }
-  .shop__cta { margin-top: 28px; }
+  .shop__ctas { margin-top: 28px; }
   .shop__media { display: none; }
 
   /* The desktop grid places photography beside the copy.  On phones the
@@ -2899,8 +2905,8 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     gap: 12px;
     padding-inline: 24px;
     justify-content: center;
-    margin-top: clamp(26px, 5vw, 34px);
   }
+  .shop__ctas { margin-top: clamp(26px, 5vw, 34px); }
 }
 
 @media (max-width: 540px) {

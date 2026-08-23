@@ -2,7 +2,6 @@
   "use strict";
 
   var img = "../assets/img/";
-  var ref = "../assets/img/Services/services/";
 
   window.DNK_SERVICE_ORDER = [
     "doma",
@@ -21,11 +20,10 @@
     doma: {
       navTitle: "Дома",
       metaTitle: "Дома под ключ",
-      referenceImage: ref + "houces.png",
       cards: [
         {
           title: "Каркасные дома",
-          image: img + "house-frame.jpg",
+          image: img + "house-frame.webp",
           imageAlt: "Каркасный дом",
           bullets: [
             "Короткие сроки строительства",
@@ -36,7 +34,7 @@
         },
         {
           title: "Дома из керамических блоков",
-          image: img + "house-keramoblok.jpg",
+          image: img + "house-keramoblok.webp",
           imageAlt: "Дом из керамических блоков",
           bullets: [
             "Прочные и долговечные",
@@ -47,7 +45,7 @@
         },
         {
           title: "Дома из теплоблоков",
-          image: img + "house-teploblok.jpg",
+          image: img + "house-teploblok.webp",
           imageAlt: "Дом из теплоблоков",
           bullets: [
             "Короткие сроки строительства",
@@ -58,7 +56,7 @@
         },
         {
           title: "Дома из бетонных блоков",
-          image: img + "house-beton.jpg",
+          image: img + "house-beton.webp",
           imageAlt: "Дом из бетонных блоков",
           bullets: [
             "Прочные и долговечные",
@@ -69,7 +67,7 @@
         },
         {
           title: "Комбинированные дома (блоки и каркас)",
-          image: img + "house-combined.jpg",
+          image: img + "house-combined.webp",
           imageAlt: "Комбинированный дом из блоков и каркаса",
           bullets: [
             "Гибкий дизайн проекта",
@@ -82,7 +80,7 @@
       promo: {
         title: "Баня со скидкой 10% при заказе дома под ключ",
         text: "Оставьте заявку и получите смету строительства дома и бани.",
-        image: img + "banya-interior.jpg",
+        image: img + "banya-interior.webp",
         imageAlt: "Интерьер бани из дерева",
         ctaLabel: "Получить скидку"
       }
@@ -91,11 +89,10 @@
     bani: {
       navTitle: "Бани",
       metaTitle: "Бани под ключ",
-      referenceImage: ref + "banya.png",
       cards: [
         {
           title: "Каркасные бани",
-          image: img + "banya-frame.jpg",
+          image: img + "banya-frame.webp",
           imageAlt: "Каркасная баня",
           bullets: [
             "Протапливается за 40 минут",
@@ -107,7 +104,7 @@
         },
         {
           title: "Бани из профилированного бруса",
-          image: img + "banya-brus.jpg",
+          image: img + "banya-brus.webp",
           imageAlt: "Баня из профилированного бруса",
           bullets: [
             "Протапливается за 1.5-2 часа",
@@ -122,11 +119,10 @@
     garazhi: {
       navTitle: "Гаражи",
       metaTitle: "Гаражи под ключ",
-      referenceImage: ref + "garage.png",
       cards: [
         {
           title: "Гаражи под ключ",
-          image: img + "garage.jpg",
+          image: img + "garage.webp",
           imageAlt: "Гараж на загородном участке",
           bullets: [
             "Строим гаражи на 1, 2 или 3 машиноместа",
@@ -140,13 +136,12 @@
     besedki: {
       navTitle: "Беседки",
       metaTitle: "Беседки и мангальные зоны",
-      referenceImage: ref + "summerhouces.png",
       cards: [
         {
           title: "Беседки и мангальные зоны под ключ",
           images: [
-            img + "service-cards/besedki-summerhouse.png",
-            img + "mangal-zone.jpg"
+            img + "service-cards/besedki-summerhouse.webp",
+            img + "mangal-zone.webp"
           ],
           imageAlt: "Беседка и мангальная зона",
           bullets: [
@@ -161,13 +156,12 @@
     zabory: {
       navTitle: "Заборы",
       metaTitle: "Заборы и ворота",
-      referenceImage: ref + "fence.png",
       cards: [
         {
           title: "Заборы",
           images: [
-            img + "fence-wood.jpg",
-            img + "fence-metal.jpg"
+            img + "fence-wood.webp",
+            img + "fence-metal.webp"
           ],
           imageAlt: "Забор на участке",
           bullets: [
@@ -179,7 +173,7 @@
         },
         {
           title: "Откатные ворота",
-          image: img + "gates.jpg",
+          image: img + "gates.webp",
           imageAlt: "Откатные ворота",
           bullets: [
             "Возможность установки электропривода и пульта ДУ",
@@ -193,14 +187,13 @@
     krovlya: {
       navTitle: "Кровля",
       metaTitle: "Кровля",
-      referenceImage: ref + "roof.png",
       cards: [
         {
           title: "Кровля",
           intro: "Мы предлагаем:",
           images: [
-            img + "roof-1.jpg",
-            img + "roof-2.jpg"
+            img + "roof-1.webp",
+            img + "roof-2.webp"
           ],
           imageAlt: "Кровельные работы",
           bullets: [
@@ -216,11 +209,10 @@
     fundament: {
       navTitle: "Фундамент",
       metaTitle: "Фундаменты",
-      referenceImage: ref + "foundation.png",
       cards: [
         {
           title: "Свайный фундамент",
-          image: img + "foundation-pile-2.jpg",
+          image: img + "foundation-pile-2.webp",
           imageAlt: "Свайный фундамент",
           bullets: [
             "Экономичный",
@@ -230,7 +222,7 @@
         },
         {
           title: "Плиточный фундамент",
-          image: img + "foundation-tile.jpg",
+          image: img + "foundation-tile.webp",
           imageAlt: "Плиточный фундамент",
           bullets: [
             "Высокая несущая способность",
@@ -241,7 +233,7 @@
         },
         {
           title: "Монолитная плита",
-          image: img + "foundation-slab.jpg",
+          image: img + "foundation-slab.webp",
           imageAlt: "Монолитная плита",
           bullets: [
             "Выдерживает любые нагрузки",
@@ -252,7 +244,7 @@
         },
         {
           title: "Шведская плита (УШП)",
-          image: img + "foundation-ushp.jpg",
+          image: img + "foundation-ushp.webp",
           imageAlt: "Шведская плита с инженерными коммуникациями",
           bullets: [
             "Энергоэффективна",
@@ -266,15 +258,14 @@
     fasady: {
       navTitle: "Фасады",
       metaTitle: "Фасады под ключ",
-      referenceImage: ref + "front.png",
       cards: [
         {
           title: "Фасады под ключ",
           intro: "Мы предлагаем:",
           images: [
-            img + "facade-1.jpg",
-            img + "facade-2.jpg",
-            img + "facade-3.jpg"
+            img + "facade-1.webp",
+            img + "facade-2.webp",
+            img + "facade-3.webp"
           ],
           imageAlt: "Фасад частного дома",
           bullets: [
@@ -291,14 +282,13 @@
     otdelka: {
       navTitle: "Отделка",
       metaTitle: "Отделочные работы",
-      referenceImage: ref + "finishing.png",
       cards: [
         {
           title: "Отделочные работы",
           intro: "Мы предлагаем:",
           images: [
-            img + "service-cards/finishing-floor.png",
-            img + "service-cards/finishing-shower.png"
+            img + "service-cards/finishing-floor.webp",
+            img + "service-cards/finishing-shower.webp"
           ],
           imageAlt: "Внутренняя отделка помещения",
           bullets: [
@@ -314,14 +304,13 @@
     inzheneriya: {
       navTitle: "Инженерия",
       metaTitle: "Инженерные сети",
-      referenceImage: ref + "engineering.png",
       cards: [
         {
           title: "Инженерные сети",
           intro: "Мы предлагаем:",
           images: [
-            img + "engineering-2.jpg",
-            img + "engineering-1.jpg"
+            img + "engineering-2.webp",
+            img + "engineering-1.webp"
           ],
           imageAlt: "Инженерные системы в доме",
           bullets: [

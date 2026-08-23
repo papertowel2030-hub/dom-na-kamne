@@ -14,7 +14,10 @@ SITE-PLAN.md
 assets/img/*
 !assets/img/*.webp
 !assets/img/og-image.jpg
-assets/img/hero-main.webp
+# service-cards/ needs an explicit un-ignore: git cannot re-include a file
+# whose parent directory is excluded by `assets/img/*`.
+!assets/img/service-cards/
+!assets/img/service-cards/*.webp
 
 # Services prototype page (services.css/services.js in that folder ARE used)
 services-section/index.html

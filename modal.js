@@ -200,7 +200,7 @@
       inp.type         = 'email';
       inp.id           = 'appModalEmail';
       inp.className    = 'app-modal__input';
-      inp.placeholder  = 'email@yandex.ru';
+      inp.placeholder  = 'example@mail.ru';
       inp.autocomplete = 'email';
 
       const err = make('span', 'app-modal__field-error', 'Некорректный адрес почты');

@@ -34,7 +34,7 @@
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=phone-ui-2";
+      script.src = "../modal.js?v=webp-market-1";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -60,7 +60,7 @@
         '<h2 class="app-modal__title" id="appModalTitle">Получите бесплатную консультацию</h2>' +
         '<div class="app-modal__body">' +
           '<div class="app-modal__photo">' +
-            '<img src="../assets/img/house-small.jpg" alt="" loading="lazy">' +
+            '<img src="../assets/img/house-small.webp" alt="" loading="lazy">' +
           '</div>' +
           '<div class="app-modal__col">' +
             '<div class="app-modal__form-wrap" id="appModalFormWrap">' +
@@ -186,6 +186,7 @@
     appendSocial("a", "https://t.me/domnakamne", "../assets/icons/social-telegram.svg", "Telegram");
     appendSocial("span", "", "../assets/icons/social-max.svg", "MAX");
     appendSocial("a", "https://www.ozon.ru/seller/dom-na-kamne-4017365/", "../assets/icons/social-ozon.svg", "Ozon");
+    appendSocial("a", "https://market.yandex.ru/cc/ALhct3", "../assets/icons/social-yandex-market.svg", "Яндекс Маркет");
     appendSocial("a", "https://www.avito.ru/brands/i70994095/all", "../assets/icons/social-avito.svg", "Авито");
     contacts.appendChild(socials);
 
