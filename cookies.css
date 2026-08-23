@@ -1,0 +1,81 @@
+/* ==========================================================================
+   COOKIES BANNER — standalone
+   --------------------------------------------------------------------------
+   These rules are an exact copy of the cookies-banner block in sections.css.
+   They exist separately because 404.html and services/*.html do not load
+   sections.css. No page loads both files, so the selectors never collide:
+     sections.css  → index.html, privacy.html
+     cookies.css   → 404.html, services/*.html
+   Keep the two blocks in sync if the banner design changes.
+   ========================================================================== */
+.cookies-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  background: var(--surface-green);
+  color: var(--on-dark);
+  padding: clamp(16px, 2vw, 24px) 0;
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, .12);
+}
+
+.cookies-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.cookies-banner__text {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: var(--lh-snug);
+  flex: 1;
+}
+
+.cookies-banner__button {
+  appearance: none;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 1px solid var(--on-dark);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  color: var(--on-dark);
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+  white-space: nowrap;
+}
+
+.cookies-banner__button:hover {
+  background: var(--on-dark);
+  color: var(--surface-green);
+}
+
+@media (max-width: 768px) {
+  .cookies-banner__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .cookies-banner__button {
+    width: 100%;
+  }
+}
+
+/* Later override in sections.css — replicated in the same order so the
+   effective mobile layout stays identical (row, not column). */
+@media (max-width: 768px) {
+  .cookies-banner { padding-block: 12px; }
+  .cookies-banner__inner { flex-direction: row; align-items: center; gap: 12px; }
+  .cookies-banner__text { font-size: 13px; line-height: 1.4; }
+  .cookies-banner__button { width: auto; min-width: 92px; min-height: 44px; padding-inline: 12px; font-size: 13px; }
+}

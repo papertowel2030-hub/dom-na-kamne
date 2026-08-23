@@ -13,4 +13,8 @@ SITE-PLAN.md
 *.docx
 assets/img/*
 !assets/img/*.webp
+!assets/img/og-image.jpg
 assets/img/hero-main.webp
+
+# Services prototype page (services.css/services.js in that folder ARE used)
+services-section/index.html

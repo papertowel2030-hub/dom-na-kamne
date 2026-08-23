@@ -821,7 +821,10 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
-  document.title = service.metaTitle + " — Дом на камне";
+  // The page <title> is set statically in each services/*.html file so that
+  // crawlers (and social/link previews) get the full geo-targeted title even
+  // without executing JS. Overwriting it here would replace it with the short
+  // "metaTitle" and lose those keywords, so it is intentionally left alone.
   renderTabs();
   renderOffers();
   renderPromo();

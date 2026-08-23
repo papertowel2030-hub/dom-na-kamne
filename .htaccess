@@ -1,0 +1,104 @@
+# ============================================================================
+#  Дом на камне — dom-na-kamne.ru
+#  Apache config for Beget shared hosting.
+#  Created during the Tilda → Beget migration.
+# ============================================================================
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+AddDefaultCharset UTF-8
+
+RewriteEngine On
+
+# ----------------------------------------------------------------------------
+# 1. FORCE HTTPS
+#    ⚠️  KEEP COMMENTED until the Let's Encrypt certificate is issued in the
+#    Beget panel. Enabling it before the cert exists locks visitors out with
+#    a certificate error. Uncomment as the LAST step of the cutover.
+# ----------------------------------------------------------------------------
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^(.*)$ https://dom-na-kamne.ru/$1 [R=301,L]
+
+# ----------------------------------------------------------------------------
+# 2. CANONICAL HOST — www → apex
+#    The site links to itself without www throughout.
+# ----------------------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# ----------------------------------------------------------------------------
+# 3. LEGACY TILDA URLs → new structure (301)
+#    The NE flag is required on fragment targets, otherwise Apache escapes
+#    "#" to "%23" and the anchor breaks.
+# ----------------------------------------------------------------------------
+
+# -- Service pages -----------------------------------------------------------
+RewriteRule ^stroitelstvo-domov/?$   /services/doma.html         [R=301,L]
+RewriteRule ^karkasnii-doma/?$       /services/doma.html         [R=301,L]
+RewriteRule ^kerama-bloki/?$         /services/doma.html         [R=301,L]
+RewriteRule ^teplo-blok/?$           /services/doma.html         [R=301,L]
+RewriteRule ^beton/?$                /services/doma.html         [R=301,L]
+RewriteRule ^beton-karkas/?$         /services/doma.html         [R=301,L]
+RewriteRule ^bani/?$                 /services/bani.html         [R=301,L]
+RewriteRule ^garage/?$               /services/garazhi.html      [R=301,L]
+RewriteRule ^besedka/?$              /services/besedki.html      [R=301,L]
+RewriteRule ^zabor-vorota/?$         /services/zabory.html       [R=301,L]
+RewriteRule ^krovla/?$               /services/krovlya.html      [R=301,L]
+RewriteRule ^fasad/?$                /services/fasady.html       [R=301,L]
+RewriteRule ^fundament/?$            /services/fundament.html    [R=301,L]
+RewriteRule ^seti/?$                 /services/inzheneriya.html  [R=301,L]
+RewriteRule ^otdelka/?$              /services/otdelka.html      [R=301,L]
+
+# -- Homepage sections -------------------------------------------------------
+# "^services/?$" also stops a bare /services/ request hitting the real
+# directory (which has no index file) and returning 403.
+RewriteRule ^services/?$             /#services   [R=301,L,NE]
+RewriteRule ^projects/?$             /#projects   [R=301,L,NE]
+RewriteRule ^objects/?$              /#projects   [R=301,L,NE]
+RewriteRule ^contacts/?$             /#contacts   [R=301,L,NE]
+RewriteRule ^dostavka/?$             /#shop       [R=301,L,NE]
+RewriteRule ^mall/?$                 /#shop       [R=301,L,NE]
+
+# -- Legal -------------------------------------------------------------------
+RewriteRule ^politic/?$              /privacy.html               [R=301,L]
+
+# ----------------------------------------------------------------------------
+# 4. COMPRESSION
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 5. CACHING
+#    Static assets are immutable and cached for a year. HTML is never cached,
+#    so content edits appear immediately. The existing ?v= query strings on
+#    CSS/JS keep working alongside this.
+# ----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 1 month"
+  ExpiresByType application/javascript  "access plus 1 month"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
