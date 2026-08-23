@@ -184,9 +184,9 @@
     }
 
     appendSocial("a", "https://t.me/domnakamne", "../assets/icons/social-telegram.svg", "Telegram");
-    appendSocial("span", "", "../assets/icons/social-max.svg", "MAX");
+    appendSocial("a", "https://max.ru/join/D5skTTydiMQeMCexBT6VzL-IjJFQNpfEGrf_WvoXwhg", "../assets/icons/social-max.svg", "MAX");
     appendSocial("a", "https://www.ozon.ru/seller/dom-na-kamne-4017365/", "../assets/icons/social-ozon.svg", "Ozon");
-    appendSocial("a", "https://market.yandex.ru/cc/ALhct3", "../assets/icons/social-yandex-market.svg", "Яндекс Маркет");
+    appendSocial("a", "https://market.yandex.ru/cc/ALhct3", "../assets/icons/social-yandex-market.svg?v=official-1", "Яндекс Маркет");
     appendSocial("a", "https://www.avito.ru/brands/i70994095/all", "../assets/icons/social-avito.svg", "Авито");
     contacts.appendChild(socials);
 
