@@ -1553,19 +1553,15 @@
 }
 
 .partners__logo {
-  height: 44px;
+  height: 68px;
   width: auto;
-  max-width: 150px;
+  max-width: 220px;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: .45;
-  transition: opacity var(--dur) var(--ease),
-              filter var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
 
 .partners__logo:hover {
-  filter: grayscale(0);
-  opacity: 1;
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* ---- Responsive: sections 9–13 ----------------------------------------- */
@@ -1792,6 +1788,33 @@
     justify-content: center;
     gap: var(--space-5);
   }
+
+  .partners__logo {
+    height: 60px;
+    max-width: 200px;
+  }
+
+  .partners__logo:first-child { height: 68px; }
+
+@media (min-width: 769px) {
+  .partners__logos {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .partners__logo {
+    height: 72px;
+    max-width: 220px;
+  }
+
+  .partners__logo:first-child { transform: scale(1.85); }
+  .partners__logo:first-child:hover { transform: translateY(-2px) scale(1.89); }
+}
+
+@media (max-width: 768px) {
+  .partners__logo:first-child { transform: scale(1.65); }
+  .partners__logo:first-child:hover { transform: translateY(-2px) scale(1.68); }
+}
 
 /* ==========================================================================
    SECTION 14 — FAQ  (green band, accordion)
@@ -2302,7 +2325,8 @@ body.has-cookie-banner .scroll-top-btn {
   color: var(--fg);
 }
 
-.footer__ozon {
+.footer__ozon,
+.footer__market {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2311,19 +2335,45 @@ body.has-cookie-banner .scroll-top-btn {
   box-sizing: border-box;
   margin-top: 33px;
   padding: 0 24px;
-  background: #005BFF;
-  color: var(--color-white);
   text-decoration: none;
   transition: background-color var(--dur-fast) var(--ease),
               filter var(--dur-fast) var(--ease),
               transform var(--dur-fast) var(--ease);
 }
 
+.footer__ozon {
+  background: #005BFF;
+  color: var(--color-white);
+}
+
+.footer__market {
+  margin-top: 12px;
+  padding: 0 20px;
+  gap: 10px;
+  background: #FFDD00;
+  color: #1f1f1f;
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.footer__ozon:hover,
+.footer__ozon:focus-visible,
+.footer__market:hover,
+.footer__market:focus-visible {
+  filter: brightness(1.025);
+  transform: translateY(-1px);
+}
+
 .footer__ozon:hover,
 .footer__ozon:focus-visible {
   background: #0b62ff;
-  filter: brightness(1.025);
-  transform: translateY(-1px);
+}
+
+.footer__market:hover,
+.footer__market:focus-visible {
+  background: #FFE333;
 }
 
 .footer__ozon-logo {
@@ -2331,6 +2381,13 @@ body.has-cookie-banner .scroll-top-btn {
   width: 134px;
   height: auto;
   color: currentColor;
+}
+
+.footer__market-logo {
+  display: block;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
 }
 
 /* Navigation columns */
@@ -3037,11 +3094,13 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     line-height: 1.42;
     color: var(--fg);
   }
-  .footer__ozon {
+  .footer__ozon,
+  .footer__market {
     min-height: 72px;
-    margin-top: 12px;
     padding: 14px 18px;
   }
+  .footer__ozon { margin-top: 12px; }
+  .footer__market { margin-top: 10px; }
   .footer__ozon-logo { width: 134px; }
 
   .footer__nav-col {
@@ -3119,7 +3178,7 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(144px, 40vw, 176px);
-  grid-template-rows: auto auto;
+  grid-template-rows: 72px auto;
   column-gap: 16px;
   row-gap: 10px;
   align-items: flex-start;
@@ -3145,7 +3204,7 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 
 .footer__ozon {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
   align-self: start;
   display: inline-flex;
   width: 100%;
@@ -3157,6 +3216,17 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 }
 
 .footer__ozon-logo { width: min(134px, 100%); }
+
+.footer__market {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  margin-top: 0;
+  padding: 14px 18px;
+}
 
 .footer__body > .footer__nav-col:nth-of-type(1),
 .footer__body > .footer__nav-col:nth-of-type(2) {
@@ -3238,6 +3308,12 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     margin-top: 2px;
   }
 
+  .footer__market {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: stretch;
+  }
+
 }
 
 @media (min-width: 1180px) {
@@ -3296,6 +3372,14 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
   }
 
   .footer__ozon-logo { width: 134px; }
+
+  .footer__market {
+    width: 191px;
+    height: 84px;
+    min-height: 0;
+    margin-top: 12px;
+    padding: 0 20px;
+  }
 
   .footer__nav-col { gap: 12px; }
   .footer__nav-col a {
