@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="design-system/tokens.css" />
   <link rel="stylesheet" href="styles.css?v=mobile-unified-1" />
   <link rel="stylesheet" href="services-section/services.css?v=production-fixes-6" />
-  <link rel="stylesheet" href="sections.css?v=20261101c" />
+  <link rel="stylesheet" href="sections.css?v=20261102" />
   <link rel="stylesheet" href="modal.css?v=mobile-unified-1" />
   <!-- Yandex.Metrika counter 98889063 -->
   <script type="text/javascript">
@@ -324,15 +324,29 @@
         Создадим зону отдыха вашей мечты
       </h2>
 
-      <figure class="relax__photo fade-up" style="--delay:.08s">
-        <img src="assets/img/relax-patio-818.webp"
-             srcset="assets/img/relax-patio-818.webp 818w, assets/img/relax-patio.webp 1447w"
-             sizes="(max-width: 860px) 100vw, 818px"
-             width="818" height="451"
-             alt="Патио с мангалом, обеденным столом, шезлонгом и качелями"
-             loading="lazy" decoding="async" />
-        <figcaption class="relax__caption">Мангальные зоны, беседки, шезлонги, скамейки, качели</figcaption>
-      </figure>
+      <div class="relax__body">
+        <div class="relax__photo fade-up" style="--delay:.08s">
+          <img src="assets/img/relax-patio-818.webp"
+               srcset="assets/img/relax-patio-818.webp 818w, assets/img/relax-patio.webp 1447w"
+               sizes="(max-width: 1100px) calc(100vw - 40px), 760px"
+               width="818" height="451"
+               alt="Патио с мангалом, обеденным столом, шезлонгом и качелями"
+               loading="lazy" decoding="async" />
+        </div>
+
+        <div class="relax__aside fade-up" style="--delay:.16s">
+          <ul class="relax__list">
+            <li class="relax__item">Мангальные зоны</li>
+            <li class="relax__item">беседки</li>
+            <li class="relax__item">шезлонги</li>
+            <li class="relax__item">скамейки</li>
+            <li class="relax__item">качели</li>
+          </ul>
+          <a class="btn btn--solid relax__cta" href="#" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
+            Оставить заявку <span class="btn__arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
 
     </div>
   </section>
