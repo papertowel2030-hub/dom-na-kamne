@@ -1090,6 +1090,23 @@ a.service-footer__legal-link:focus-visible {
   }
 }
 
+@media (min-width: 721px) and (max-width: 1180px) {
+  .service-header__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 0;
+    padding-top: var(--space-4);
+  }
+
+  .service-header__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    margin-top: var(--space-4);
+    padding-block: var(--space-3);
+    border-top: var(--border-hair);
+  }
+}
+
 @media (max-width: 720px) {
   .service-header__inner {
     display: grid;

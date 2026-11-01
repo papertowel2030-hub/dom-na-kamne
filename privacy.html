@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="design-system/fonts.css" />
   <link rel="stylesheet" href="design-system/tokens.css" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="sections.css?v=webp-market-1" />
+  <link rel="stylesheet" href="sections.css?v=20261101" />
   <style>
     /* ---- Light single-row header (mirrors the service-page header) ---- */
     .legal-header { background: var(--bg); color: var(--fg); border-bottom: var(--border-hair); }
@@ -177,6 +177,22 @@
     .legal__purpose dd { margin: 0; color: var(--fg); }
     .legal__purpose dd span { display: block; }
     .legal__purpose dd span + span { margin-top: var(--space-1); }
+
+    @media (min-width: 721px) and (max-width: 1180px) {
+      .legal-header__inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+        min-height: 0;
+        padding-top: var(--space-4);
+      }
+      .legal-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-content: flex-start;
+        margin-top: var(--space-4);
+        padding-block: var(--space-3);
+        border-top: var(--border-hair);
+      }
+    }
 
     @media (max-width: 720px) {
       .legal-header__inner {
