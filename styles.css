@@ -77,6 +77,11 @@ img { display: block; max-width: 100%; }
 .btn:focus-visible .btn__arrow::before {
   transform: translate(2px, -2px);
 }
+/* Inset ring in the text colour, so it reads on any band and button fill */
+.btn:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: calc(var(--space-1) * -1);
+}
 
 .btn--ghost {
   color: var(--on-dark);
