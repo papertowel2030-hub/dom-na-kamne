@@ -21,3 +21,7 @@ assets/img/*
 
 # Services prototype page (services.css/services.js in that folder ARE used)
 services-section/index.html
+
+# Local work notes and old-site screenshots, not part of the site
+AGENT-WORKFLOW.md
+screenshots/
