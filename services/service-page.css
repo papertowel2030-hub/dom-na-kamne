@@ -319,7 +319,7 @@ body.service-page {
 }
 
 .service-card__list li + li::before {
-  content: " |\00a0";
+  content: "\00a0| ";
   color: rgba(250, 250, 250, .72);
 }
 
