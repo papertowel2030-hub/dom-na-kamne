@@ -3,6 +3,36 @@
  * States: open → form → loading → success | error
  * No framework dependencies.
  */
+/* ── Shared lead sender (used by modal, sections.js, service-page.js) ──
+ * Posts the lead to /send.php. Resolves true when the server confirms the
+ * e-mail went out. Any failure (no PHP on this host, network, rate limit)
+ * resolves false so the caller can fall back to a mailto draft.
+ */
+window.dnkLeadEmail = 'dom-na-kamne@mail.ru';
+
+window.dnkSendLead = async function (data) {
+  try {
+    const res = await fetch('/send.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ consent: true, page: location.href }, data))
+    });
+    const json = await res.json().catch(() => null);
+    return Boolean(res.ok && json && json.ok);
+  } catch (_) {
+    return false;
+  }
+};
+
+window.dnkMailtoLead = function (topic, lines) {
+  const subject = encodeURIComponent('Заявка с сайта: ' + topic);
+  const body = encodeURIComponent(lines.concat([
+    '',
+    'Я даю согласие на обработку персональных данных для ответа на это обращение.'
+  ]).join('\n'));
+  window.location.href = 'mailto:' + window.dnkLeadEmail + '?subject=' + subject + '&body=' + body;
+};
+
 (function () {
   'use strict';
 
@@ -219,7 +249,7 @@
     submitBtn.disabled = on;
     submitBtn.innerHTML = on
       ? '<span class="app-modal__spinner"></span>'
-      : 'Подготовить заявку';
+      : 'Отправить';
   }
 
   function showInputError(msg) {
@@ -281,8 +311,14 @@
     renderFields();
   }
 
-  /* ── Submission: open an addressed draft without claiming delivery ───── */
+  /* ── Submission: send via server, fall back to a mailto draft ───── */
+  const TOPIC = 'Бесплатная консультация';
+  const SUCCESS_SENT  = 'Ваша заявка успешно отправлена!<br>Мы вам ответим в течение двух рабочих дней.';
+  const SUCCESS_DRAFT = 'Черновик заявки открыт в вашем почтовом приложении.<br>Проверьте данные и нажмите «Отправить», чтобы завершить обращение.';
+
   async function submitForm(data) {
+    if (await window.dnkSendLead({ topic: TOPIC, ...data })) return 'sent';
+
     const methodLabels = {
       phone: 'Телефон',
       telegram: 'Telegram',
@@ -290,17 +326,13 @@
       whatsapp: 'WhatsApp',
       email: 'E-mail'
     };
-    const lines = [
+    window.dnkMailtoLead(TOPIC, [
       `Предпочтительный способ связи: ${methodLabels[data.method] || data.method}`,
       data.phone ? `Телефон: ${data.phone}` : '',
       data.email ? `E-mail: ${data.email}` : '',
-      data.username ? `Имя пользователя: ${data.username}` : '',
-      '',
-      'Я даю согласие на обработку персональных данных для ответа на это обращение.'
-    ].filter(Boolean);
-    const subject = encodeURIComponent('Заявка на бесплатную консультацию с сайта');
-    const body = encodeURIComponent(lines.join('\n'));
-    window.location.href = `mailto:dom-na-kamne@mail.ru?subject=${subject}&body=${body}`;
+      data.username ? `Имя пользователя: ${data.username}` : ''
+    ].filter(Boolean));
+    return 'draft';
   }
 
   /* ── Radio → re-render ──────────────────────────────────────── */
@@ -365,8 +397,10 @@
 
     setLoading(true);
     try {
-      await submitForm(data);
+      const result = await submitForm(data);
       setLoading(false);
+      const successText = successPanel.querySelector('.app-modal__success-text');
+      if (successText) successText.innerHTML = result === 'sent' ? SUCCESS_SENT : SUCCESS_DRAFT;
       formWrap.hidden     = true;
       successPanel.hidden = false;
     } catch (_) {

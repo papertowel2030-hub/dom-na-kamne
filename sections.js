@@ -195,10 +195,8 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
 })();
 
-/* ---- Lead forms: honest e-mail handoff --------------------------------- */
+/* ---- Lead forms: send via /send.php, fall back to a mailto draft ------- */
 (function () {
-  const DESTINATION = 'dom-na-kamne@mail.ru';
-
   function setStatus(form, message, isError) {
     const status = form.querySelector('.lead-form__status');
     if (!status) return;
@@ -210,20 +208,12 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
     return value.replace(/\D/g, '').length === 11;
   }
 
-  function createMailto(topic, phone) {
-    const subject = `Заявка с сайта — ${topic}`;
-    const body = [
-      `Тема: ${topic}`,
-      `Телефон для связи: ${phone}`,
-      '',
-      'Я даю согласие на обработку персональных данных для ответа на это обращение.'
-    ].join('\n');
-    return `mailto:${DESTINATION}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-
   document.querySelectorAll('[data-lead-form]').forEach(form => {
-    form.addEventListener('submit', event => {
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async event => {
       event.preventDefault();
+      if (button?.disabled) return;
 
       const phone = form.querySelector('input[type="tel"]');
       const consent = form.querySelector('input[type="checkbox"]');
@@ -248,8 +238,28 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
         return;
       }
 
+      if (button) button.disabled = true;
+      setStatus(form, 'Отправляем заявку…', false);
+      const sent = window.dnkSendLead
+        ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value })
+        : false;
+      if (button) button.disabled = false;
+
+      if (sent) {
+        phone.value = '';
+        consent.checked = false;
+        setStatus(form, 'Заявка отправлена! Мы перезвоним в течение двух рабочих дней.', false);
+        return;
+      }
+
       setStatus(form, 'Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».', false);
-      window.location.href = createMailto(topic, phone.value);
+      const lines = [`Тема: ${topic}`, `Телефон для связи: ${phone.value}`];
+      if (window.dnkMailtoLead) {
+        window.dnkMailtoLead(topic, lines);
+      } else {
+        window.location.href = 'mailto:dom-na-kamne@mail.ru?subject=' + encodeURIComponent('Заявка с сайта: ' + topic) +
+          '&body=' + encodeURIComponent(lines.join('\n'));
+      }
     });
   });
 })();

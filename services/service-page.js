@@ -34,7 +34,7 @@
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=webp-market-1";
+      script.src = "../modal.js?v=lead-send-1";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -642,12 +642,36 @@
 
         setLoading(button, true);
 
-        window.setTimeout(function () {
+        // Topic = the form's section heading + this page's service, e.g.
+        // "Дарим проект при заключении договора на строительство · Дома".
+        var section = form.closest("section");
+        var heading = section && section.querySelector("h2");
+        var topic = [
+          heading ? heading.textContent.replace(/\s+/g, " ").trim() : "",
+          service.metaTitle || service.navTitle || ""
+        ].filter(Boolean).join(" · ") || "Заявка с сайта";
+
+        var send = window.dnkSendLead
+          ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value })
+          : Promise.resolve(false);
+
+        send.then(function (sent) {
           setLoading(button, false);
-          phone.value = "";
-          consent.checked = false;
-          showSuccessToast();
-        }, 900);
+          if (sent) {
+            phone.value = "";
+            consent.checked = false;
+            showSuccessToast();
+            return;
+          }
+          setFormStatus(form, "Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».");
+          var lines = ["Тема: " + topic, "Телефон для связи: " + phone.value];
+          if (window.dnkMailtoLead) {
+            window.dnkMailtoLead(topic, lines);
+          } else {
+            window.location.href = "mailto:dom-na-kamne@mail.ru?subject=" +
+              encodeURIComponent("Заявка с сайта: " + topic) + "&body=" + encodeURIComponent(lines.join("\n"));
+          }
+        });
       });
     });
   }
