@@ -24,6 +24,13 @@ body {
 
 ul { list-style: none; margin: 0; padding: 0; }
 a  { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+/* Checkboxes default to black text, which would hide the ring on dark bands */
+input[type="checkbox"] { color: inherit; }
 img { display: block; max-width: 100%; }
 
 /* ---- Layout container --------------------------------------------------- */
@@ -77,9 +84,8 @@ img { display: block; max-width: 100%; }
 .btn:focus-visible .btn__arrow::before {
   transform: translate(2px, -2px);
 }
-/* Inset ring in the text colour, so it reads on any band and button fill */
+/* Buttons draw the ring inside their edge so it sits within the fill */
 .btn:focus-visible {
-  outline: 1px solid currentColor;
   outline-offset: calc(var(--space-1) * -1);
 }
 
@@ -202,7 +208,6 @@ img { display: block; max-width: 100%; }
 .logo:focus-visible,
 .service-header__logo:focus-visible,
 .legal-logo:focus-visible {
-  outline: 1px solid currentColor;
   outline-offset: 7px;
 }
 
@@ -401,10 +406,6 @@ img { display: block; max-width: 100%; }
 .marquee__group a:focus-visible {
   opacity: .72;
   transform: translateY(-1px);
-}
-.marquee__group a:focus-visible {
-  outline: 1px solid currentColor;
-  outline-offset: 5px;
 }
 
 @keyframes marquee-scroll {

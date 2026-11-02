@@ -28,7 +28,7 @@
     if (!document.querySelector('link[href^="../modal.css"]')) {
       var css = document.createElement("link");
       css.rel = "stylesheet";
-      css.href = "../modal.css?v=20261102c";
+      css.href = "../modal.css?v=20261102d";
       document.head.appendChild(css);
     }
 

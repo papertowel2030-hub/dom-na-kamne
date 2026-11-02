@@ -71,7 +71,6 @@
 .app-modal__close:hover,
 .app-modal__close:focus-visible { opacity: 1; }
 .app-modal__close:focus-visible {
-  outline: 1px solid currentColor;
   outline-offset: calc(var(--space-1) * -1);
 }
 
@@ -194,7 +193,6 @@
   font-family: var(--font-body);
   font-size: var(--fs-base);
   line-height: 1.4;
-  outline: none;
   border-radius: 0;
   -webkit-appearance: none;
   appearance: none;
@@ -252,9 +250,14 @@
   margin-top: var(--space-4);
   min-height: 48px;
 }
-.app-modal__submit:hover:not(:disabled) {
+/* A focused submit keeps its fill, so a failed send does not leave it looking
+   like a different button while the pointer is still over it. */
+.app-modal__submit:hover:not(:disabled):not(:focus) {
   background: transparent;
   color: var(--fg);
+}
+.app-modal__submit:focus-visible {
+  outline-offset: calc(var(--space-1) * -1);
 }
 .app-modal__submit:disabled {
   cursor: default;

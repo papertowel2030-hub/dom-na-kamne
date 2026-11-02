@@ -105,6 +105,13 @@
   --dur:      .28s;
   --dur-slow: .45s;
 
+  /* --- Focus -------------------------------------------------------------
+     One keyboard ring for every control. It takes the text colour, so it
+     reads on light and dark bands alike.
+     ---------------------------------------------------------------------- */
+  --focus-ring:   2px solid currentColor;
+  --focus-offset: 3px;
+
   /* --- Z-index ----------------------------------------------------------- */
   --z-header:  50;
   --z-overlay: 90;
