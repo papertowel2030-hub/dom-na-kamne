@@ -57,8 +57,8 @@ RewriteRule ^otdelka/?$              /services/otdelka.html      [R=301,L]
 RewriteRule ^services/?$             /#services   [R=301,L,NE]
 RewriteRule ^projects/?$             /#projects   [R=301,L,NE]
 RewriteRule ^objects/?$              /#projects   [R=301,L,NE]
-RewriteRule ^contacts/?$             /#contacts   [R=301,L,NE]
-RewriteRule ^dostavka/?$             /#shop       [R=301,L,NE]
+RewriteRule ^contacts/?$             /#about      [R=301,L,NE]
+RewriteRule ^dostavka/?$             /#faq        [R=301,L,NE]
 RewriteRule ^mall/?$                 /#shop       [R=301,L,NE]
 
 # -- Legal -------------------------------------------------------------------
