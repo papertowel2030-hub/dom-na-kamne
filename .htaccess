@@ -1,7 +1,6 @@
 # ============================================================================
-#  Дом на камне — dom-na-kamne.ru
+#  Дом на камне, dom-na-kamne.ru
 #  Apache config for Beget shared hosting.
-#  Created during the Tilda → Beget migration.
 # ============================================================================
 
 Options -Indexes
@@ -14,7 +13,7 @@ RewriteEngine On
 
 # ----------------------------------------------------------------------------
 # 1. FORCE HTTPS
-#    ⚠️  KEEP COMMENTED until the Let's Encrypt certificate is issued in the
+#    Keep this commented until the Let's Encrypt certificate is issued in the
 #    Beget panel. Enabling it before the cert exists locks visitors out with
 #    a certificate error. Uncomment as the LAST step of the cutover.
 # ----------------------------------------------------------------------------

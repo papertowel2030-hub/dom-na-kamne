@@ -52,6 +52,10 @@ img { display: block; max-width: 100%; }
   font-weight: var(--fw-medium);
   line-height: 1;
   letter-spacing: var(--tracking-nav);
+  text-align: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
   cursor: pointer;
   transition: background var(--dur) var(--ease),
               color var(--dur) var(--ease),

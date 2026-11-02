@@ -207,11 +207,12 @@
     inner.appendChild(toggle);
     header.appendChild(backdrop);
 
-    function closeMenu() {
+    function closeMenu(restoreFocus) {
       header.classList.remove("is-menu-open");
       document.body.classList.remove("is-menu-open");
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Открыть меню");
+      if (restoreFocus) toggle.focus();
     }
 
     toggle.addEventListener("click", function () {
@@ -221,26 +222,28 @@
       toggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
     });
 
-    close.addEventListener("click", closeMenu);
-    backdrop.addEventListener("click", closeMenu);
+    close.addEventListener("click", function () { closeMenu(true); });
+    backdrop.addEventListener("click", function () { closeMenu(true); });
     Array.prototype.forEach.call(nav.querySelectorAll("a"), function (link) {
-      link.addEventListener("click", closeMenu);
+      link.addEventListener("click", function () { closeMenu(false); });
     });
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape" && header.classList.contains("is-menu-open")) closeMenu(true);
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 720) closeMenu();
+      if (window.innerWidth > 720) closeMenu(false);
     });
   }
 
-  // Offer photos in assets/img/ are 1600 px wide and have an 800 px copy
+  // Photos in assets/img/ are 1600 px wide and have an 800 px copy
   // (name-800.webp). The small card art in service-cards/ has no copies.
   // Sizes follow .service-card__media: a 480 px column on desktop, otherwise
   // the full width inside the .container padding.
   var OFFER_IMAGE_SIZES = "(min-width: 1181px) 480px, calc(100vw - max(40px, 8.4vw))";
+  // The promo figure is a 520 px column on desktop and the same full width below.
+  var PROMO_IMAGE_SIZES = "(min-width: 1181px) 520px, calc(100vw - max(40px, 8.4vw))";
 
-  function setOfferImage(img, src) {
+  function setPhotoSource(img, src) {
     if (src && src.indexOf("/service-cards/") === -1) {
       img.srcset = src.replace(/\.webp$/, "-800.webp") + " 800w, " + src + " 1600w";
     } else {
@@ -262,7 +265,7 @@
     if (index === 0) image.setAttribute("fetchpriority", "high");
     image.decoding = "async";
     image.sizes = OFFER_IMAGE_SIZES;
-    setOfferImage(image, images[0] || "");
+    setPhotoSource(image, images[0] || "");
     media.appendChild(image);
 
     if (images.length > 1) {
@@ -347,7 +350,8 @@
 
     var figure = make("figure", "service-promo__media");
     var image = make("img");
-    image.src = service.promo.image;
+    image.sizes = PROMO_IMAGE_SIZES;
+    setPhotoSource(image, service.promo.image);
     image.alt = service.promo.imageAlt || "";
     image.loading = "lazy";
     image.decoding = "async";
@@ -544,7 +548,7 @@
     var images = media.getAttribute("data-images").split("|");
     var index = (nextIndex + images.length) % images.length;
     var img = media.querySelector("img");
-    if (img) setOfferImage(img, images[index]);
+    if (img) setPhotoSource(img, images[index]);
     media.setAttribute("data-index", String(index));
     Array.prototype.forEach.call(media.querySelectorAll(".service-card__dot"), function (dot, dotIndex) {
       if (dotIndex === index) dot.setAttribute("aria-current", "true");
@@ -790,6 +794,7 @@
     var countryTyped = false;
 
     input.addEventListener("focus", function () {
+      countryTyped = false;
       if (!this.value) this.value = "+7";
     });
     input.addEventListener("blur", function () {
@@ -798,8 +803,19 @@
     input.addEventListener("input", function () {
       var prev = this.value;
       var pos = this.selectionStart || 0;
+      var digits = prev.replace(/\D/g, "");
+      if (digits.length <= 2) {
+        countryTyped = digits.length === 2 && digits[0] === "7" && (digits[1] === "7" || digits[1] === "8");
+      }
+      if (digits.length > 11 && !countryTyped) {
+        var typedAt = Math.max(prev.slice(0, pos).replace(/\D/g, "").length - 1, 0);
+        this.value = formatPhone(digits.slice(0, typedAt) + digits.slice(typedAt + 1));
+        setPhoneCaret(this, typedAt);
+        return;
+      }
       var next = formatPhone(prev);
       this.value = next;
+      if (digits.length > 11) countryTyped = false;
       setPhoneCaret(this, digitCaretIndex(prev, pos));
     });
     // A pasted full number replaces the field rather than merging into it.
@@ -846,13 +862,6 @@
                   "Home", "End"];
       if (pass.indexOf(event.key) !== -1) return;
       if (event.key >= "0" && event.key <= "9") {
-        var count = this.value.replace(/\D/g, "").length;
-        if (count <= 1) {
-          countryTyped = event.key === "7" || event.key === "8";
-        } else if (count >= 11 && this.selectionStart === this.selectionEnd) {
-          if (!countryTyped) event.preventDefault();
-          countryTyped = false;
-        }
         return;
       }
       event.preventDefault();

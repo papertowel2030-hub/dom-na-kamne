@@ -50,9 +50,9 @@
   <link rel="preload" as="image" imagesrcset="assets/img/hero-main-1200.webp 1200w, assets/img/hero-main.webp 2880w" imagesizes="100vw" fetchpriority="high" />
   <link rel="stylesheet" href="design-system/fonts.css" />
   <link rel="stylesheet" href="design-system/tokens.css?v=20261102" />
-  <link rel="stylesheet" href="styles.css?v=20261102d" />
+  <link rel="stylesheet" href="styles.css?v=20261103" />
   <link rel="stylesheet" href="services-section/services.css?v=20261102c" />
-  <link rel="stylesheet" href="sections.css?v=20261102i" />
+  <link rel="stylesheet" href="sections.css?v=20261103" />
   <link rel="stylesheet" href="modal.css?v=20261102d" />
   <!-- Yandex.Metrika counter 98889063 -->
   <script type="text/javascript">
@@ -147,7 +147,7 @@
             </a>
           </div>
         </div>
-        <a class="btn btn--outline nav__cta" href="#" data-open-modal="app">Получить консультацию <span class="btn__arrow" aria-hidden="true"></span></a>
+        <button class="btn btn--outline nav__cta" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">Получить консультацию <span class="btn__arrow" aria-hidden="true"></span></button>
       </nav>
       <button class="mobile-menu-backdrop" type="button" aria-label="Закрыть меню вне панели" tabindex="-1"></button>
     </header>
@@ -157,15 +157,15 @@
       <div class="hero__lead">
         <h1 class="hero__title"><span class="hero__title-line">Надёжные дома</span><br />и&nbsp;объекты</h1>
         <p class="hero__subtitle">Для вашего уюта и комфорта в короткие сроки</p>
-        <a class="btn btn--solid hero__cta" href="#" data-open-modal="app">
+        <button class="btn btn--solid hero__cta" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
           <span class="hero__cta-label hero__cta-label--desktop">Получить расчёт строительства</span>
           <span class="hero__cta-label hero__cta-label--mobile">Получить расчёт строительства</span>
           <span class="btn__arrow" aria-hidden="true"></span>
-        </a>
+        </button>
       </div>
     </div>
 
-    <!-- USP strip — left / centre / right, pinned just above the marquee -->
+    <!-- USP strip, pinned just above the marquee -->
     <ul class="usps container">
       <li class="usp">С 2008 года радуем Вас качественными домами и объектами.</li>
       <li class="usp">Дарим проект при заключении договора.</li>
@@ -306,9 +306,9 @@
             <li class="relax__item">скамейки</li>
             <li class="relax__item">качели</li>
           </ul>
-          <a class="btn btn--solid relax__cta" href="#" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
+          <button class="btn btn--solid relax__cta" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
             Оставить заявку <span class="btn__arrow" aria-hidden="true"></span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -1035,8 +1035,8 @@
   </footer>
 
   <script src="cookies.js?v=production-fixes-4" defer></script>
-  <script src="sections.js?v=20261102b" defer></script>
-  <script src="modal.js?v=20261102b" defer></script>
+  <script src="sections.js?v=20261103" defer></script>
+  <script src="modal.js?v=20261103" defer></script>
 
   <!-- ============ APPLICATION MODAL ============ -->
   <div class="app-modal" id="appModal" role="dialog" aria-modal="true"

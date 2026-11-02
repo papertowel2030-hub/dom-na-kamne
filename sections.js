@@ -149,6 +149,7 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
     let countryTyped = false;
 
     input.addEventListener('focus', function () {
+      countryTyped = false;
       if (!this.value) this.value = '+7';
     });
     input.addEventListener('blur', function () {
@@ -157,8 +158,19 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
     input.addEventListener('input', function () {
       const prev = this.value;
       const pos = this.selectionStart || 0;
+      const digits = prev.replace(/\D/g, '');
+      if (digits.length <= 2) {
+        countryTyped = digits.length === 2 && digits[0] === '7' && (digits[1] === '7' || digits[1] === '8');
+      }
+      if (digits.length > 11 && !countryTyped) {
+        const typedAt = Math.max(prev.slice(0, pos).replace(/\D/g, '').length - 1, 0);
+        this.value = formatPhone(digits.slice(0, typedAt) + digits.slice(typedAt + 1));
+        setPhoneCaret(this, typedAt);
+        return;
+      }
       const next = formatPhone(prev);
       this.value = next;
+      if (digits.length > 11) countryTyped = false;
       setPhoneCaret(this, digitCaretIndex(prev, pos));
     });
     // A pasted full number replaces the field rather than merging into it.
@@ -205,13 +217,6 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
                     'Home', 'End'];
       if (pass.includes(e.key)) return;
       if (e.key >= '0' && e.key <= '9') {
-        const count = this.value.replace(/\D/g, '').length;
-        if (count <= 1) {
-          countryTyped = e.key === '7' || e.key === '8';
-        } else if (count >= 11 && this.selectionStart === this.selectionEnd) {
-          if (!countryTyped) e.preventDefault();
-          countryTyped = false;
-        }
         return;
       }
       e.preventDefault();

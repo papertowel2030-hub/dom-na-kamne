@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 — Страница не найдена | Дом на камне</title>
+  <title>404 | Страница не найдена | Дом на камне</title>
   <meta name="description" content="Страница не найдена. Вернитесь на главную страницу сайта «Дом на камне»." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/design-system/fonts.css" />
   <link rel="stylesheet" href="/design-system/tokens.css?v=20261102" />
-  <link rel="stylesheet" href="/styles.css?v=20261102d" />
+  <link rel="stylesheet" href="/styles.css?v=20261103" />
   <link rel="stylesheet" href="/modal.css?v=20261102d" />
   <link rel="stylesheet" href="/cookies.css" />
 
@@ -98,6 +98,7 @@
     .page-404__message {
       font-family: var(--font-body);
       font-size: var(--fs-lead);
+      font-weight: var(--fw-regular);
       color: var(--muted);
       margin: 0;
       line-height: var(--lh-normal);
@@ -177,9 +178,9 @@
         <a href="/#about">О компании</a>
       </nav>
 
-      <a class="btn btn--outline" href="#" data-open-modal="app">
+      <button class="btn btn--outline" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
         Получить консультацию <span class="btn__arrow" aria-hidden="true"></span>
-      </a>
+      </button>
       <a class="header-404__mobile-menu" href="/#services" aria-label="Перейти к услугам"><span aria-hidden="true"></span></a>
 
     </div>
@@ -192,7 +193,7 @@
       <p class="page-404__number" aria-hidden="true">404</p>
 
       <div class="page-404__aside">
-        <p class="page-404__message">Произошла ошибка...</p>
+        <h1 class="page-404__message">Произошла ошибка...</h1>
         <a class="btn btn--outline" href="/">
           На главную <span class="btn__arrow" aria-hidden="true"></span>
         </a>
@@ -255,7 +256,7 @@
     </div>
   </div>
 
-  <script src="/modal.js?v=20261102b" defer></script>
+  <script src="/modal.js?v=20261103" defer></script>
   <div class="cookies-banner" id="cookiesBanner" role="dialog" aria-label="Уведомление о cookie" hidden>
     <div class="cookies-banner__inner container">
       <p class="cookies-banner__text">Оставаясь на сайте, вы соглашаетесь на обработку файлов cookie и пользовательских данных</p>
