@@ -364,7 +364,6 @@ img { display: block; max-width: 100%; }
   line-height: var(--lh-normal);
   color: var(--on-dark);
 }
-.usp b { font-weight: inherit; }
 
 /* ==========================================================================
    MARQUEE
