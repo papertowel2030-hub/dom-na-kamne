@@ -309,7 +309,7 @@
 }
 
 /* ---- Ensure hidden attribute is respected inside modal (overrides display:flex) */
-.app-modal [hidden] { display: none !important; }
+.app-modal [hidden] { display: none; }
 
 /* ---- Success state ----------------------------------------------------- */
 .app-modal__success {

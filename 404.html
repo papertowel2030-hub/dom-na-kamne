@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/design-system/fonts.css" />
   <link rel="stylesheet" href="/design-system/tokens.css" />
   <link rel="stylesheet" href="/styles.css?v=20261102" />
-  <link rel="stylesheet" href="/modal.css?v=20261102" />
+  <link rel="stylesheet" href="/modal.css?v=20261102b" />
   <link rel="stylesheet" href="/cookies.css" />
 
   <style>
@@ -103,6 +103,8 @@
       line-height: var(--lh-normal);
     }
 
+    .header-404__mobile-menu { display: none; }
+
     /* ── Responsive ──────────────────────────────────────────── */
     @media (min-width: 769px) and (max-width: 1180px) {
       .header-404__inner {
@@ -127,7 +129,7 @@
 
       .header-404__inner { height: 68px; }
       .header-404 .logo { font-size: 20px; }
-      .header-404__mobile-menu { display: grid !important; width: 42px; height: 42px; place-items: center; }
+      .header-404__mobile-menu { display: grid; width: 42px; height: 42px; place-items: center; }
       .header-404__mobile-menu span,
       .header-404__mobile-menu span::before,
       .header-404__mobile-menu span::after { display: block; width: 20px; height: 1px; background: var(--fg); }
@@ -145,8 +147,6 @@
       .page-404__number { font-size: clamp(100px, 30vw, 150px); }
       .page-404__aside  { align-items: center; }
     }
-
-    .header-404__mobile-menu { display: none; }
   </style>
   <!-- Yandex.Metrika counter 98889063 -->
   <script type="text/javascript">

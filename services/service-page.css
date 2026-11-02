@@ -948,10 +948,10 @@ body.service-page {
   opacity: .55;
 }
 
-.service-footer__inn {
+.service-footer__contacts .service-footer__inn {
   margin-top: 0;
-  color: var(--fg) !important;
-  font-size: 18px !important;
+  color: var(--fg);
+  font-size: 18px;
 }
 
 .service-footer__bottom {
@@ -1437,7 +1437,7 @@ a.service-footer__legal-link:focus-visible {
   }
 
   .service-header__nav .service-header__cta--drawer {
-    display: inline-flex !important;
+    display: inline-flex;
     width: 100%;
     min-height: 54px;
     margin-top: 0;
@@ -1741,9 +1741,9 @@ a.service-footer__legal-link:focus-visible {
     font-weight: var(--fw-semibold);
   }
 
-  .service-footer__inn {
+  .service-footer__contacts .service-footer__inn {
     margin-top: 6px;
-    font-size: 14px !important;
+    font-size: 14px;
   }
 
   .service-footer__bottom {

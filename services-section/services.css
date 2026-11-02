@@ -415,8 +415,8 @@ img { display: block; max-width: 100%; }
 
   .service,
   .service.is-on {
-    opacity: 1 !important;
-    filter: none !important;
+    opacity: 1;
+    filter: none;
   }
 
   .service.is-on .service__link {
