@@ -117,21 +117,24 @@ img { display: block; max-width: 100%; }
 .stage.is-focused .stage__house img { filter: drop-shadow(0 26px 26px rgba(28,30,26,.14)) saturate(.88); }
 
 /* Service rails ----------------------------------------------------------- */
+/* Both rails share one row pitch so their rows line up across the house. */
 .col {
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2.6vh, 30px);
+  gap: 0;
   z-index: 5;            /* labels stay on top → always readable, lines tuck under */
   position: relative;
 }
 .col--right { align-items: flex-end; text-align: right; }
+.col--right .service { justify-content: flex-end; }
 
 .service__link {
+  --arrow-size: clamp(24px, 3.35vw, 48px);
   display: inline-flex;
   align-items: center;
-  gap: .7em;
+  gap: .5em;
   font-family: var(--font-display);
-  font-size: clamp(18px, 1.7vw, var(--fs-h4));
+  font-size: clamp(18px, 2.25vw, var(--fs-h3));
   letter-spacing: .03em;
   text-transform: uppercase;
   color: var(--fg);
@@ -160,11 +163,11 @@ img { display: block; max-width: 100%; }
 
 .service__arrow {
   position: relative;
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  flex: 0 0 var(--arrow-size);
   font-size: 0;
-  color: var(--muted);
+  color: var(--fg);
   transition: transform var(--dur) var(--ease),
               color var(--dur) var(--ease);
 }
@@ -172,28 +175,30 @@ img { display: block; max-width: 100%; }
 .service__arrow::before {
   content: "";
   position: absolute;
-  top: 8px;
-  left: 2px;
-  width: 13px;
-  height: 1px;
+  top: 50%;
+  left: 50%;
+  width: 66%;
+  height: 1.5px;
   background: currentColor;
-  transform: rotate(-45deg);
-  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .service__arrow::after {
   content: "";
   position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 7px;
-  height: 7px;
-  border-top: 1px solid currentColor;
-  border-right: 1px solid currentColor;
+  top: 27%;
+  right: 27%;
+  width: 34%;
+  height: 34%;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
 }
 
 /* ---- Interaction states ------------------------------------------------- */
 .service {
+  display: flex;
+  align-items: center;
+  min-height: clamp(56px, 7.5vw, 108px);
   transition: opacity var(--dur) var(--ease),
               filter var(--dur) var(--ease);
 }
@@ -424,6 +429,7 @@ img { display: block; max-width: 100%; }
   }
 
   .service__link {
+    --arrow-size: 18px;
     color: var(--fg);
   }
 }
@@ -470,6 +476,7 @@ img { display: block; max-width: 100%; }
   }
 
   .service {
+    min-height: 0;
     border-top: var(--border-hair);
   }
 

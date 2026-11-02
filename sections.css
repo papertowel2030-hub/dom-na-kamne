@@ -165,7 +165,7 @@
   padding-top: 66px;
   padding-right: clamp(24px, 2.2vw, 40px);
   padding-bottom: 62px;
-  padding-left: clamp(40px, 4.45vw, 80px);
+  padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
 }
 
 .consult__title {
@@ -452,7 +452,7 @@
 .project-card__name {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
-  font-size: var(--fs-label);
+  font-size: var(--fs-body);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -461,8 +461,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2px var(--space-5);
-  font-size: var(--fs-xs);
-  color: var(--muted);
+  font-size: var(--fs-base);
+  color: var(--fg);
 }
 .project-card__specs li { white-space: nowrap; }
 .project-card__specs strong { color: var(--fg); font-weight: var(--fw-semibold); }
@@ -670,18 +670,28 @@
    ========================================================================== */
 
 @media (max-width: 1100px) {
+  /* The portrait keeps its own ratio beside the form rather than being
+     cropped to a wide band, and is never drawn larger than its source. */
   .consult {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 40%);
     min-height: 0;
+    background: var(--surface-green);
   }
   .consult__photo {
-    min-height: 520px;
+    align-self: end;
+    aspect-ratio: 592 / 735;
+  }
+  .consult__form .lead-form__row {
+    flex-wrap: wrap;
+  }
+  .consult__form .lead-form__input--dark {
+    flex-basis: 100%;
   }
   .consult__content {
     padding-top: var(--space-8);
-    padding-right: var(--gutter-tablet);
+    padding-right: var(--gutter);
     padding-bottom: var(--space-8);
-    padding-left: var(--gutter-tablet);
+    padding-left: var(--gutter);
   }
   .consult__caption {
     bottom: 48px;
@@ -776,10 +786,6 @@
     padding: 0 0 var(--space-6);
   }
 
-  .consult__content {
-    padding-right: var(--gutter-mobile);
-    padding-left: var(--gutter-mobile);
-  }
   .consult__title {
     margin-bottom: var(--space-7);
     font-size: var(--fs-h3);
@@ -829,8 +835,10 @@
     flex-wrap: nowrap;
     max-width: none;
   }
+  .consult {
+    grid-template-columns: 1fr;
+  }
   .consult__photo {
-    min-height: 0;
     aspect-ratio: 2 / 3;
   }
   .consult__caption {
@@ -888,7 +896,7 @@
   min-width: 0;
   padding-top: 62px;
   padding-bottom: 48px;
-  padding-left: 56px;
+  padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
   padding-right: 20px;
 }
 
@@ -1126,8 +1134,6 @@
 .about__inner {
   position: relative;
   z-index: 1;
-  max-width: none;
-  padding-inline: clamp(54px, 4.4vw, 66px);
 }
 
 .about__head {
@@ -1147,10 +1153,10 @@
   letter-spacing: 0;
   text-transform: uppercase;
   color: var(--fg);
-  text-align: center;
+  text-align: right;
   text-wrap: balance;
   max-width: 720px;
-  justify-self: center;
+  justify-self: end;
 }
 
 .about__eyebrow {
@@ -1550,26 +1556,12 @@
 @media (max-width: 1024px) {
   .shop__content,
   .banya__content {
-    padding-right: var(--gutter-tablet);
-    padding-left: var(--gutter-tablet);
+    padding-right: var(--gutter);
+    padding-left: var(--gutter);
   }
 
-  .about__head,
   .about__facts {
     grid-template-columns: 1fr;
-  }
-
-  .about__head {
-    gap: var(--space-4);
-    margin-bottom: var(--space-7);
-  }
-
-  .about__title {
-    justify-self: start;
-    text-align: left;
-  }
-
-  .about__facts {
     gap: var(--space-6);
   }
 }
@@ -1636,10 +1628,6 @@
     padding-block: var(--space-6);
   }
 
-  .about__inner {
-    padding-inline: var(--space-4);
-  }
-
   .about__head {
     grid-template-columns: 1fr;
     gap: var(--space-4);
@@ -1647,6 +1635,7 @@
   }
 
   .about__title {
+    justify-self: start;
     text-align: left;
     font-size: clamp(25px, 7vw, 31px);
     line-height: 1.18;
@@ -1942,8 +1931,6 @@
 
 .contacts__inner {
   position: relative;
-  max-width: none;
-  padding-inline: clamp(52px, 4.1vw, 62px);
 }
 
 /* Two-column: map left  |  info right */
@@ -2227,10 +2214,6 @@ body.has-cookie-banner .scroll-top-btn {
   border-top: 0;
 }
 
-.footer > .container {
-  padding-inline: clamp(32px, 4.7vw, var(--gutter));
-}
-
 /* A composed identity row, followed by clear navigation and contact columns. */
 .footer__body {
   display: grid;
@@ -2486,10 +2469,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     padding-block: var(--space-7);
   }
 
-  .contacts__inner {
-    padding-inline: var(--space-4);
-  }
-
   .contacts__grid {
     grid-template-columns: 1fr;
     gap: var(--space-6);
@@ -2708,7 +2687,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
   .faq-item__q { font-size: 15px; }
 
   .contacts { padding-block: 48px; }
-  .contacts__inner { padding-inline: var(--gutter-mobile); }
   .contacts__grid { gap: 36px; }
   .contacts__info {
     order: -1;
@@ -2874,8 +2852,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 /* Ozon section: scale toward the reference canvas without overfilling phones. */
 @media (max-width: 768px) {
   .shop__content {
-    padding-right: clamp(20px, 4.7vw, 30px);
-    padding-left: clamp(20px, 4.7vw, 30px);
     overflow: hidden;
   }
   .shop__title {
@@ -2937,12 +2913,12 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
     grid-template-columns: none;
     grid-auto-flow: column;
     grid-auto-columns: min(68vw, 250px);
-    width: calc(100% + clamp(20px, 4.7vw, 30px));
+    width: calc(100% + var(--gutter));
     overflow-x: auto;
     overflow-y: hidden;
-    margin-right: calc(clamp(20px, 4.7vw, 30px) * -1);
-    padding: 0 clamp(20px, 4.7vw, 30px) 8px 0;
-    scroll-padding-right: clamp(20px, 4.7vw, 30px);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 8px 0;
+    scroll-padding-right: var(--gutter);
     scroll-snap-type: x proximity;
     scrollbar-width: none;
   }
@@ -3129,10 +3105,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
   border-top: 4px solid var(--surface-green);
 }
 
-.footer > .container {
-  padding-inline: clamp(28px, 5vw, 72px);
-}
-
 .footer__body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3287,10 +3259,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 @media (min-width: 1180px) {
   .footer {
     border-top: 0;
-  }
-
-  .footer > .container {
-    padding-inline: clamp(32px, 4.7vw, var(--gutter));
   }
 
   .footer__body {
