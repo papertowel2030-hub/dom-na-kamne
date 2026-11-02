@@ -837,8 +837,11 @@
   .consult {
     grid-template-columns: 1fr;
   }
+  /* Capped at the source width so the portrait is never enlarged. */
   .consult__photo {
-    aspect-ratio: 2 / 3;
+    justify-self: center;
+    width: 100%;
+    max-width: 592px;
   }
   .consult__caption {
     left: 28px;
