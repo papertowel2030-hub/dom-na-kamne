@@ -876,7 +876,7 @@
 
 .shop__inner {
   display: grid;
-  grid-template-columns: 52fr 48fr;
+  grid-template-columns: 56fr 44fr;
   min-height: 738px;
 }
 
@@ -905,17 +905,16 @@
 }
 
 .shop__thumbs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 192px));
   gap: 60px;
   margin-top: 34px;
 }
 
 .shop__thumb {
   display: block;
-  flex: 0 0 192px;
   margin: 0;
-  width: 192px;
-  height: 192px;
+  aspect-ratio: 1;
   overflow: hidden;
   position: relative;
   cursor: pointer;
@@ -1530,6 +1529,24 @@
 
 /* ---- Responsive: sections 9–13 ----------------------------------------- */
 
+/* Below 1100 the swing no longer fits beside the category tiles, so the
+   shop drops it and gives the tiles the full width, as on phones. */
+@media (max-width: 1100px) {
+  .shop__inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .shop__media {
+    display: none;
+  }
+
+  .shop__thumbs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
 @media (max-width: 1024px) {
   .shop__content,
   .banya__content {
@@ -1589,14 +1606,6 @@
   .shop__thumbs {
     gap: var(--space-3);
     margin-top: var(--space-5);
-  }
-
-  .shop__thumb {
-    flex: 1 1 0;
-    width: auto;
-    height: auto;
-    min-width: 0;
-    aspect-ratio: 1;
   }
 
   .shop__thumb figcaption {
@@ -2747,9 +2756,6 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
   .shop__thumbs {
     gap: 12px;
     margin-top: 28px;
-  }
-  .shop__thumb {
-    aspect-ratio: 1;
   }
   .shop__thumb figcaption { display: none; }
   .shop__thumb::after {
