@@ -109,6 +109,11 @@
     return card.image ? [card.image] : [];
   }
 
+  function renderHeading() {
+    var heading = empty("serviceHeading");
+    if (heading) heading.textContent = service.metaTitle || service.navTitle;
+  }
+
   function renderTabs() {
     var root = empty("serviceTabs");
     if (!root) return;
@@ -907,6 +912,7 @@
   // crawlers (and social/link previews) get the full geo-targeted title even
   // without executing JS. Overwriting it here would replace it with the short
   // "metaTitle" and lose those keywords, so it is intentionally left alone.
+  renderHeading();
   renderTabs();
   renderOffers();
   renderPromo();

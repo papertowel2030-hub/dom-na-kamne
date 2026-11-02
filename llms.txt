@@ -1,0 +1,24 @@
+# Дом на камне
+
+> Строительные работы под ключ, продажа материалов и готовых объектов.
+
+- [Главная](https://dom-na-kamne.ru/)
+
+## Услуги
+
+- [Дома под ключ](https://dom-na-kamne.ru/services/doma.html)
+- [Бани под ключ](https://dom-na-kamne.ru/services/bani.html)
+- [Гаражи под ключ](https://dom-na-kamne.ru/services/garazhi.html)
+- [Беседки и мангальные зоны](https://dom-na-kamne.ru/services/besedki.html)
+- [Заборы и ворота](https://dom-na-kamne.ru/services/zabory.html)
+- [Кровля](https://dom-na-kamne.ru/services/krovlya.html)
+- [Фундаменты](https://dom-na-kamne.ru/services/fundament.html)
+- [Фасады под ключ](https://dom-na-kamne.ru/services/fasady.html)
+- [Отделочные работы](https://dom-na-kamne.ru/services/otdelka.html)
+- [Инженерные сети](https://dom-na-kamne.ru/services/inzheneriya.html)
+
+## Контакты
+
+- Телефон: +7 913 831 46 44
+- E-mail: dom-na-kamne@mail.ru
+- Адрес: Россия, Красноярский край, г. Железногорск, ул. Южная, 38А
