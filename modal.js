@@ -18,13 +18,16 @@ window.dnkSendLead = async function (data) {
       body: JSON.stringify(Object.assign({ consent: true, page: location.href }, data))
     });
     const json = await res.json().catch(() => null);
-    return Boolean(res.ok && json && json.ok);
+    const sent = Boolean(res.ok && json && json.ok);
+    if (sent && typeof ym === 'function') ym(98889063, 'reachGoal', 'lead_sent');
+    return sent;
   } catch (_) {
     return false;
   }
 };
 
 window.dnkMailtoLead = function (topic, lines) {
+  if (typeof ym === 'function') ym(98889063, 'reachGoal', 'lead_mailto');
   const subject = encodeURIComponent('Заявка с сайта: ' + topic);
   const body = encodeURIComponent(lines.concat([
     '',
@@ -56,19 +59,37 @@ window.dnkMailtoLead = function (topic, lines) {
   const successPanel = document.getElementById('appModalSuccess');
   const successBtn   = document.getElementById('appModalSuccessBtn');
 
+  // Honeypot: hidden from people, filled in by form bots.
+  const trap = document.createElement('input');
+  trap.type         = 'text';
+  trap.name         = 'website';
+  trap.className    = 'app-modal__trap';
+  trap.tabIndex     = -1;
+  trap.autocomplete = 'off';
+  trap.setAttribute('aria-hidden', 'true');
+  form.appendChild(trap);
+
   /* ── State ──────────────────────────────────────────────────── */
   let currentMethod = 'phone';
   let isLoading     = false;
   let returnFocusTo = null;
 
   /* ── Phone mask ─────────────────────────────────────────────── */
-  function formatPhone(raw) {
-    let d = raw.replace(/\D/g, '');
-    if (d.startsWith('8')) d = '7' + d.slice(1);
-    if (d.length && d[0] !== '7') d = '7' + d;
-    d = d.slice(0, 11);
+  // How many leading digits are the country code. People type "8…" or "+7…"
+  // after the prefilled +7, so a 7 or 8 right after it is a repeat, not the
+  // area code, once there are more than ten digits behind the prefix.
+  function countryDigits(d) {
+    if (d.length === 11 && (d[0] === '7' || d[0] === '8')) return 1;
+    if (d[0] !== '7') return 0;
+    return d.length > 11 && (d[1] === '7' || d[1] === '8') ? 2 : 1;
+  }
 
-    if (!d.length) return '';
+  function formatPhone(raw) {
+    const all = raw.replace(/\D/g, '');
+    if (!all.length) return '';
+    const skip = countryDigits(all);
+    const d = '7' + all.slice(skip, skip + 10);
+
     let out = '+7';
     if (d.length > 1) {
       out += ' (' + d.slice(1, Math.min(4, d.length));
@@ -81,10 +102,8 @@ window.dnkMailtoLead = function (topic, lines) {
   }
 
   function digitCaretIndex(value, caret) {
-    let count = value.slice(0, caret).replace(/\D/g, '').length;
-    const digits = value.replace(/\D/g, '');
-    if (digits.length && digits[0] !== '7') count += 1;
-    return count;
+    const before = value.slice(0, caret).replace(/\D/g, '').length;
+    return before - countryDigits(value.replace(/\D/g, '')) + 1;
   }
 
   function caretFromDigitIndex(value, digitIndex) {
@@ -123,6 +142,14 @@ window.dnkMailtoLead = function (topic, lines) {
       const next = formatPhone(prev);
       this.value  = next;
       setPhoneCaret(this, digitCaretIndex(prev, pos));
+    });
+    // A pasted full number replaces the field rather than merging into it.
+    input.addEventListener('paste', function (e) {
+      const text = e.clipboardData ? e.clipboardData.getData('text') : '';
+      if (text.replace(/\D/g, '').length < 10) return;
+      e.preventDefault();
+      this.value = formatPhone(text);
+      setPhoneCaret(this, 11);
     });
     input.addEventListener('keydown', function (e) {
       if (e.ctrlKey || e.metaKey) return;
@@ -314,7 +341,7 @@ window.dnkMailtoLead = function (topic, lines) {
   /* ── Submission: send via server, fall back to a mailto draft ───── */
   const TOPIC = 'Бесплатная консультация';
   const SUCCESS_SENT  = 'Ваша заявка успешно отправлена!<br>Мы вам ответим в течение двух рабочих дней.';
-  const SUCCESS_DRAFT = 'Черновик заявки открыт в вашем почтовом приложении.<br>Проверьте данные и нажмите «Отправить», чтобы завершить обращение.';
+  const SUCCESS_DRAFT = 'Черновик заявки открыт в вашем почтовом приложении.<br>Проверьте данные и нажмите «Отправить», чтобы завершить обращение.<br>Или позвоните <a href="tel:+79138314644">+7 913 831 46 44</a>';
 
   async function submitForm(data) {
     if (await window.dnkSendLead({ topic: TOPIC, ...data })) return 'sent';
@@ -353,7 +380,7 @@ window.dnkMailtoLead = function (topic, lines) {
     clearErrors();
 
     let valid = true;
-    const data = { method: currentMethod };
+    const data = { method: currentMethod, website: trap.value };
 
     // Phone validation
     const phoneInp = document.getElementById('appModalPhone');
@@ -422,7 +449,7 @@ window.dnkMailtoLead = function (topic, lines) {
   modal.addEventListener('keydown', function (e) {
     if (e.key !== 'Tab') return;
     const focusable = Array.from(modal.querySelectorAll(
-      'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      'button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
     )).filter(el => el.offsetParent !== null);
     if (focusable.length < 2) return;
     const first = focusable[0];

@@ -2636,6 +2636,22 @@ a.footer__legal-link:focus-visible { color: var(--fg); }
 
 .prefooter .lead-form__status { color: var(--on-dark); }
 
+.lead-form__status a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+.lead-form__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
   .cookies-banner__inner {
     flex-direction: column;

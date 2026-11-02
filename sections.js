@@ -88,13 +88,20 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 (function () {
   const PHONE_PLACEHOLDER = '+7 (___) ___-__-__';
 
-  function formatPhone(raw) {
-    let d = raw.replace(/\D/g, '');
-    if (d.startsWith('8')) d = '7' + d.slice(1);
-    if (d.length && d[0] !== '7') d = '7' + d;
-    d = d.slice(0, 11);
+  // How many leading digits are the country code. People type "8…" or "+7…"
+  // after the prefilled +7, so a 7 or 8 right after it is a repeat, not the
+  // area code, once there are more than ten digits behind the prefix.
+  function countryDigits(d) {
+    if (d.length === 11 && (d[0] === '7' || d[0] === '8')) return 1;
+    if (d[0] !== '7') return 0;
+    return d.length > 11 && (d[1] === '7' || d[1] === '8') ? 2 : 1;
+  }
 
-    if (!d.length) return '';
+  function formatPhone(raw) {
+    const all = raw.replace(/\D/g, '');
+    if (!all.length) return '';
+    const skip = countryDigits(all);
+    const d = '7' + all.slice(skip, skip + 10);
     let out = '+7';
     if (d.length > 1) {
       out += ' (' + d.slice(1, Math.min(4, d.length));
@@ -107,10 +114,8 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
   }
 
   function digitCaretIndex(value, caret) {
-    let count = value.slice(0, caret).replace(/\D/g, '').length;
-    const digits = value.replace(/\D/g, '');
-    if (digits.length && digits[0] !== '7') count += 1;
-    return count;
+    const before = value.slice(0, caret).replace(/\D/g, '').length;
+    return before - countryDigits(value.replace(/\D/g, '')) + 1;
   }
 
   function caretFromDigitIndex(value, digitIndex) {
@@ -151,6 +156,14 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
       const next = formatPhone(prev);
       this.value = next;
       setPhoneCaret(this, digitCaretIndex(prev, pos));
+    });
+    // A pasted full number replaces the field rather than merging into it.
+    input.addEventListener('paste', function (e) {
+      const text = e.clipboardData ? e.clipboardData.getData('text') : '';
+      if (text.replace(/\D/g, '').length < 10) return;
+      e.preventDefault();
+      this.value = formatPhone(text);
+      setPhoneCaret(this, 11);
     });
     input.addEventListener('keydown', function (e) {
       if (e.ctrlKey || e.metaKey) return;
@@ -204,6 +217,15 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
     status.classList.toggle('is-error', Boolean(isError));
   }
 
+  function addCallLink(form) {
+    const status = form.querySelector('.lead-form__status');
+    if (!status) return;
+    const link = document.createElement('a');
+    link.href = 'tel:+79138314644';
+    link.textContent = '+7 913 831 46 44';
+    status.append(' Или позвоните ', link);
+  }
+
   function isValidPhone(value) {
     return value.replace(/\D/g, '').length === 11;
   }
@@ -217,6 +239,7 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
 
       const phone = form.querySelector('input[type="tel"]');
       const consent = form.querySelector('input[type="checkbox"]');
+      const trap = form.querySelector('.lead-form__trap');
       const topic = form.dataset.leadTopic || 'Заявка с сайта';
 
       phone?.removeAttribute('aria-invalid');
@@ -241,7 +264,7 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
       if (button) button.disabled = true;
       setStatus(form, 'Отправляем заявку…', false);
       const sent = window.dnkSendLead
-        ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value })
+        ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value, website: trap ? trap.value : '' })
         : false;
       if (button) button.disabled = false;
 
@@ -253,6 +276,7 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
       }
 
       setStatus(form, 'Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».', false);
+      addCallLink(form);
       const lines = [`Тема: ${topic}`, `Телефон для связи: ${phone.value}`];
       if (window.dnkMailtoLead) {
         window.dnkMailtoLead(topic, lines);

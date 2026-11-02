@@ -308,6 +308,16 @@
   outline-offset: 1px;
 }
 
+.app-modal__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* ---- Ensure hidden attribute is respected inside modal (overrides display:flex) */
 .app-modal [hidden] { display: none; }
 
@@ -327,6 +337,12 @@
   line-height: var(--lh-loose);
   margin: 0;
   max-width: 300px;
+}
+
+.app-modal__success-text a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
 }
 
 .app-modal__success-btn {

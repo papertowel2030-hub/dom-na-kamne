@@ -28,13 +28,13 @@
     if (!document.querySelector('link[href^="../modal.css"]')) {
       var css = document.createElement("link");
       css.rel = "stylesheet";
-      css.href = "../modal.css?v=20261102b";
+      css.href = "../modal.css?v=20261102c";
       document.head.appendChild(css);
     }
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=lead-send-1";
+      script.src = "../modal.js?v=20261102";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -401,6 +401,14 @@
     var status = make("p", "service-form__status", "");
     status.setAttribute("aria-live", "polite");
     form.appendChild(status);
+
+    var trap = make("input", "service-form__trap");
+    trap.type = "text";
+    trap.name = "website";
+    trap.tabIndex = -1;
+    trap.autocomplete = "off";
+    trap.setAttribute("aria-hidden", "true");
+    form.appendChild(trap);
     return form;
   }
 
@@ -590,6 +598,15 @@
       if (status) status.textContent = message;
     }
 
+    function addCallLink(form) {
+      var status = form.querySelector(".service-form__status");
+      if (!status) return;
+      var link = make("a", "", "+7 913 831 46 44");
+      link.href = "tel:+79138314644";
+      status.appendChild(document.createTextNode(" Или позвоните "));
+      status.appendChild(link);
+    }
+
     function setLoading(button, loading) {
       if (loading) {
         button.setAttribute("data-label", button.textContent.trim());
@@ -615,6 +632,7 @@
       var phone = form.querySelector("input[type='tel']");
       var consent = form.querySelector("input[type='checkbox']");
       var consentLabel = form.querySelector(".service-form__consent");
+      var trap = form.querySelector(".service-form__trap");
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -652,7 +670,7 @@
         ].filter(Boolean).join(" · ") || "Заявка с сайта";
 
         var send = window.dnkSendLead
-          ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value })
+          ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value, website: trap ? trap.value : "" })
           : Promise.resolve(false);
 
         send.then(function (sent) {
@@ -664,6 +682,7 @@
             return;
           }
           setFormStatus(form, "Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».");
+          addCallLink(form);
           var lines = ["Тема: " + topic, "Телефон для связи: " + phone.value];
           if (window.dnkMailtoLead) {
             window.dnkMailtoLead(topic, lines);
@@ -676,13 +695,20 @@
     });
   }
 
-  function formatPhone(raw) {
-    var d = raw.replace(/\D/g, "");
-    if (d.indexOf("8") === 0) d = "7" + d.slice(1);
-    if (d.length && d[0] !== "7") d = "7" + d;
-    d = d.slice(0, 11);
+  // How many leading digits are the country code. People type "8…" or "+7…"
+  // after the prefilled +7, so a 7 or 8 right after it is a repeat, not the
+  // area code, once there are more than ten digits behind the prefix.
+  function countryDigits(d) {
+    if (d.length === 11 && (d[0] === "7" || d[0] === "8")) return 1;
+    if (d[0] !== "7") return 0;
+    return d.length > 11 && (d[1] === "7" || d[1] === "8") ? 2 : 1;
+  }
 
-    if (!d.length) return "";
+  function formatPhone(raw) {
+    var all = raw.replace(/\D/g, "");
+    if (!all.length) return "";
+    var skip = countryDigits(all);
+    var d = "7" + all.slice(skip, skip + 10);
     var out = "+7";
     if (d.length > 1) {
       out += " (" + d.slice(1, Math.min(4, d.length));
@@ -695,10 +721,8 @@
   }
 
   function digitCaretIndex(value, caret) {
-    var count = value.slice(0, caret).replace(/\D/g, "").length;
-    var digits = value.replace(/\D/g, "");
-    if (digits.length && digits[0] !== "7") count += 1;
-    return count;
+    var before = value.slice(0, caret).replace(/\D/g, "").length;
+    return before - countryDigits(value.replace(/\D/g, "")) + 1;
   }
 
   function caretFromDigitIndex(value, digitIndex) {
@@ -739,6 +763,14 @@
       var next = formatPhone(prev);
       this.value = next;
       setPhoneCaret(this, digitCaretIndex(prev, pos));
+    });
+    // A pasted full number replaces the field rather than merging into it.
+    input.addEventListener("paste", function (event) {
+      var text = event.clipboardData ? event.clipboardData.getData("text") : "";
+      if (text.replace(/\D/g, "").length < 10) return;
+      event.preventDefault();
+      this.value = formatPhone(text);
+      setPhoneCaret(this, 11);
     });
     input.addEventListener("keydown", function (event) {
       if (event.ctrlKey || event.metaKey) return;

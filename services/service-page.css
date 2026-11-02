@@ -699,8 +699,24 @@ body.service-page {
   line-height: 1.4;
 }
 
+.service-form__status a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
 .service-form__consent.is-error {
   color: #b42318;
+}
+
+.service-form__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .service-form__input[aria-invalid="true"] {
