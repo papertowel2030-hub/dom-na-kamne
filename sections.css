@@ -1967,12 +1967,18 @@
   position: absolute;
   right: 0;
   bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-5);
   padding: var(--space-1) var(--space-2);
   font-size: var(--fs-xs);
   line-height: 1.2;
   color: var(--fg);
   background: rgba(250, 250, 250, .74);
-  pointer-events: none;
+}
+
+.contacts__map-credit:hover {
+  text-decoration: underline;
 }
 
 .contacts__map-grid {
