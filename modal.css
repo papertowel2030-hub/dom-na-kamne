@@ -69,7 +69,11 @@
   padding: 0;
 }
 .app-modal__close:hover,
-.app-modal__close:focus-visible { opacity: 1; outline: none; }
+.app-modal__close:focus-visible { opacity: 1; }
+.app-modal__close:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: calc(var(--space-1) * -1);
+}
 
 /* ---- Title -------------------------------------------------------------- */
 .app-modal__title {
