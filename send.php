@@ -59,15 +59,27 @@ if (!is_array($in)) {
     respond(400, ['ok' => false, 'error' => 'payload']);
 }
 
+// Honeypot: the hidden "website" field is empty for people. Bots get the
+// usual answer so they have no reason to retry, but nothing is sent.
+if (($in['website'] ?? '') !== '') {
+    respond(200, ['ok' => true]);
+}
+
+foreach (['topic', 'method', 'phone', 'email', 'username', 'page'] as $field) {
+    if (isset($in[$field]) && !is_string($in[$field])) {
+        respond(422, ['ok' => false, 'error' => $field]);
+    }
+}
+
 $topic    = clean($in['topic'] ?? '') ?: 'Заявка с сайта';
-$method   = array_key_exists($in['method'] ?? '', METHODS) ? $in['method'] : 'phone';
+$method   = isset(METHODS[$in['method'] ?? '']) ? $in['method'] : 'phone';
 $phone    = clean($in['phone'] ?? '', 40);
 $email    = clean($in['email'] ?? '', 120);
 $username = clean($in['username'] ?? '', 80);
 $page     = clean($in['page'] ?? '', 300);
 
 $digits = preg_replace('/\D/', '', $phone);
-if ($phone !== '' && strlen($digits) !== 11) {
+if ($phone !== '' && !preg_match('/^[78]\d{10}$/', $digits)) {
     respond(422, ['ok' => false, 'error' => 'phone']);
 }
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -76,7 +88,7 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 if ($phone === '' && $email === '' && $username === '') {
     respond(422, ['ok' => false, 'error' => 'contact']);
 }
-if (empty($in['consent'])) {
+if (($in['consent'] ?? null) !== true) {
     respond(422, ['ok' => false, 'error' => 'consent']);
 }
 
