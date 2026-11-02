@@ -234,6 +234,21 @@
     });
   }
 
+  // Offer photos in assets/img/ are 1600 px wide and have an 800 px copy
+  // (name-800.webp). The small card art in service-cards/ has no copies.
+  // Sizes follow .service-card__media: a 480 px column on desktop, otherwise
+  // the full width inside the .container padding.
+  var OFFER_IMAGE_SIZES = "(min-width: 1181px) 480px, calc(100vw - max(40px, 8.4vw))";
+
+  function setOfferImage(img, src) {
+    if (src && src.indexOf("/service-cards/") === -1) {
+      img.srcset = src.replace(/\.webp$/, "-800.webp") + " 800w, " + src + " 1600w";
+    } else {
+      img.removeAttribute("srcset");
+    }
+    img.src = src;
+  }
+
   function renderCard(card, index) {
     var images = cardImages(card);
     var article = make("article", "service-card service-reveal");
@@ -242,10 +257,12 @@
     var inner = make("div", "service-card__inner container");
     var media = make("figure", "service-card__media");
     var image = make("img");
-    image.src = images[0] || "";
     image.alt = card.imageAlt || card.title;
     image.loading = index === 0 ? "eager" : "lazy";
+    if (index === 0) image.setAttribute("fetchpriority", "high");
     image.decoding = "async";
+    image.sizes = OFFER_IMAGE_SIZES;
+    setOfferImage(image, images[0] || "");
     media.appendChild(image);
 
     if (images.length > 1) {
@@ -527,7 +544,7 @@
     var images = media.getAttribute("data-images").split("|");
     var index = (nextIndex + images.length) % images.length;
     var img = media.querySelector("img");
-    if (img) img.src = images[index];
+    if (img) setOfferImage(img, images[index]);
     media.setAttribute("data-index", String(index));
     Array.prototype.forEach.call(media.querySelectorAll(".service-card__dot"), function (dot, dotIndex) {
       if (dotIndex === index) dot.setAttribute("aria-current", "true");

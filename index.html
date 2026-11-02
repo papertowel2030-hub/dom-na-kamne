@@ -47,7 +47,7 @@
   }
   </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/img/hero-main.webp" fetchpriority="high" />
+  <link rel="preload" as="image" imagesrcset="assets/img/hero-main-1200.webp 1200w, assets/img/hero-main.webp 2880w" imagesizes="100vw" fetchpriority="high" />
   <link rel="stylesheet" href="design-system/fonts.css" />
   <link rel="stylesheet" href="design-system/tokens.css?v=20261102" />
   <link rel="stylesheet" href="styles.css?v=20261102d" />
@@ -74,7 +74,9 @@
 
     <!-- Full-bleed photo — spans the whole screen, incl. behind the marquee -->
     <div class="hero__media">
-      <img src="assets/img/hero-main.webp" width="2880" height="1728"
+      <img src="assets/img/hero-main.webp"
+           srcset="assets/img/hero-main-1200.webp 1200w, assets/img/hero-main.webp 2880w"
+           sizes="100vw" width="2880" height="1728"
            alt="Современный частный дом с панорамным остеклением"
            fetchpriority="high" decoding="async" />
     </div>
