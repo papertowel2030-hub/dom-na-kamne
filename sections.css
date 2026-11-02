@@ -1211,25 +1211,25 @@
 .about__icon--warehouse {
   width: 82px;
   height: 60px;
-  background-image: url("assets/img/Group 68.webp");
+  background-image: url("assets/img/about-icon-warehouse.webp");
 }
 
 .about__icon--builders {
   width: 58px;
   height: 86px;
-  background-image: url("assets/img/Group 69.webp");
+  background-image: url("assets/img/about-icon-builders.webp");
 }
 
 .about__icon--support {
   width: 72px;
   height: 63px;
-  background-image: url("assets/img/Group 70.webp");
+  background-image: url("assets/img/about-icon-support.webp");
 }
 
 .about__icon--suppliers {
   width: 88px;
   height: 55px;
-  background-image: url("assets/img/Group 71.webp");
+  background-image: url("assets/img/about-icon-suppliers.webp");
 }
 
 .about__icon--time {
