@@ -482,7 +482,11 @@
 
     var bottom = make("div", "service-footer__bottom container");
     bottom.appendChild(make("span", "service-footer__copyright", "© 2026 Строительство качественных домов в Красноярском крае"));
-    bottom.appendChild(make("span", "service-footer__legal-link", "Разработка сайта"));
+    var credit = make("a", "service-footer__legal-link", "Разработка сайта");
+    credit.href = "https://moontahaj.com";
+    credit.target = "_blank";
+    credit.rel = "noopener";
+    bottom.appendChild(credit);
     var legal = make("a", "", "Политика конфиденциальности");
     legal.href = "../privacy.html";
     legal.className = "service-footer__legal-link";
