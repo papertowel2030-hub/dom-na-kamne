@@ -333,7 +333,7 @@ img { display: block; max-width: 100%; }
   margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(38px, 4.2vw, 56px);
+  font-size: var(--fs-hero);
   line-height: 1.08;
   letter-spacing: .01em;
   text-transform: uppercase;
@@ -799,6 +799,16 @@ img { display: block; max-width: 100%; }
     color: var(--fg);
   }
 
+  @media (max-width: 480px) {
+    .header .nav.container {
+      width: 100vw;
+      border-left: 0;
+      box-shadow: none;
+    }
+
+    .header.is-menu-open .logo { visibility: hidden; }
+  }
+
   .nav__close {
     position: absolute;
     top: 22px;
@@ -895,7 +905,7 @@ img { display: block; max-width: 100%; }
 
   .hero__title {
     max-width: 520px;
-    font-size: clamp(42px, 6vw, 54px);
+    font-size: clamp(38px, 6vw, var(--fs-hero));
     line-height: 1.04;
   }
 

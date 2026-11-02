@@ -64,7 +64,7 @@ img { display: block; max-width: 100%; }
   text-align: right;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(26px, 3.1vw, var(--fs-h2));
+  font-size: var(--fs-h2);
   line-height: 1.12;
   letter-spacing: .01em;
   text-transform: uppercase;
@@ -142,13 +142,12 @@ img { display: block; max-width: 100%; }
   transition: color var(--dur) var(--ease),
               transform var(--dur) var(--ease);
 }
-.col--right .service__link { flex-direction: row-reverse; }
 
 .service__label {
   position: relative;
   white-space: nowrap;
 }
-/* animated underline that grows from the house-facing edge */
+/* animated underline that grows from the left edge */
 .service__label::after {
   content: "";
   position: absolute;
@@ -159,7 +158,6 @@ img { display: block; max-width: 100%; }
   transform-origin: left center;
   transition: transform var(--dur-slow) var(--ease);
 }
-.col--right .service__label::after { transform-origin: right center; }
 
 .service__arrow {
   position: relative;
@@ -442,7 +440,6 @@ img { display: block; max-width: 100%; }
   }
 
   .services__title {
-    font-size: clamp(30px, 9.5vw, 42px);
     line-height: 1.05;
   }
 

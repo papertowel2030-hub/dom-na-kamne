@@ -59,6 +59,13 @@
   color: var(--surface-green);
 }
 
+/* A slim single-line bar on wide screens keeps the hero benefits visible. */
+@media (min-width: 769px) {
+  .cookies-banner { padding-block: var(--space-2); }
+  .cookies-banner__text { font-size: var(--fs-label); }
+  .cookies-banner__button { min-height: 40px; font-size: var(--fs-label); }
+}
+
 @media (max-width: 768px) {
   .cookies-banner__inner {
     flex-direction: column;
