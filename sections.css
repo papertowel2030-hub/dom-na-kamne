@@ -802,6 +802,7 @@
     max-width: 300px;
   }
   .consult__form .lead-form__label { order: 1; }
+  .consult__form .lead-form__status { margin-bottom: var(--space-3); }
   .consult__form .lead-form__input--dark {
     order: 2;
     box-sizing: border-box;

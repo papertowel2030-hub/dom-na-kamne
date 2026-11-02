@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="design-system/fonts.css" />
   <link rel="stylesheet" href="design-system/tokens.css" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="sections.css?v=20261102c" />
+  <link rel="stylesheet" href="sections.css?v=20261102d" />
   <style>
     /* ---- Light single-row header (mirrors the service-page header) ---- */
     .legal-header { background: var(--bg); color: var(--fg); border-bottom: var(--border-hair); }
@@ -485,6 +485,14 @@
     </div>
   </div>
   <script src="cookies.js" defer></script>
+  <script>
+    document.addEventListener('keydown', function (event) {
+      var menu = document.querySelector('.legal-mobile-menu[open]');
+      if (event.key !== 'Escape' || !menu) return;
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    });
+  </script>
 
 
 

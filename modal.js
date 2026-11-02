@@ -62,7 +62,7 @@ window.dnkMailtoLead = function (topic, lines) {
   // Honeypot: hidden from people, filled in by form bots.
   const trap = document.createElement('input');
   trap.type         = 'text';
-  trap.name         = 'website';
+  trap.name         = 'lead_ref';
   trap.className    = 'app-modal__trap';
   trap.tabIndex     = -1;
   trap.autocomplete = 'off';
@@ -130,6 +130,11 @@ window.dnkMailtoLead = function (topic, lines) {
   }
 
   function applyPhoneMask(input) {
+    // A 7 or 8 typed first may be a repeated country code, so one extra
+    // digit is let through for formatPhone to read. Otherwise a full number
+    // takes no more digits.
+    let countryTyped = false;
+
     input.addEventListener('focus', function () {
       if (!this.value) this.value = '+7';
     });
@@ -186,7 +191,16 @@ window.dnkMailtoLead = function (topic, lines) {
                     'ArrowLeft','ArrowRight','ArrowUp','ArrowDown',
                     'Home','End'];
       if (pass.includes(e.key)) return;
-      if (e.key >= '0' && e.key <= '9') return;
+      if (e.key >= '0' && e.key <= '9') {
+        const count = this.value.replace(/\D/g, '').length;
+        if (count <= 1) {
+          countryTyped = e.key === '7' || e.key === '8';
+        } else if (count >= 11 && this.selectionStart === this.selectionEnd) {
+          if (!countryTyped) e.preventDefault();
+          countryTyped = false;
+        }
+        return;
+      }
       e.preventDefault();
     });
   }
@@ -380,7 +394,7 @@ window.dnkMailtoLead = function (topic, lines) {
     clearErrors();
 
     let valid = true;
-    const data = { method: currentMethod, website: trap.value };
+    const data = { method: currentMethod, lead_ref: trap.value };
 
     // Phone validation
     const phoneInp = document.getElementById('appModalPhone');

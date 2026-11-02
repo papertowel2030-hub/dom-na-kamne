@@ -59,9 +59,9 @@ if (!is_array($in)) {
     respond(400, ['ok' => false, 'error' => 'payload']);
 }
 
-// Honeypot: the hidden "website" field is empty for people. Bots get the
+// Honeypot: the hidden "lead_ref" field is empty for people. Bots get the
 // usual answer so they have no reason to retry, but nothing is sent.
-if (($in['website'] ?? '') !== '') {
+if (($in['lead_ref'] ?? '') !== '') {
     respond(200, ['ok' => true]);
 }
 

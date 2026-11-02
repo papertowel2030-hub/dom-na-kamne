@@ -1245,6 +1245,7 @@ a.service-footer__legal-link:focus-visible {
   }
 
   .service-lead .service-form__label { order: 1; }
+  .service-lead .service-form__status { margin-bottom: var(--space-3); }
   .service-lead .service-form__row { display: contents; }
   .service-lead .service-form__input {
     order: 2;
@@ -1373,10 +1374,15 @@ a.service-footer__legal-link:focus-visible {
     border-left: 1px solid rgba(47, 51, 52, .08);
     background: var(--bg);
     box-shadow: -14px 0 30px rgba(0, 0, 0, .12);
+    visibility: hidden;
     transform: translateX(100%);
-    transition: transform var(--dur) var(--ease);
+    transition: transform var(--dur) var(--ease), visibility 0s linear var(--dur);
   }
-  .service-header.is-menu-open .service-header__nav { transform: none; }
+  .service-header.is-menu-open .service-header__nav {
+    visibility: visible;
+    transform: none;
+    transition: transform var(--dur) var(--ease), visibility 0s;
+  }
   .service-header__nav > a:not(.service-header__cta--drawer) {
     min-height: 64px;
     display: flex;

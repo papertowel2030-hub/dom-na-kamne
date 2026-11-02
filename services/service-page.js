@@ -34,7 +34,7 @@
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=20261102";
+      script.src = "../modal.js?v=20261102b";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -404,7 +404,7 @@
 
     var trap = make("input", "service-form__trap");
     trap.type = "text";
-    trap.name = "website";
+    trap.name = "lead_ref";
     trap.tabIndex = -1;
     trap.autocomplete = "off";
     trap.setAttribute("aria-hidden", "true");
@@ -670,7 +670,7 @@
         ].filter(Boolean).join(" · ") || "Заявка с сайта";
 
         var send = window.dnkSendLead
-          ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value, website: trap ? trap.value : "" })
+          ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value, lead_ref: trap ? trap.value : "" })
           : Promise.resolve(false);
 
         send.then(function (sent) {
@@ -750,6 +750,10 @@
 
   function applyPhoneMask(input) {
     input.placeholder = PHONE_PLACEHOLDER;
+    // A 7 or 8 typed first may be a repeated country code, so one extra
+    // digit is let through for formatPhone to read. Otherwise a full number
+    // takes no more digits.
+    var countryTyped = false;
 
     input.addEventListener("focus", function () {
       if (!this.value) this.value = "+7";
@@ -807,7 +811,16 @@
                   "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
                   "Home", "End"];
       if (pass.indexOf(event.key) !== -1) return;
-      if (event.key >= "0" && event.key <= "9") return;
+      if (event.key >= "0" && event.key <= "9") {
+        var count = this.value.replace(/\D/g, "").length;
+        if (count <= 1) {
+          countryTyped = event.key === "7" || event.key === "8";
+        } else if (count >= 11 && this.selectionStart === this.selectionEnd) {
+          if (!countryTyped) event.preventDefault();
+          countryTyped = false;
+        }
+        return;
+      }
       event.preventDefault();
     });
   }

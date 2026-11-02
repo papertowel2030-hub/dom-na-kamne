@@ -143,6 +143,10 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 
   function applyPhoneMask(input) {
     input.placeholder = PHONE_PLACEHOLDER;
+    // A 7 or 8 typed first may be a repeated country code, so one extra
+    // digit is let through for formatPhone to read. Otherwise a full number
+    // takes no more digits.
+    let countryTyped = false;
 
     input.addEventListener('focus', function () {
       if (!this.value) this.value = '+7';
@@ -200,7 +204,16 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
                     'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
                     'Home', 'End'];
       if (pass.includes(e.key)) return;
-      if (e.key >= '0' && e.key <= '9') return;
+      if (e.key >= '0' && e.key <= '9') {
+        const count = this.value.replace(/\D/g, '').length;
+        if (count <= 1) {
+          countryTyped = e.key === '7' || e.key === '8';
+        } else if (count >= 11 && this.selectionStart === this.selectionEnd) {
+          if (!countryTyped) e.preventDefault();
+          countryTyped = false;
+        }
+        return;
+      }
       e.preventDefault();
     });
   }
@@ -264,7 +277,7 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
       if (button) button.disabled = true;
       setStatus(form, 'Отправляем заявку…', false);
       const sent = window.dnkSendLead
-        ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value, website: trap ? trap.value : '' })
+        ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value, lead_ref: trap ? trap.value : '' })
         : false;
       if (button) button.disabled = false;
 
