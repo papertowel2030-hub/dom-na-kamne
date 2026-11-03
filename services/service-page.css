@@ -43,7 +43,7 @@ body.service-page {
   column-gap: var(--space-5);
 }
 
-.service-page .service-header__inner { padding-inline: var(--gutter); }
+.service-page .service-header__inner { padding-inline: clamp(var(--gutter-mobile), 4.2vw, 60px); }
 
 .service-header__nav {
   display: flex;
