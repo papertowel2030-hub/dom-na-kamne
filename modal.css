@@ -226,6 +226,35 @@
   padding-top: 12px;   /* align with input text area */
 }
 
+/* Send failure: rate limit or server error, with a call and mail fallback */
+.app-modal__status {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  color: #c42020;
+}
+
+.app-modal__status a,
+.app-modal__mailto {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.app-modal__status a { white-space: nowrap; }
+
+.app-modal__mailto {
+  display: block;
+  margin-top: var(--space-1);
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: var(--fs-xs);
+  color: inherit;
+  cursor: pointer;
+}
+
 /* ---- Submit button ----------------------------------------------------- */
 .app-modal__submit {
   width: 100%;

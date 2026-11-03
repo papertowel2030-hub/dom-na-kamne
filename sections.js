@@ -226,22 +226,13 @@ document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el))
 document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
 })();
 
-/* ---- Lead forms: send via /send.php, fall back to a mailto draft ------- */
+/* ---- Lead forms: send via /send.php, offer a call or a mail draft on failure ---- */
 (function () {
   function setStatus(form, message, isError) {
     const status = form.querySelector('.lead-form__status');
     if (!status) return;
     status.textContent = message;
     status.classList.toggle('is-error', Boolean(isError));
-  }
-
-  function addCallLink(form) {
-    const status = form.querySelector('.lead-form__status');
-    if (!status) return;
-    const link = document.createElement('a');
-    link.href = 'tel:+79138314644';
-    link.textContent = '+7 913 831 46 44';
-    status.append(' Или позвоните ', link);
   }
 
   function isValidPhone(value) {
@@ -281,27 +272,33 @@ document.querySelectorAll('input[type="tel"]').forEach(applyPhoneMask);
 
       if (button) button.disabled = true;
       setStatus(form, 'Отправляем заявку…', false);
-      const sent = window.dnkSendLead
+      const result = window.dnkSendLead
         ? await window.dnkSendLead({ topic, method: 'phone', phone: phone.value, lead_ref: trap ? trap.value : '' })
-        : false;
+        : 'error';
       if (button) button.disabled = false;
 
-      if (sent) {
+      if (result === 'sent') {
         phone.value = '';
         consent.checked = false;
         setStatus(form, 'Заявка отправлена! Мы перезвоним в течение двух рабочих дней.', false);
         return;
       }
 
-      setStatus(form, 'Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».', false);
-      addCallLink(form);
-      const lines = [`Тема: ${topic}`, `Телефон для связи: ${phone.value}`];
-      if (window.dnkMailtoLead) {
-        window.dnkMailtoLead(topic, lines);
-      } else {
-        window.location.href = 'mailto:dom-na-kamne@mail.ru?subject=' + encodeURIComponent('Заявка с сайта: ' + topic) +
-          '&body=' + encodeURIComponent(lines.join('\n'));
+      if (result === 'invalid') {
+        const consentRejected = window.dnkSendLead.field === 'consent';
+        (consentRejected ? consent : phone).setAttribute('aria-invalid', 'true');
+        if (consentRejected) form.querySelector('.lead-form__consent')?.classList.add('is-error');
+        setStatus(form, consentRejected
+          ? 'Подтвердите согласие на обработку персональных данных.'
+          : 'Введите номер телефона полностью.', true);
+        return;
       }
+
+      const status = form.querySelector('.lead-form__status');
+      status.classList.add('is-error');
+      window.dnkShowLeadFailure(status, result, 'lead-form__mailto', () => {
+        window.dnkMailtoLead(topic, [`Тема: ${topic}`, `Телефон для связи: ${phone.value}`]);
+      });
     });
   });
 })();

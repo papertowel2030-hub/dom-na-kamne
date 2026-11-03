@@ -4,9 +4,9 @@
  * No framework dependencies.
  */
 /* ── Shared lead sender (used by modal, sections.js, service-page.js) ──
- * Posts the lead to /send.php. Resolves true when the server confirms the
- * e-mail went out. Any failure (no PHP on this host, network, rate limit)
- * resolves false so the caller can fall back to a mailto draft.
+ * Posts the lead to /send.php and resolves with a status:
+ * 'sent' (mail went out), 'invalid' (422, the field is in dnkSendLead.field),
+ * 'rate' (429) or 'error' (network failure, 5xx, no PHP on this host).
  */
 window.dnkLeadEmail = 'dom-na-kamne@mail.ru';
 
@@ -18,12 +18,46 @@ window.dnkSendLead = async function (data) {
       body: JSON.stringify(Object.assign({ consent: true, page: location.href }, data))
     });
     const json = await res.json().catch(() => null);
-    const sent = Boolean(res.ok && json && json.ok);
-    if (sent && typeof ym === 'function') ym(98889063, 'reachGoal', 'lead_sent');
-    return sent;
+    if (res.ok && json && json.ok) {
+      if (typeof ym === 'function') ym(98889063, 'reachGoal', 'lead_sent');
+      return 'sent';
+    }
+    if (res.status === 422) {
+      window.dnkSendLead.field = (json && json.error) || '';
+      return 'invalid';
+    }
+    return res.status === 429 ? 'rate' : 'error';
   } catch (_) {
-    return false;
+    return 'error';
   }
+};
+
+/* Fills a status element for a rate-limited or failed send. The mail draft
+ * opens only when the visitor clicks the secondary link. */
+window.dnkShowLeadFailure = function (el, status, mailtoClass, onMailto) {
+  const MSG_RATE  = 'Вы уже отправили несколько заявок. Мы скоро свяжемся с вами. Если срочно, позвоните ';
+  const MSG_ERROR = 'Не получилось отправить заявку. Позвоните ';
+  const phone = document.createElement('a');
+  phone.href = 'tel:+79138314644';
+  phone.textContent = '+7 913 831 46 44';
+  el.textContent = '';
+
+  if (status === 'rate') {
+    el.append(MSG_RATE, phone);
+    return;
+  }
+
+  const telegram = document.createElement('a');
+  telegram.href = 'https://t.me/domnakamne';
+  telegram.target = '_blank';
+  telegram.rel = 'noopener';
+  telegram.textContent = 'Telegram';
+  const mail = document.createElement('button');
+  mail.type = 'button';
+  mail.className = mailtoClass;
+  mail.textContent = 'Отправить письмом';
+  mail.addEventListener('click', onMailto);
+  el.append(MSG_ERROR, phone, ' или напишите нам в ', telegram, mail);
 };
 
 window.dnkMailtoLead = function (topic, lines) {
@@ -312,6 +346,7 @@ window.dnkMailtoLead = function (topic, lines) {
   function clearErrors() {
     fieldsEl.querySelectorAll('.app-modal__field-error').forEach(e => { e.hidden = true; });
     fieldsEl.querySelectorAll('.app-modal__input.is-error').forEach(e => e.classList.remove('is-error'));
+    statusEl.hidden = true;
     consentLabel.classList.remove('is-error');
   }
 
@@ -357,14 +392,17 @@ window.dnkMailtoLead = function (topic, lines) {
     renderFields();
   }
 
-  /* ── Submission: send via server, fall back to a mailto draft ───── */
+  /* ── Submission: send via server ────────────────────────────── */
   const TOPIC = 'Бесплатная консультация';
-  const SUCCESS_SENT  = 'Ваша заявка успешно отправлена!<br>Мы вам ответим в течение двух рабочих дней.';
-  const SUCCESS_DRAFT = 'Черновик заявки открыт в вашем почтовом приложении.<br>Проверьте данные и нажмите «Отправить», чтобы завершить обращение.<br>Или позвоните <a href="tel:+79138314644">+7 913 831 46 44</a>';
+  const SUCCESS_SENT = 'Ваша заявка успешно отправлена!<br>Мы вам ответим в течение двух рабочих дней.';
 
-  async function submitForm(data) {
-    if (await window.dnkSendLead({ topic: TOPIC, ...data })) return 'sent';
+  const statusEl = document.createElement('p');
+  statusEl.className = 'app-modal__status';
+  statusEl.setAttribute('role', 'alert');
+  statusEl.hidden = true;
+  form.insertBefore(statusEl, submitBtn);
 
+  function openMailDraft(data) {
     const methodLabels = {
       phone: 'Телефон',
       telegram: 'Telegram',
@@ -378,7 +416,18 @@ window.dnkMailtoLead = function (topic, lines) {
       data.email ? `E-mail: ${data.email}` : '',
       data.username ? `Имя пользователя: ${data.username}` : ''
     ].filter(Boolean));
-    return 'draft';
+  }
+
+  function showServerRejection(field) {
+    if (field === 'consent') {
+      consentLabel.classList.add('is-error');
+      return;
+    }
+    const id = field === 'email' ? 'appModalEmail' : 'appModalPhone';
+    const input = document.getElementById(id);
+    const err = document.getElementById(id + 'Err');
+    if (input) input.classList.add('is-error');
+    if (err) err.hidden = false;
   }
 
   /* ── Radio → re-render ──────────────────────────────────────── */
@@ -443,10 +492,19 @@ window.dnkMailtoLead = function (topic, lines) {
 
     setLoading(true);
     try {
-      const result = await submitForm(data);
+      const result = await window.dnkSendLead({ topic: TOPIC, ...data });
       setLoading(false);
+      if (result === 'invalid') {
+        showServerRejection(window.dnkSendLead.field);
+        return;
+      }
+      if (result !== 'sent') {
+        window.dnkShowLeadFailure(statusEl, result, 'app-modal__mailto', () => openMailDraft(data));
+        statusEl.hidden = false;
+        return;
+      }
       const successText = successPanel.querySelector('.app-modal__success-text');
-      if (successText) successText.innerHTML = result === 'sent' ? SUCCESS_SENT : SUCCESS_DRAFT;
+      if (successText) successText.innerHTML = SUCCESS_SENT;
       formWrap.hidden     = true;
       successPanel.hidden = false;
     } catch (_) {

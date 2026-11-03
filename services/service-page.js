@@ -29,13 +29,13 @@
     if (!document.querySelector('link[href^="../modal.css"]')) {
       var css = document.createElement("link");
       css.rel = "stylesheet";
-      css.href = "../modal.css?v=20261102d";
+      css.href = "../modal.css?v=20261103a";
       document.head.appendChild(css);
     }
 
     if (!document.querySelector('script[src^="../modal.js"]')) {
       var script = document.createElement("script");
-      script.src = "../modal.js?v=20261102b";
+      script.src = "../modal.js?v=20261103a";
       script.defer = true;
       document.body.appendChild(script);
     }
@@ -637,15 +637,6 @@
       if (status) status.textContent = message;
     }
 
-    function addCallLink(form) {
-      var status = form.querySelector(".service-form__status");
-      if (!status) return;
-      var link = make("a", "", "+7 913 831 46 44");
-      link.href = "tel:+79138314644";
-      status.appendChild(document.createTextNode(" Или позвоните "));
-      status.appendChild(link);
-    }
-
     function setLoading(button, loading) {
       if (loading) {
         button.setAttribute("data-label", button.textContent.trim());
@@ -710,25 +701,28 @@
 
         var send = window.dnkSendLead
           ? window.dnkSendLead({ topic: topic, method: "phone", phone: phone.value, lead_ref: trap ? trap.value : "" })
-          : Promise.resolve(false);
+          : Promise.resolve("error");
 
-        send.then(function (sent) {
+        send.then(function (result) {
           setLoading(button, false);
-          if (sent) {
+          if (result === "sent") {
             phone.value = "";
             consent.checked = false;
             showSuccessToast();
             return;
           }
-          setFormStatus(form, "Открываем почтовое приложение с готовой заявкой. Проверьте её и нажмите «Отправить».");
-          addCallLink(form);
-          var lines = ["Тема: " + topic, "Телефон для связи: " + phone.value];
-          if (window.dnkMailtoLead) {
-            window.dnkMailtoLead(topic, lines);
-          } else {
-            window.location.href = "mailto:dom-na-kamne@mail.ru?subject=" +
-              encodeURIComponent("Заявка с сайта: " + topic) + "&body=" + encodeURIComponent(lines.join("\n"));
+          if (result === "invalid") {
+            var consentRejected = window.dnkSendLead.field === "consent";
+            (consentRejected ? consent : phone).setAttribute("aria-invalid", "true");
+            if (consentRejected) consentLabel.classList.add("is-error");
+            setFormStatus(form, consentRejected
+              ? "Подтвердите согласие на обработку персональных данных."
+              : "Введите номер телефона полностью.");
+            return;
           }
+          window.dnkShowLeadFailure(form.querySelector(".service-form__status"), result, "service-form__mailto", function () {
+            window.dnkMailtoLead(topic, ["Тема: " + topic, "Телефон для связи: " + phone.value]);
+          });
         });
       });
     });

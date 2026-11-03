@@ -1110,7 +1110,6 @@
 
 .about {
   background: var(--bg);
-  border-block: 6px solid var(--surface-ink);
   padding-block: clamp(56px, 5vw, 76px) clamp(64px, 5.8vw, 88px);
   position: relative;
   overflow: hidden;
@@ -2618,6 +2617,20 @@ a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
   text-decoration: underline;
   text-underline-offset: 2px;
   white-space: nowrap;
+}
+
+.lead-form__mailto {
+  display: block;
+  margin-top: var(--space-1);
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: var(--fs-xs);
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
 }
 
 .lead-form__trap {
