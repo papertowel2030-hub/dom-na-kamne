@@ -720,7 +720,7 @@
     letter-spacing: 0;
   }
 
-  .projects__grid { grid-template-columns: 1fr; }
+  .projects__grid { gap: var(--space-4); }
 
   .process__stages {
     border-top-color: var(--fg);
@@ -1157,7 +1157,7 @@
 
 .about__fact {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
+  grid-template-columns: clamp(96px, 8vw, 120px) minmax(0, 1fr);
   align-items: center;
   gap: clamp(20px, 2.4vw, 32px);
   min-height: 84px;
@@ -1176,12 +1176,12 @@
 .about__years {
   min-width: 84px;
   font-family: var(--font-body);
-  font-size: clamp(70px, 5.7vw, 82px);
+  font-size: clamp(70px, 7.5vw, 108px);
   font-weight: var(--fw-bold);
   line-height: .88;
   letter-spacing: 0;
   color: var(--surface-ink);
-  justify-self: center;
+  justify-self: start;
 }
 
 .about__icon {
@@ -1506,7 +1506,7 @@
 }
 
 .partners__logo {
-  height: 68px;
+  height: clamp(68px, 7.64vw, 110px);
   width: auto;
   max-width: 220px;
   object-fit: contain;
@@ -1514,7 +1514,7 @@
 }
 
 .partners__logo--tall {
-  height: 96px;
+  height: clamp(96px, 10.8vw, 155px);
 }
 
 .partners__logo:hover {
@@ -1728,7 +1728,11 @@
   .reviews__dots { gap: 0; }
   .reviews__dot { width: 44px; height: 44px; }
 
-  .reviews__title { text-align: left; max-width: none; }
+  .reviews__title { text-align: left; max-width: none; line-height: 1.15; }
+}
+
+@media (max-width: 600px) {
+  .projects__grid { grid-template-columns: 1fr; gap: var(--space-5); }
 }
 
 @media (max-width: 768px) {
@@ -1746,6 +1750,11 @@
 
   .partners__logo--tall {
     height: 80px;
+  }
+
+  /* The wide-cropped mark reads smallest at the shared height */
+  .partners__logo:last-child {
+    height: 76px;
   }
 }
 

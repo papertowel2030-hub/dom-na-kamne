@@ -435,18 +435,14 @@ img { display: block; max-width: 100%; }
       radial-gradient(130% 58% at 50% 26%, #ffffff 0%, var(--bg) 70%);
   }
 
-  .services__eyebrow {
-    display: none;
-  }
-
   .services__title {
-    line-height: 1.05;
+    line-height: 1.15;
   }
 
   .stage {
     grid-template-columns: 1fr;
     grid-template-areas: "house" "left" "right";
-    row-gap: var(--space-3);
+    row-gap: 0;
   }
 
   .stage__house {

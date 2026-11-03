@@ -345,9 +345,9 @@ img { display: block; max-width: 100%; }
 
 .hero__subtitle {
   margin: var(--space-5) 0 0;
-  font-size: 18px;
-  font-weight: var(--fw-light);
-  color: rgba(250, 250, 250, .9);
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-regular);
+  color: var(--on-dark);
 }
 
 .hero__cta {
