@@ -220,6 +220,7 @@
       document.body.classList.toggle("is-menu-open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+      if (open) close.focus();
     });
 
     close.addEventListener("click", function () { closeMenu(true); });

@@ -12,7 +12,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin.woff2" crossorigin />
   <link rel="stylesheet" href="/design-system/fonts.css" />
   <link rel="stylesheet" href="/design-system/tokens.css?v=20261102" />
-  <link rel="stylesheet" href="/styles.css?v=20261103d" />
+  <link rel="stylesheet" href="/styles.css?v=20261103e" />
   <link rel="stylesheet" href="/modal.css?v=20261102d" />
   <link rel="stylesheet" href="/cookies.css" />
 
@@ -27,7 +27,7 @@
 
     /* ── Standalone header (white bg) ────────────────────────── */
     .header-404 {
-      border-bottom: 1px solid var(--line);
+      border-bottom: var(--border-hair);
       padding-inline: var(--gutter);
     }
     .header-404__inner {
@@ -37,7 +37,7 @@
       align-items: center;
       justify-content: space-between;
       gap: var(--space-5);
-      height: 68px;
+      min-height: 68px;
     }
 
     /* Logo reuses .logo from styles.css; override white color for light bg */
@@ -49,14 +49,30 @@
       gap: var(--space-8);
     }
     .header-404__nav a {
+      position: relative;
       font-family: var(--font-display);
       font-size: var(--fs-base);
       letter-spacing: .06em;
       color: var(--muted);
-      padding-bottom: 2px;
+      padding-bottom: 5px;
       transition: color var(--dur) var(--ease);
     }
-    .header-404__nav a:hover { color: var(--fg); }
+    .header-404__nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--surface-green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--dur) var(--ease);
+    }
+    .header-404__nav a:hover,
+    .header-404__nav a:focus-visible { color: var(--fg); }
+    .header-404__nav a:hover::after,
+    .header-404__nav a:focus-visible::after { transform: scaleX(1); }
 
     /* Outline button for light bg — same as sections.css .btn--outline */
     .btn--outline {
@@ -107,13 +123,13 @@
       line-height: var(--lh-normal);
     }
 
-    .header-404__mobile-menu { display: none; }
+    .header-404__menu { display: none; }
 
     /* ── Responsive ──────────────────────────────────────────── */
     @media (min-width: 769px) and (max-width: 1180px) {
       .header-404__inner {
         flex-wrap: wrap;
-        height: auto;
+        min-height: 0;
         row-gap: 0;
         padding-top: var(--space-4);
       }
@@ -123,25 +139,66 @@
         gap: var(--space-6);
         margin-top: var(--space-4);
         padding-block: var(--space-3);
-        border-top: 1px solid var(--line);
+        border-top: var(--border-hair);
       }
     }
 
     @media (max-width: 768px) {
       .header-404__nav,
-      .header-404 .btn { display: none; }
+      .header-404__inner > .btn { display: none; }
 
-      .header-404__inner { height: 68px; }
-      .header-404 .logo { font-size: 20px; }
-      .header-404__mobile-menu { display: grid; width: 42px; height: 42px; place-items: center; }
-      .header-404__mobile-menu span,
-      .header-404__mobile-menu span::before,
-      .header-404__mobile-menu span::after { display: block; width: 20px; height: 1px; background: var(--fg); }
-      .header-404__mobile-menu span { position: relative; }
-      .header-404__mobile-menu span::before,
-      .header-404__mobile-menu span::after { content: ""; position: absolute; left: 0; }
-      .header-404__mobile-menu span::before { top: -6px; }
-      .header-404__mobile-menu span::after { top: 6px; }
+      .header-404__menu { display: block; }
+      .header-404__menu summary {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        color: var(--fg);
+        cursor: pointer;
+        list-style: none;
+      }
+      .header-404__menu summary::-webkit-details-marker { display: none; }
+      .header-404__menu summary span,
+      .header-404__menu summary span::before,
+      .header-404__menu summary span::after { display: block; width: 20px; height: 1px; background: currentColor; }
+      .header-404__menu summary span { position: relative; }
+      .header-404__menu summary span::before,
+      .header-404__menu summary span::after { content: ""; position: absolute; left: 0; }
+      .header-404__menu summary span::before { top: -6px; }
+      .header-404__menu summary span::after { top: 6px; }
+      .header-404__menu[open] summary span { background: transparent; }
+      .header-404__menu[open] summary span::before { transform: translateY(6px) rotate(45deg); }
+      .header-404__menu[open] summary span::after { transform: translateY(-6px) rotate(-45deg); }
+      .header-404__drawer {
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: min(320px, calc(100vw - 48px));
+        min-height: 100svh;
+        padding: 88px 24px 24px;
+        background: var(--bg);
+        box-shadow: -16px 0 40px rgba(0, 0, 0, .16);
+      }
+      .header-404__drawer a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        color: var(--fg);
+        font-size: 16px;
+      }
+      .header-404__drawer .btn {
+        margin-top: auto;
+        justify-content: space-between;
+        padding-inline: var(--space-4);
+        white-space: nowrap;
+      }
 
       .page-404__inner {
         flex-direction: column;
@@ -184,7 +241,19 @@
       <button class="btn btn--outline" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
         Получить консультацию <span class="btn__arrow" aria-hidden="true"></span>
       </button>
-      <a class="header-404__mobile-menu" href="/#services" aria-label="Перейти к услугам"><span aria-hidden="true"></span></a>
+      <details class="header-404__menu">
+        <summary aria-label="Открыть меню"><span aria-hidden="true"></span></summary>
+        <nav class="header-404__drawer" aria-label="Мобильное меню">
+          <a href="/#services">Услуги</a>
+          <a href="/#projects">Проекты</a>
+          <a href="/#shop">Магазин</a>
+          <a href="/#contacts">Контакты</a>
+          <a href="/#about">О компании</a>
+          <button class="btn btn--outline" type="button" data-open-modal="app" aria-haspopup="dialog" aria-controls="appModal">
+            Получить консультацию <span class="btn__arrow" aria-hidden="true"></span>
+          </button>
+        </nav>
+      </details>
 
     </div>
   </header>
@@ -267,6 +336,17 @@
     </div>
   </div>
   <script src="/cookies.js" defer></script>
+  <script>
+    (function () {
+      var menu = document.querySelector('.header-404__menu');
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape' || !menu.open) return;
+        menu.open = false;
+        menu.querySelector('summary').focus();
+      });
+      menu.querySelector('.btn').addEventListener('click', function () { menu.open = false; });
+    })();
+  </script>
 
 
 </body>

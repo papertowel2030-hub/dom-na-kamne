@@ -1395,6 +1395,7 @@
 }
 
 .review-card__expand {
+  position: relative;
   display: inline-block;
   margin-top: var(--space-3);
   padding: 0;
@@ -1407,6 +1408,13 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color var(--dur) var(--ease);
+}
+
+/* Grows the hit area to 44 px without changing the visible link */
+.review-card__expand::after {
+  content: "";
+  position: absolute;
+  inset: -13px -8px;
 }
 
 .review-card__expand:hover { color: var(--fg); }
@@ -2375,11 +2383,13 @@ body.has-cookie-banner .scroll-top-btn {
   text-transform: none;
   color: var(--fg);
   white-space: nowrap;
-  transition: color var(--dur) var(--ease);
+  text-decoration: underline transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur) var(--ease);
 }
 
 a.footer__legal-link:hover,
-a.footer__legal-link:focus-visible { color: var(--fg); }
+a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
 
 /* Legal disclaimer */
 .footer__disclaimer {
