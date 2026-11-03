@@ -21,7 +21,7 @@ RewriteEngine On
 # RewriteRule ^(.*)$ https://dom-na-kamne.ru/$1 [R=301,L]
 
 # ----------------------------------------------------------------------------
-# 2. CANONICAL HOST — www → apex
+# 2. CANONICAL HOST: www → apex
 #    The site links to itself without www throughout.
 # ----------------------------------------------------------------------------
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]

@@ -22,7 +22,7 @@
   font-display: swap;
 }
 
-/* ---- Manrope (body) — single variable file per subset, weights 300–700 ----
+/* ---- Manrope (body): single variable file per subset, weights 300–700 ----
    Manrope is a variable font: one woff2 covers the whole 300–700 axis, so we
    declare the weight range once per Unicode subset. Subsets mirror the Google
    Fonts split; this site needs cyrillic + latin.

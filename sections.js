@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Дом на камне — Sections 5–8 interactions
+   Дом на камне, section interactions
    Carousel · Process accordion · Scroll fade-up · Counter animation
    ========================================================================== */
 

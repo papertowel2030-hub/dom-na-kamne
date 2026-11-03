@@ -104,7 +104,7 @@ img { display: block; max-width: 100%; }
   border-color: var(--on-dark);
 }
 
-/* Primary action — solid, sits on top of the visual hierarchy */
+/* Primary action: solid, sits on top of the visual hierarchy */
 .btn--solid {
   color: var(--color-ink);
   background: var(--on-dark);
@@ -162,7 +162,7 @@ img { display: block; max-width: 100%; }
   filter: none;
 }
 
-/* Light directional shade — only as much as legibility needs, so the sunny
+/* Light directional shade: only as much as legibility needs, so the sunny
    image stays sunny. The bottom plinth gives the USP row a consistent dark
    base regardless of what's behind it, and grounds the hero into the marquee. */
 .hero__scrim {
@@ -247,7 +247,7 @@ img { display: block; max-width: 100%; }
   text-decoration-color: currentColor;
 }
 
-/* Phone — primary contact, lifted above the rest of the strip */
+/* Phone: primary contact, lifted above the rest of the strip */
 .header__phone a {
   font-size: 15px;
   font-weight: var(--fw-semibold);
@@ -359,7 +359,7 @@ img { display: block; max-width: 100%; }
 
 .hero__cta-label--mobile { display: none; }
 
-/* ---- USP strip — one column per item, pinned just above the marquee ---- */
+/* ---- USP strip: one column per item, pinned just above the marquee ---- */
 .usps {
   display: grid;
   grid-auto-flow: column;
@@ -382,7 +382,7 @@ img { display: block; max-width: 100%; }
 .marquee {
   position: relative;
   z-index: 1;
-  background: transparent;   /* see-through — the photo's grass/walkway shows */
+  background: transparent;   /* see-through, the photo's grass/walkway shows */
   color: var(--on-dark);
   overflow: hidden;
 }

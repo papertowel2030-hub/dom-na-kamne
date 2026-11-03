@@ -15,8 +15,8 @@
   /* --- Colour: the complete palette --------------------------------------
      Only these hues appear on the website frame. There is no accent.
      ---------------------------------------------------------------------- */
-  --color-green:      #2f3a2f;   /* olive — promo bands (individual/shop/banya/FAQ/final) */
-  --color-ink:        #2f3334;   /* charcoal — consultation band, footer, body text       */
+  --color-green:      #2f3a2f;   /* olive, promo bands (individual/shop/banya/FAQ/final) */
+  --color-ink:        #2f3334;   /* charcoal, consultation band, footer, body text       */
   --color-off-white:  #fafafa;   /* page background, text on dark                          */
   --color-white:      #ffffff;   /* cards / open FAQ panel                                 */
   --color-snow:       #f8f8f8;   /* alt light surface                                      */

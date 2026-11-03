@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Дом на камне — Sections 5–8
+   Дом на камне, consultation to process sections
    Consultation CTA · Projects · Individual CTA · Process
    Consumes design-system/tokens.css. No new global tokens.
    ========================================================================== */
@@ -142,7 +142,7 @@
 }
 
 /* ==========================================================================
-   SECTION 5 — CONSULTATION CTA  (ink band)
+   CONSULTATION CTA  (ink band)
    ========================================================================== */
 
 .consult {
@@ -297,7 +297,7 @@
   opacity: .82;
 }
 
-/* Director photo slot — height driven by the grid row (matches content side) */
+/* Director photo slot: height driven by the grid row (matches content side) */
 .consult__photo {
   position: relative;
   background: var(--color-line);
@@ -338,7 +338,7 @@
 }
 
 /* ==========================================================================
-   SECTION 6 — PROJECTS
+   PROJECTS
    ========================================================================== */
 
 .projects {
@@ -358,7 +358,7 @@
   max-width: 540px;
 }
 
-/* Counter — same inline display font */
+/* Counter: same inline display font */
 .counter { display: inline; }
 
 /* Three-column card grid */
@@ -469,7 +469,7 @@
 .projects__foot { margin-top: var(--space-5); }
 
 /* ==========================================================================
-   SECTION 7 — RELAXATION ZONE  (green band)
+   RELAXATION ZONE  (green band)
    ========================================================================== */
 
 .relax {
@@ -543,7 +543,7 @@
 }
 
 /* ==========================================================================
-   SECTION 8 — PROCESS  (accordion)
+   PROCESS  (accordion)
    ========================================================================== */
 
 .process {
@@ -613,7 +613,7 @@
   content: none;
 }
 
-/* CSS grid height animation — smooth, no max-height tricks */
+/* CSS grid height animation, smooth, no max-height tricks */
 .stage-row__body {
   display: grid;
   grid-template-rows: 0fr;
@@ -864,7 +864,7 @@
    SECTIONS 9–13: Shop · About · Banya · Reviews · Partners
    ========================================================================== */
 
-/* ---- Section 9: OZON Shop Banner --------------------------------------- */
+/* ---- OZON Shop Banner --------------------------------------- */
 
 .shop {
   background: var(--surface-green);
@@ -1106,7 +1106,7 @@
 
 .shop:hover .shop__media img { transform: translateY(-2px); }
 
-/* ---- Section 10: О компании -------------------------------------------- */
+/* ---- О компании -------------------------------------------- */
 
 .about {
   background: var(--bg);
@@ -1228,7 +1228,7 @@
   background-image: url("assets/img/about-icon-time.webp");
 }
 
-/* ---- Section 11: Banya CTA --------------------------------------------- */
+/* ---- Banya CTA --------------------------------------------- */
 
 .banya {
   background: var(--surface-green);
@@ -1310,7 +1310,7 @@
 
 .banya:hover .banya__media img { transform: scale(1.03); }
 
-/* ---- Section 12: Reviews ----------------------------------------------- */
+/* ---- Reviews ----------------------------------------------- */
 
 .reviews {
   background: var(--bg);
@@ -1488,7 +1488,7 @@
   color: var(--on-dark);
 }
 
-/* ---- Section 13: Partners ---------------------------------------------- */
+/* ---- Partners ---------------------------------------------- */
 
 .partners {
   background: var(--bg);
@@ -1521,7 +1521,7 @@
   transform: translateY(-2px) scale(1.02);
 }
 
-/* ---- Responsive: sections 9–13 ----------------------------------------- */
+/* ---- Responsive: shop to partners ----------------------------------------- */
 
 /* Below 1100 the swing no longer fits beside the category tiles, so the
    shop drops it and gives the tiles the full width, as on phones. */
@@ -1759,7 +1759,7 @@
 }
 
 /* ==========================================================================
-   SECTION 14 — FAQ  (green band, accordion)
+   FAQ  (green band, accordion)
    ========================================================================== */
 
 .faq {
@@ -1809,7 +1809,7 @@
   box-shadow: 0 1px 0 0 var(--line-on-dark);
 }
 
-/* Row button — 3-col grid: number | question | icon */
+/* Row button: 3-col grid: number | question | icon */
 .faq-item__btn {
   width: 100%;
   display: grid;
@@ -1849,7 +1849,7 @@
   line-height: var(--lh-snug);
 }
 
-/* +/× icon — CSS-drawn cross that rotates to × when open */
+/* +/× icon: CSS-drawn cross that rotates to × when open */
 .faq-item__icon {
   position: relative;
   flex-shrink: 0;
@@ -1891,7 +1891,7 @@
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-/* Smooth collapse — same grid-row trick as the process section */
+/* Smooth collapse: same grid-row trick as the process section */
 .faq-item__body {
   display: grid;
   grid-template-rows: 0fr;
@@ -1904,7 +1904,7 @@
 
 .faq-item__body-inner { overflow: hidden; }
 
-/* Answer — indented to align with question text column */
+/* Answer: indented to align with question text column */
 .faq-item__answer {
   margin: 0;
   padding: var(--space-1)
@@ -1919,7 +1919,7 @@
 .faq-item.is-open .faq-item__answer { color: var(--muted); }
 
 /* ==========================================================================
-   SECTION 15 — CONTACTS
+   CONTACTS
    ========================================================================== */
 
 .contacts {
@@ -2727,7 +2727,7 @@ a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
   .cookies-banner__button { width: auto; min-width: 92px; min-height: 44px; padding-inline: 12px; font-size: 13px; }
 }
 
-/* Mobile promotion composition — the source designs are deliberately compact:
+/* Mobile promotion composition: the source designs are deliberately compact:
    one dark panel, visual proof before the conversion form, then a clean exit
    into the following light section. */
 @media (max-width: 768px) {
@@ -2835,7 +2835,7 @@ a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
   .shop__thumb::after { animation: none; }
 }
 
-/* Mobile contacts — put immediate contact methods ahead of reference details. */
+/* Mobile contacts: put immediate contact methods ahead of reference details. */
 @media (max-width: 768px) {
   .contacts__grid { gap: 32px; }
   .contacts__info {
@@ -2944,7 +2944,7 @@ a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
   }
 }
 
-/* Final project CTA — match the compact mobile conversion sequence. */
+/* Final project CTA: match the compact mobile conversion sequence. */
 @media (max-width: 768px) {
   .prefooter {
     padding-block: 44px 40px;
@@ -3016,7 +3016,7 @@ a.footer__legal-link:focus-visible { text-decoration-color: currentColor; }
   }
 }
 
-/* Mobile footer — compact retail destination, then clearly grouped site links. */
+/* Mobile footer: compact retail destination, then clearly grouped site links. */
 @media (max-width: 768px) {
   .footer {
     border-top: 4px solid var(--surface-green);

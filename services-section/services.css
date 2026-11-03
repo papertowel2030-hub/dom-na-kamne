@@ -95,7 +95,7 @@ img { display: block; max-width: 100%; }
   filter: drop-shadow(0 26px 26px rgba(28, 30, 26, .22));
   transition: filter var(--dur-slow) var(--ease);
 }
-/* spotlight veil — dims the whole house EXCEPT the anchor point of the
+/* spotlight veil: dims the whole house EXCEPT the anchor point of the
    active service. --spot-x/y are set by JS on activate() so the transparent
    hole tracks whichever part of the house is being pointed to. */
 .stage__house::after {

@@ -78,7 +78,7 @@
   }
 }
 
-/* Later override in sections.css — replicated in the same order so the
+/* Later override in sections.css: replicated in the same order so the
    effective mobile layout stays identical (row, not column). */
 @media (max-width: 768px) {
   .cookies-banner { padding-block: 12px; }
