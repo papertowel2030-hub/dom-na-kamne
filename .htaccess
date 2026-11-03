@@ -64,34 +64,48 @@ RewriteRule ^mall/?$                 /#shop       [R=301,L,NE]
 RewriteRule ^politic/?$              /privacy.html               [R=301,L]
 
 # ----------------------------------------------------------------------------
-# 4. COMPRESSION
+# 4. HIDDEN FILES
+#    Dotfiles and markdown notes are never served.
+# ----------------------------------------------------------------------------
+<FilesMatch "^\.|\.md$">
+  Require all denied
+</FilesMatch>
+
+# ----------------------------------------------------------------------------
+# 5. COMPRESSION
 # ----------------------------------------------------------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
-  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/javascript text/javascript application/x-javascript
   AddOutputFilterByType DEFLATE image/svg+xml application/xml
 </IfModule>
 
 # ----------------------------------------------------------------------------
-# 5. CACHING
-#    Static assets are immutable and cached for a year. HTML is never cached,
-#    so content edits appear immediately. The existing ?v= query strings on
-#    CSS/JS keep working alongside this.
+# 6. CACHING
+#    Font files never change in place (a new font gets a new name), so they are
+#    cached for a year and marked immutable. Images keep their names when a
+#    photo is replaced, so they get a month and stay revalidatable. HTML is
+#    never cached, so content edits appear immediately. The ?v= query strings
+#    on CSS/JS keep working alongside this.
 # ----------------------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/jpeg              "access plus 1 year"
-  ExpiresByType image/png               "access plus 1 year"
-  ExpiresByType image/webp              "access plus 1 year"
-  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 month"
+  ExpiresByType image/png               "access plus 1 month"
+  ExpiresByType image/webp              "access plus 1 month"
+  ExpiresByType image/svg+xml           "access plus 1 month"
   ExpiresByType font/woff2              "access plus 1 year"
   ExpiresByType text/css                "access plus 1 month"
   ExpiresByType application/javascript  "access plus 1 month"
+  ExpiresByType text/javascript         "access plus 1 month"
   ExpiresByType text/html               "access plus 0 seconds"
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(jpg|jpeg|png|webp|svg|woff2)$">
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
   <FilesMatch "\.html$">

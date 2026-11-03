@@ -393,7 +393,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeMenu(true);
+    if (event.key === 'Escape' && header.classList.contains('is-menu-open')) closeMenu(true);
   });
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) closeMenu();

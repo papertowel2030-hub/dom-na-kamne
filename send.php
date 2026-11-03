@@ -70,9 +70,12 @@ foreach (['topic', 'method', 'phone', 'email', 'username', 'page'] as $field) {
         respond(422, ['ok' => false, 'error' => $field]);
     }
 }
+if (isset($in['method']) && !isset(METHODS[$in['method']])) {
+    respond(422, ['ok' => false, 'error' => 'method']);
+}
 
 $topic    = clean($in['topic'] ?? '') ?: 'Заявка с сайта';
-$method   = isset(METHODS[$in['method'] ?? '']) ? $in['method'] : 'phone';
+$method   = $in['method'] ?? 'phone';
 $phone    = clean($in['phone'] ?? '', 40);
 $email    = clean($in['email'] ?? '', 120);
 $username = clean($in['username'] ?? '', 80);

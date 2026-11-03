@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /privacy.html
 
 Sitemap: https://dom-na-kamne.ru/sitemap.xml

@@ -1,6 +1,6 @@
 /* ==========================================================================
    Дом на камне — Font faces (all self-hosted, no network fetch)
-   Display:  Neutral Face  (licensed .otf in ../assets/fonts/)
+   Display:  Neutral Face  (licensed, woff2 in ../assets/fonts/)
    Body:     Manrope       (variable woff2, SIL OFL, subset per script)
    --------------------------------------------------------------------------
    Fonts live in ../assets/fonts/. Nothing is fetched from Google at runtime.
@@ -9,14 +9,14 @@
 /* ---- Neutral Face (display) ---- */
 @font-face {
   font-family: "Neutral Face";
-  src: url("../assets/fonts/NeutralFace.otf") format("opentype");
+  src: url("../assets/fonts/NeutralFace.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Neutral Face";
-  src: url("../assets/fonts/NeutralFace-Bold.otf") format("opentype");
+  src: url("../assets/fonts/NeutralFace-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
