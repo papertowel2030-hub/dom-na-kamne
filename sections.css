@@ -1149,6 +1149,7 @@
 }
 
 .about__facts {
+  --about-icon-box: clamp(96px, 8vw, 120px);
   display: grid;
   grid-template-columns: minmax(0, 47fr) minmax(0, 53fr);
   column-gap: clamp(28px, 3.4vw, 48px);
@@ -1157,7 +1158,7 @@
 
 .about__fact {
   display: grid;
-  grid-template-columns: clamp(96px, 8vw, 120px) minmax(0, 1fr);
+  grid-template-columns: var(--about-icon-box) minmax(0, 1fr);
   align-items: center;
   gap: clamp(20px, 2.4vw, 32px);
   min-height: 84px;
@@ -1184,48 +1185,65 @@
   justify-self: start;
 }
 
+/* Icon artwork is sized by its ink mass, not its bounding box: each
+   modifier sets the share of the column it spans and its aspect ratio. */
 .about__icon {
+  --about-icon-scale: .7;
+  --about-icon-aspect: 1;
+  position: relative;
   display: block;
-  contain: paint;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  /* Source PNGs contain an icon followed by legacy text. Keep the image
-     anchored to its left edge so the narrow box exposes the icon only. */
-  background-position: left center;
-  background-size: auto 100%;
-  /* Centre the cropped artwork boxes as a set; the source image itself must
-     stay left-anchored because four files also contain legacy text. */
+  width: var(--about-icon-box);
+  height: calc(var(--about-icon-box) * .6);
   justify-self: center;
+  color: var(--fg);
+}
+
+.about__icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--about-icon-box) * var(--about-icon-scale));
+  aspect-ratio: var(--about-icon-aspect);
+  translate: -50% -50%;
+  background-color: currentColor;
+  mask: var(--about-icon-src) center / 100% 100% no-repeat;
 }
 
 .about__icon--warehouse {
-  width: 82px;
-  height: 60px;
-  background-image: url("assets/img/about-icon-warehouse.webp");
+  --about-icon-scale: .83;
+  --about-icon-aspect: 1014 / 755;
+  --about-icon-src: url("assets/img/about-icon-warehouse.svg");
 }
 
+/* The tape hangs below the hand; the hand and reel sit on the row centre line. */
 .about__icon--builders {
-  width: 58px;
-  height: 86px;
-  background-image: url("assets/img/about-icon-builders.webp");
+  --about-icon-scale: .86;
+  --about-icon-aspect: 991 / 1541;
+  --about-icon-src: url("assets/img/about-icon-builders.svg");
+}
+
+.about__icon--builders::before {
+  translate: -50% -21%;
 }
 
 .about__icon--support {
-  width: 72px;
-  height: 63px;
-  background-image: url("assets/img/about-icon-support.webp");
+  --about-icon-scale: .76;
+  --about-icon-aspect: 944 / 745;
+  --about-icon-src: url("assets/img/about-icon-support.svg");
 }
 
 .about__icon--suppliers {
-  width: 88px;
-  height: 55px;
-  background-image: url("assets/img/about-icon-suppliers.webp");
+  --about-icon-scale: .96;
+  --about-icon-aspect: 1196 / 689;
+  --about-icon-src: url("assets/img/about-icon-suppliers.svg");
 }
 
+/* Outline drawing: slightly larger instead of heavier strokes. */
 .about__icon--time {
-  width: 78px;
-  height: 78px;
-  background-image: url("assets/img/about-icon-time.webp");
+  --about-icon-scale: .88;
+  --about-icon-aspect: 1492 / 1531;
+  --about-icon-src: url("assets/img/about-icon-time.svg");
 }
 
 /* ---- Banya CTA --------------------------------------------- */
@@ -1633,8 +1651,12 @@
     gap: var(--space-5);
   }
 
+  .about__facts {
+    --about-icon-box: 84px;
+  }
+
   .about__fact {
-    grid-template-columns: 84px minmax(0, 1fr);
+    grid-template-columns: var(--about-icon-box) minmax(0, 1fr);
     align-items: center;
     justify-content: flex-start;
     gap: var(--space-3);
@@ -1649,31 +1671,6 @@
   .about__years {
     min-width: 72px;
     font-size: clamp(56px, 14vw, 66px);
-  }
-
-  .about__icon--warehouse {
-    width: 72px;
-    height: 56px;
-  }
-
-  .about__icon--support {
-    width: 62px;
-    height: 54px;
-  }
-
-  .about__icon--builders {
-    width: 52px;
-    height: 78px;
-  }
-
-  .about__icon--suppliers {
-    width: 78px;
-    height: 50px;
-  }
-
-  .about__icon--time {
-    width: 58px;
-    height: 58px;
   }
 
   .reviews__grid {
