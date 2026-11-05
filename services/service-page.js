@@ -720,6 +720,10 @@
               : "Введите номер телефона полностью.");
             return;
           }
+          if (typeof window.dnkShowLeadFailure !== "function") {
+            setFormStatus(form, "Не получилось отправить заявку. Позвоните +7 913 831 46 44.");
+            return;
+          }
           window.dnkShowLeadFailure(form.querySelector(".service-form__status"), result, "service-form__mailto", function () {
             window.dnkMailtoLead(topic, ["Тема: " + topic, "Телефон для связи: " + phone.value]);
           });
